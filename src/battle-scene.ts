@@ -3108,14 +3108,14 @@ export default class BattleScene extends SceneBase {
   validateAchvs(achvType: AbstractConstructor<Achv>, ...args: unknown[]): void {
     const filteredAchvs = Object.values(achvs).filter((a) => a instanceof achvType);
     for (const achv of filteredAchvs) {
-      this.validateAchv(achv, args);
+      this.validateAchv(achv, ...args);
     }
   }
 
-  validateAchv(achv: Achv, args?: unknown[]): boolean {
+  validateAchv(achv: Achv, ...args: unknown[]): boolean {
     if (
       (!this.gameData.achvUnlocks.hasOwnProperty(achv.id) || Overrides.ACHIEVEMENTS_REUNLOCK_OVERRIDE)
-      && achv.validate(args)
+      && achv.validate(...args)
     ) {
       this.gameData.achvUnlocks[achv.id] = new Date().getTime();
       this.ui.achvBar.showAchv(achv);
@@ -3128,8 +3128,8 @@ export default class BattleScene extends SceneBase {
     return false;
   }
 
-  validateVoucher(voucher: Voucher, args?: unknown[]): boolean {
-    if (!this.gameData.voucherUnlocks.hasOwnProperty(voucher.id) && voucher.validate(args)) {
+  validateVoucher(voucher: Voucher, ...args: unknown[]): boolean {
+    if (!this.gameData.voucherUnlocks.hasOwnProperty(voucher.id) && voucher.validate(...args)) {
       this.gameData.voucherUnlocks[voucher.id] = new Date().getTime();
       this.ui.achvBar.showAchv(voucher);
       this.gameData.voucherCounts[voucher.voucherType]++;
