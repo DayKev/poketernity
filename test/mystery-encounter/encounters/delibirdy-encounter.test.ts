@@ -126,15 +126,15 @@ describe("Delibird-y - Mystery Encounter", () => {
       expect(itemModifier?.stackCount).toBe(1);
     });
 
-    it("Should give the player a Shell Bell if they have max stacks of Amulet Coins", async () => {
+    it.todo("Should give the player a Shell Bell if they have max stacks of Amulet Coins", async () => {
       scene.money = 200000;
       await game.runToMysteryEncounter(MysteryEncounterType.DELIBIRDY, defaultParty);
 
       // Max Amulet Coins
       scene.modifiers = [];
-      const amuletCoin = generateModifierType(modifierTypes.AMULET_COIN)!.newModifier() as MoneyMultiplierModifier;
-      amuletCoin.stackCount = 5;
-      scene.addModifier(amuletCoin, true, false, false, true);
+      // const amuletCoin = generateModifierType(modifierTypes.AMULET_COIN)!.newModifier() as MoneyMultiplierModifier;
+      // amuletCoin.stackCount = 5;
+      // scene.addModifier(amuletCoin, true, false, false, true);
       await scene.updateModifiers(true);
 
       await runMysteryEncounterToEnd(game, 1);

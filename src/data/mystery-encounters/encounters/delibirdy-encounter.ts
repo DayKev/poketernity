@@ -162,7 +162,8 @@ export const DelibirdyEncounter: MysteryEncounter = MysteryEncounterBuilder.with
             true,
           );
         } else {
-          globalScene.unshiftPhase(new ModifierRewardPhase(modifierTypes.AMULET_COIN));
+          // Will be replaced by an appropriate item as modifiers get replaced. 
+          globalScene.unshiftPhase(new ModifierRewardPhase(modifierTypes.POKEBALL));
         }
 
         leaveEncounterWithoutBattle(true);

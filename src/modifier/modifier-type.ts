@@ -23,12 +23,9 @@ import {
   BoostBugSpawnModifier,
   BypassSpeedChanceModifier,
   ContactHeldItemTransferChanceModifier,
-  CritBoosterModifier,
   CriticalCatchChanceBoosterModifier,
-  DamageMoneyRewardModifier,
   DoubleBattleChanceBoosterModifier,
   EvolutionItemModifier,
-  EvolutionStatBoosterModifier,
   EvoTrackerModifier,
   ExpBalanceModifier,
   ExpBoosterModifier,
@@ -47,15 +44,12 @@ import {
   MapModifier,
   MegaEvolutionAccessModifier,
   MoneyInterestModifier,
-  MoneyMultiplierModifier,
-  MoneyRewardModifier,
   MultipleParticipantExpBonusModifier,
   PokemonAllMovePpRestoreModifier,
   PokemonBaseStatFlatModifier,
   PokemonBaseStatTotalModifier,
   PokemonExpBoosterModifier,
   PokemonFormChangeItemModifier,
-  PokemonFriendshipBoosterModifier,
   PokemonHeldItemModifier,
   PokemonHpRestoreModifier,
   PokemonIncrementingStatModifier,
@@ -64,7 +58,6 @@ import {
   PokemonMoveAccuracyBoosterModifier,
   PokemonMultiHitModifier,
   PokemonNatureChangeModifier,
-  PokemonNatureWeightModifier,
   PokemonPpRestoreModifier,
   PokemonPpUpModifier,
   PokemonStatusHealModifier,
@@ -72,7 +65,6 @@ import {
   RememberMoveModifier,
   ResetNegativeStatStageModifier,
   ShinyRateBoosterModifier,
-  SpeciesCritBoosterModifier,
   SpeciesStatBoosterModifier,
   SurviveDamageModifier,
   SwitchEffectTransferModifier,
@@ -96,7 +88,6 @@ import type { PokemonMoveSelectFilter, PokemonSelectFilter } from "#app/ui/party
 import PartyUiHandler from "#app/ui/party-ui-handler";
 import { getModifierTierTextTint } from "#app/ui/text";
 import {
-  formatMoney,
   getEnumKeys,
   getEnumValues,
   isNullOrUndefined,
@@ -992,29 +983,6 @@ class AllPokemonFullReviveModifierType extends AllPokemonFullHpRestoreModifierTy
   }
 }
 
-export class MoneyRewardModifierType extends ModifierType {
-  private moneyMultiplier: number;
-  private moneyMultiplierDescriptorKey: string;
-
-  constructor(localeKey: string, iconImage: string, moneyMultiplier: number, moneyMultiplierDescriptorKey: string) {
-    super(localeKey, iconImage, (_type, _args) => new MoneyRewardModifier(this, moneyMultiplier), "money", "se/buy");
-
-    this.moneyMultiplier = moneyMultiplier;
-    this.moneyMultiplierDescriptorKey = moneyMultiplierDescriptorKey;
-  }
-
-  override getDescription(): string {
-    const moneyAmount = new NumberHolder(globalScene.getWaveMoneyAmount(this.moneyMultiplier));
-    globalScene.applyModifiers(MoneyMultiplierModifier, true, moneyAmount);
-    const formattedMoney = formatMoney(settings.display.moneyFormat, moneyAmount.value);
-
-    return i18next.t("modifierType:ModifierType.MoneyRewardModifierType.description", {
-      moneyMultiplier: i18next.t(this.moneyMultiplierDescriptorKey as any),
-      moneyAmount: formattedMoney,
-    });
-  }
-}
-
 export class ExpBoosterModifierType extends ModifierType {
   private boostPercent: number;
 
@@ -1048,16 +1016,6 @@ export class PokemonExpBoosterModifierType extends PokemonHeldItemModifierType {
     return i18next.t("modifierType:ModifierType.PokemonExpBoosterModifierType.description", {
       boostPercent: this.boostPercent,
     });
-  }
-}
-
-export class PokemonFriendshipBoosterModifierType extends PokemonHeldItemModifierType {
-  constructor(localeKey: string, iconImage: string) {
-    super(localeKey, iconImage, (_type, args) => new PokemonFriendshipBoosterModifier(this, (args[0] as Pokemon).id));
-  }
-
-  override getDescription(): string {
-    return i18next.t("modifierType:ModifierType.PokemonFriendshipBoosterModifierType.description");
   }
 }
 
@@ -1980,74 +1938,6 @@ export const modifierTypes = {
   LUCKY_EGG: () => new PokemonExpBoosterModifierType("modifierType:ModifierType.LUCKY_EGG", "lucky_egg", 40),
   GOLDEN_EGG: () => new PokemonExpBoosterModifierType("modifierType:ModifierType.GOLDEN_EGG", "golden_egg", 100),
 
-  SOOTHE_BELL: () => new PokemonFriendshipBoosterModifierType("modifierType:ModifierType.SOOTHE_BELL", "soothe_bell"),
-
-  SCOPE_LENS: () =>
-    new PokemonHeldItemModifierType(
-      "modifierType:ModifierType.SCOPE_LENS",
-      "scope_lens",
-      (type, args) => new CritBoosterModifier(type, (args[0] as Pokemon).id, 1),
-    ),
-  LEEK: () =>
-    new PokemonHeldItemModifierType(
-      "modifierType:ModifierType.LEEK",
-      "leek",
-      (type, args) =>
-        new SpeciesCritBoosterModifier(type, (args[0] as Pokemon).id, 2, [
-          Species.FARFETCHD,
-          Species.GALAR_FARFETCHD,
-          Species.SIRFETCHD,
-        ]),
-    ),
-
-  EVIOLITE: () =>
-    new PokemonHeldItemModifierType(
-      "modifierType:ModifierType.EVIOLITE",
-      "eviolite",
-      (type, args) => new EvolutionStatBoosterModifier(type, (args[0] as Pokemon).id, [Stat.DEF, Stat.SPDEF], 1.5),
-    ),
-
-  SOUL_DEW: () =>
-    new PokemonHeldItemModifierType(
-      "modifierType:ModifierType.SOUL_DEW",
-      "soul_dew",
-      (type, args) => new PokemonNatureWeightModifier(type, (args[0] as Pokemon).id),
-    ),
-
-  NUGGET: () =>
-    new MoneyRewardModifierType(
-      "modifierType:ModifierType.NUGGET",
-      "nugget",
-      1,
-      "modifierType:ModifierType.MoneyRewardModifierType.extra.small",
-    ),
-  BIG_NUGGET: () =>
-    new MoneyRewardModifierType(
-      "modifierType:ModifierType.BIG_NUGGET",
-      "big_nugget",
-      2.5,
-      "modifierType:ModifierType.MoneyRewardModifierType.extra.moderate",
-    ),
-  RELIC_GOLD: () =>
-    new MoneyRewardModifierType(
-      "modifierType:ModifierType.RELIC_GOLD",
-      "relic_gold",
-      10,
-      "modifierType:ModifierType.MoneyRewardModifierType.extra.large",
-    ),
-
-  AMULET_COIN: () =>
-    new ModifierType(
-      "modifierType:ModifierType.AMULET_COIN",
-      "amulet_coin",
-      (type, _args) => new MoneyMultiplierModifier(type),
-    ),
-  GOLDEN_PUNCH: () =>
-    new PokemonHeldItemModifierType(
-      "modifierType:ModifierType.GOLDEN_PUNCH",
-      "golden_punch",
-      (type, args) => new DamageMoneyRewardModifier(type, (args[0] as Pokemon).id),
-    ),
   COIN_CASE: () =>
     new ModifierType(
       "modifierType:ModifierType.COIN_CASE",
@@ -2453,7 +2343,6 @@ const modifierPool: ModifierPool = {
     ),
     new WeightedModifierType(modifierTypes.DIRE_HIT, 4),
     new WeightedModifierType(modifierTypes.SUPER_LURE, lureWeightFunc(15, 4)),
-    new WeightedModifierType(modifierTypes.NUGGET, skipInLastClassicWaveOrDefault(5)),
     new WeightedModifierType(
       modifierTypes.EVOLUTION_ITEM,
       () => {
@@ -2466,7 +2355,6 @@ const modifierPool: ModifierPool = {
       () => (globalScene.gameMode.isClassic && globalScene.currentBattle.waveIndex < 180 ? 2 : 0),
       2,
     ),
-    new WeightedModifierType(modifierTypes.SOOTHE_BELL, 2),
     new WeightedModifierType(modifierTypes.TM_GREAT, 3),
     new WeightedModifierType(
       modifierTypes.MEMORY_MUSHROOM,
@@ -2498,7 +2386,6 @@ const modifierPool: ModifierPool = {
   [ModifierTier.ULTRA]: [
     new WeightedModifierType(modifierTypes.ULTRA_BALL, () => (hasMaximumBalls(PokeballType.ULTRA_BALL) ? 0 : 15), 15),
     new WeightedModifierType(modifierTypes.MAX_LURE, lureWeightFunc(30, 4)),
-    new WeightedModifierType(modifierTypes.BIG_NUGGET, skipInLastClassicWaveOrDefault(12)),
     new WeightedModifierType(modifierTypes.PP_MAX, 3),
     new WeightedModifierType(modifierTypes.MINT, 4),
     new WeightedModifierType(
@@ -2511,44 +2398,7 @@ const modifierPool: ModifierPool = {
       () => Math.min(Math.ceil(globalScene.currentBattle.waveIndex / 50), 4) * 6,
       24,
     ),
-    new WeightedModifierType(modifierTypes.AMULET_COIN, skipInLastClassicWaveOrDefault(3)),
-    new WeightedModifierType(modifierTypes.EVIOLITE, (party: Pokemon[]) => {
-      const { gameMode, gameData } = globalScene;
-      if (gameMode.isDaily || (!gameMode.isFreshStartChallenge() && gameData.isUnlocked(Unlockables.EVIOLITE))) {
-        return party.some((p) => {
-          // Check if Pokemon's species (or fusion species, if applicable) can evolve or if they're G-Max'd
-          if (
-            !p.isMax()
-            && (p.getSpeciesForm(true).speciesId in pokemonEvolutions
-              || (p.isFusion() && p.getFusionSpeciesForm(true).speciesId in pokemonEvolutions))
-          ) {
-            // Check if Pokemon is already holding an Eviolite
-            return !p.getHeldItems().some((i) => i.type.id === "EVIOLITE");
-          }
-          return false;
-        })
-          ? 10
-          : 0;
-      }
-      return 0;
-    }),
     new WeightedModifierType(modifierTypes.SPECIES_STAT_BOOSTER, 12),
-    new WeightedModifierType(
-      modifierTypes.LEEK,
-      (party: Pokemon[]) => {
-        const checkedSpecies = [Species.FARFETCHD, Species.GALAR_FARFETCHD, Species.SIRFETCHD];
-        // If a party member doesn't already have a Leek and is one of the relevant species, Leek can appear
-        return party.some(
-          (p) =>
-            !p.getHeldItems().some((i) => i instanceof SpeciesCritBoosterModifier)
-            && (checkedSpecies.includes(p.getSpeciesForm(true).speciesId)
-              || (p.isFusion() && checkedSpecies.includes(p.getFusionSpeciesForm(true).speciesId))),
-        )
-          ? 12
-          : 0;
-      },
-      12,
-    ),
     new WeightedModifierType(
       modifierTypes.TOXIC_ORB,
       (party: Pokemon[]) => {
@@ -2662,7 +2512,6 @@ const modifierPool: ModifierPool = {
     new WeightedModifierType(modifierTypes.ATTACK_TYPE_BOOSTER, 9),
     new WeightedModifierType(modifierTypes.TM_ULTRA, 11),
     new WeightedModifierType(modifierTypes.RARER_CANDY, 4),
-    new WeightedModifierType(modifierTypes.GOLDEN_PUNCH, skipInLastClassicWaveOrDefault(2)),
     new WeightedModifierType(modifierTypes.IV_SCANNER, skipInLastClassicWaveOrDefault(4)),
     new WeightedModifierType(modifierTypes.EXP_CHARM, skipInLastClassicWaveOrDefault(8)),
     new WeightedModifierType(modifierTypes.EXP_SHARE, skipInLastClassicWaveOrDefault(10)),
@@ -2679,14 +2528,11 @@ const modifierPool: ModifierPool = {
     return m;
   }),
   [ModifierTier.EPIC]: [
-    new WeightedModifierType(modifierTypes.RELIC_GOLD, skipInLastClassicWaveOrDefault(2)),
     new WeightedModifierType(modifierTypes.LEFTOVERS, 3),
     new WeightedModifierType(modifierTypes.SHELL_BELL, 3),
     new WeightedModifierType(modifierTypes.BERRY_POUCH, 4),
     new WeightedModifierType(modifierTypes.GRIP_CLAW, 5),
-    new WeightedModifierType(modifierTypes.SCOPE_LENS, 4),
     new WeightedModifierType(modifierTypes.BATON, 2),
-    new WeightedModifierType(modifierTypes.SOUL_DEW, 7),
     //new WeightedModifierType(modifierTypes.OVAL_CHARM, 6),
     new WeightedModifierType(
       modifierTypes.CATCHING_CHARM,
@@ -2821,7 +2667,6 @@ const trainerModifierPool: ModifierPool = {
     new WeightedModifierType(modifierTypes.KINGS_ROCK, 1),
     new WeightedModifierType(modifierTypes.LEFTOVERS, 1),
     new WeightedModifierType(modifierTypes.SHELL_BELL, 1),
-    new WeightedModifierType(modifierTypes.SCOPE_LENS, 1),
   ].map((m) => {
     m.setTier(ModifierTier.MASTER);
     return m;
@@ -2865,9 +2710,6 @@ const dailyStarterModifierPool: ModifierPool = {
   }),
   [ModifierTier.ULTRA]: [
     new WeightedModifierType(modifierTypes.REVIVER_SEED, 4),
-    new WeightedModifierType(modifierTypes.SOOTHE_BELL, 1),
-    new WeightedModifierType(modifierTypes.SOUL_DEW, 1),
-    new WeightedModifierType(modifierTypes.GOLDEN_PUNCH, 1),
   ].map((m) => {
     m.setTier(ModifierTier.ULTRA);
     return m;

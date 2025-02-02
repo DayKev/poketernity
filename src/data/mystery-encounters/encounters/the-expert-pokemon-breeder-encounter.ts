@@ -283,8 +283,9 @@ export const TheExpertPokemonBreederEncounter: MysteryEncounter = MysteryEncount
         encounter.misc.chosenPokemon = pokemon1;
         encounter.setDialogueToken("chosenPokemon", pokemon1.getNameToRender());
         const eggOptions = getEggOptions(pokemon1CommonEggs, pokemon1RareEggs);
+        // Pokeball is a temporary fill-in reward while modifiers are being removed from the game.
         setEncounterRewards(
-          { guaranteedModifierTypeFuncs: [modifierTypes.SOOTHE_BELL], fillRemaining: true },
+          { guaranteedModifierTypeFuncs: [modifierTypes.POKEBALL], fillRemaining: true },
           eggOptions,
           () => doPostEncounterCleanup(),
         );
@@ -335,8 +336,9 @@ export const TheExpertPokemonBreederEncounter: MysteryEncounter = MysteryEncount
         encounter.misc.chosenPokemon = pokemon2;
         encounter.setDialogueToken("chosenPokemon", pokemon2.getNameToRender());
         const eggOptions = getEggOptions(pokemon2CommonEggs, pokemon2RareEggs);
+        // Pokeball is a temporary fill-in reward while modifiers are being removed from the game.
         setEncounterRewards(
-          { guaranteedModifierTypeFuncs: [modifierTypes.SOOTHE_BELL], fillRemaining: true },
+          { guaranteedModifierTypeFuncs: [modifierTypes.POKEBALL], fillRemaining: true },
           eggOptions,
           () => doPostEncounterCleanup(),
         );
@@ -387,8 +389,9 @@ export const TheExpertPokemonBreederEncounter: MysteryEncounter = MysteryEncount
         encounter.misc.chosenPokemon = pokemon3;
         encounter.setDialogueToken("chosenPokemon", pokemon3.getNameToRender());
         const eggOptions = getEggOptions(pokemon3CommonEggs, pokemon3RareEggs);
+        // Pokeball is a temporary fill-in reward while modifiers are being removed from the game.
         setEncounterRewards(
-          { guaranteedModifierTypeFuncs: [modifierTypes.SOOTHE_BELL], fillRemaining: true },
+          { guaranteedModifierTypeFuncs: [modifierTypes.POKEBALL], fillRemaining: true },
           eggOptions,
           () => doPostEncounterCleanup(),
         );

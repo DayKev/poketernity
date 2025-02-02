@@ -314,7 +314,7 @@ export const ClowningAroundEncounter: MysteryEncounter = MysteryEncounterBuilder
             if (type.id === "GOLDEN_EGG" || tier === ModifierTier.EPIC) {
               numEpic += m.stackCount;
               globalScene.removeModifier(m);
-            } else if (type.id === "LUCKY_EGG" || type.id === "SOOTHE_BELL" || tier === ModifierTier.ULTRA) {
+            } else if (type.id === "LUCKY_EGG" || tier === ModifierTier.ULTRA) {
               numUltra += m.stackCount;
               globalScene.removeModifier(m);
             }
@@ -473,7 +473,6 @@ function generateItemsOfTier(pokemon: PlayerPokemon, numItems: number, tier: Mod
   // This is to prevent "over-generating" a random item of a certain type during item swaps
   const ultraPool = [
     [modifierTypes.REVIVER_SEED, 1],
-    [modifierTypes.GOLDEN_PUNCH, 5],
     [modifierTypes.ATTACK_TYPE_BOOSTER, 99],
     [modifierTypes.QUICK_CLAW, 3],
     [modifierTypes.WIDE_LENS, 3],
@@ -482,8 +481,6 @@ function generateItemsOfTier(pokemon: PlayerPokemon, numItems: number, tier: Mod
   const epicPool = [
     [modifierTypes.LEFTOVERS, 4],
     [modifierTypes.SHELL_BELL, 4],
-    [modifierTypes.SOUL_DEW, 10],
-    [modifierTypes.SCOPE_LENS, 1],
     [modifierTypes.BATON, 1],
     [modifierTypes.FOCUS_BAND, 5],
     [modifierTypes.KINGS_ROCK, 3],

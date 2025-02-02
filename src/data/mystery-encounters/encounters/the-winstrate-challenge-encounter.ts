@@ -297,10 +297,6 @@ function getVictoriaTrainerConfig(): EnemyPartyConfig {
         moveSet: [MoveId.SYNTHESIS, MoveId.SLUDGE_BOMB, MoveId.GIGA_DRAIN, MoveId.SLEEP_POWDER],
         modifierConfigs: [
           {
-            modifier: generateModifierType(modifierTypes.SOUL_DEW) as PokemonHeldItemModifierType,
-            isTransferable: false,
-          },
-          {
             modifier: generateModifierType(modifierTypes.QUICK_CLAW) as PokemonHeldItemModifierType,
             stackCount: 2,
             isTransferable: false,

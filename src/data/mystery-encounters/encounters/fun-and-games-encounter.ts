@@ -278,7 +278,8 @@ function handleNextTurn() {
       resultMessageKey = `${namespace}:best_result`;
     } else if (healthRatio < 0.15) {
       // 2nd prize
-      setEncounterRewards({ guaranteedModifierTypeFuncs: [modifierTypes.SCOPE_LENS], fillRemaining: false });
+      // Pokeball is a temporary fill-in while modifiers are getting removed and an appropriate item will be put in once items are reimplemented into the game
+      setEncounterRewards({ guaranteedModifierTypeFuncs: [modifierTypes.POKEBALL], fillRemaining: false });
       resultMessageKey = `${namespace}:great_result`;
     } else if (healthRatio < 0.33) {
       // 3rd prize
