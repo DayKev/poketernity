@@ -78,6 +78,7 @@ import {
 import {
   HiddenAbilityRateBoosterModifier,
   BaseStatModifier,
+  PokemonFriendshipBoosterModifier,
   PokemonHeldItemModifier,
   PokemonNatureWeightModifier,
   ShinyRateBoosterModifier,
@@ -85,6 +86,7 @@ import {
   TempStatStageBoosterModifier,
   TempCritBoosterModifier,
   StatBoosterModifier,
+  CritBoosterModifier,
   TerastallizeModifier,
   PokemonBaseStatFlatModifier,
   PokemonBaseStatTotalModifier,
@@ -4915,6 +4917,7 @@ export class PlayerPokemon extends Pokemon {
         fusionStarterSpeciesId ? globalScene.gameData.starterData[fusionStarterSpeciesId] : null,
       ].filter((d) => !!d);
       const amount = new NumberHolder(friendship);
+      globalScene.applyModifier(PokemonFriendshipBoosterModifier, true, this, amount);
       let candyFriendshipMultiplier = CLASSIC_CANDY_FRIENDSHIP_MULTIPLIER;
       if (globalScene.eventManager.isEventActive()) {
         candyFriendshipMultiplier *= globalScene.eventManager.getFriendshipMultiplier();

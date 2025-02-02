@@ -27,7 +27,7 @@ import { BerryType } from "#enums/berry-type";
 import type { MoveId } from "#enums/move-id";
 import type { Nature } from "#enums/nature";
 import type { PokeballType } from "#enums/pokeball";
-import type { Species } from "#enums/species";
+import { Species } from "#enums/species";
 import { type PermanentStat, type TempBattleStat, BATTLE_STATS, Stat, TEMP_BATTLE_STATS } from "#enums/stat";
 import { StatusEffect } from "#enums/status-effect";
 import { ElementType } from "#enums/element-type";
@@ -40,10 +40,12 @@ import {
   type ModifierType,
   type PokemonBaseStatTotalModifierType,
   type PokemonExpBoosterModifierType,
+  type PokemonFriendshipBoosterModifierType,
   type PokemonMoveAccuracyBoosterModifierType,
   type PokemonMultiHitModifierType,
   type TerastallizeModifierType,
   type TmModifierType,
+  getModifierType,
   ModifierTypeGenerator,
   modifierTypes,
   PokemonHeldItemModifierType,
@@ -1007,6 +1009,7 @@ export class EvoTrackerModifier extends PokemonHeldItemModifier {
 
     this.stackCount = pokemon
       ? pokemon.evoCounter
+        + pokemon.getHeldItems().filter((m) => m instanceof DamageMoneyRewardModifier).length
         + globalScene.findModifiers(
           (m) =>
             m instanceof MoneyMultiplierModifier
@@ -1028,6 +1031,7 @@ export class EvoTrackerModifier extends PokemonHeldItemModifier {
   getMaxHeldItemCount(pokemon: Pokemon): number {
     this.stackCount =
       pokemon.evoCounter
+      + pokemon.getHeldItems().filter((m) => m instanceof DamageMoneyRewardModifier).length
       + globalScene.findModifiers(
         (m) =>
           m instanceof MoneyMultiplierModifier
@@ -1433,6 +1437,103 @@ export class SpeciesStatBoosterModifier extends StatBoosterModifier {
    */
   contains(speciesId: Species, stat: Stat): boolean {
     return this.species.includes(speciesId) && this.stats.includes(stat);
+  }
+}
+
+/**
+ * Modifier used for held items that apply critical-hit stage boost(s).
+ * @extends PokemonHeldItemModifier
+ * @see {@linkcode apply}
+ */
+export class CritBoosterModifier extends PokemonHeldItemModifier {
+  /** The amount of stages by which the held item increases the current critical-hit stage value */
+  protected stageIncrement: number;
+
+  constructor(type: ModifierType, pokemonId: number, stageIncrement: number, stackCount?: number) {
+    super(type, pokemonId, stackCount);
+
+    this.stageIncrement = stageIncrement;
+  }
+
+  clone() {
+    return new CritBoosterModifier(this.type, this.pokemonId, this.stageIncrement, this.stackCount);
+  }
+
+  override getArgs(): any[] {
+    return super.getArgs().concat(this.stageIncrement);
+  }
+
+  matchType(modifier: Modifier): boolean {
+    if (modifier instanceof CritBoosterModifier) {
+      return (modifier as CritBoosterModifier).stageIncrement === this.stageIncrement;
+    }
+
+    return false;
+  }
+
+  /**
+   * Increases the current critical-hit stage value by {@linkcode stageIncrement}.
+   * @param _pokemon {@linkcode Pokemon} N/A
+   * @param critStage {@linkcode NumberHolder} that holds the resulting critical-hit level
+   * @returns always `true`
+   */
+  override apply(_pokemon: Pokemon, critStage: NumberHolder): boolean {
+    critStage.value += this.stageIncrement;
+    return true;
+  }
+
+  getMaxHeldItemCount(_pokemon: Pokemon): number {
+    return 1;
+  }
+}
+
+/**
+ * Modifier used for held items that apply critical-hit stage boost(s)
+ * if the holder is of a specific {@linkcode Species}.
+ * @extends CritBoosterModifier
+ * @see {@linkcode shouldApply}
+ */
+export class SpeciesCritBoosterModifier extends CritBoosterModifier {
+  /** The species that the held item's critical-hit stage boost applies to */
+  private species: Species[];
+
+  constructor(type: ModifierType, pokemonId: number, stageIncrement: number, species: Species[], stackCount?: number) {
+    super(type, pokemonId, stageIncrement, stackCount);
+
+    this.species = species;
+  }
+
+  override clone() {
+    return new SpeciesCritBoosterModifier(
+      this.type,
+      this.pokemonId,
+      this.stageIncrement,
+      this.species,
+      this.stackCount,
+    );
+  }
+
+  override getArgs(): any[] {
+    return [...super.getArgs(), this.species];
+  }
+
+  override matchType(modifier: Modifier): boolean {
+    return modifier instanceof SpeciesCritBoosterModifier;
+  }
+
+  /**
+   * Checks if the holder's {@linkcode Species} (or its fused species) is listed
+   * in {@linkcode species}.
+   * @param pokemon {@linkcode Pokemon} that holds the held item
+   * @param critStage {@linkcode NumberHolder} that holds the resulting critical-hit level
+   * @returns `true` if the critical-hit level can be incremented, false otherwise
+   */
+  override shouldApply(pokemon: Pokemon, critStage: NumberHolder): boolean {
+    return (
+      super.shouldApply(pokemon, critStage)
+      && (this.species.includes(pokemon.getSpeciesForm(true).speciesId)
+        || (pokemon.isFusion() && this.species.includes(pokemon.getFusionSpeciesForm(true).speciesId)))
+    );
   }
 }
 
@@ -2633,6 +2734,38 @@ export class ExpBalanceModifier extends PersistentModifier {
   }
 }
 
+export class PokemonFriendshipBoosterModifier extends PokemonHeldItemModifier {
+  public override type: PokemonFriendshipBoosterModifierType;
+
+  constructor(type: PokemonFriendshipBoosterModifierType, pokemonId: number, stackCount?: number) {
+    super(type, pokemonId, stackCount);
+  }
+
+  matchType(modifier: Modifier): boolean {
+    return modifier instanceof PokemonFriendshipBoosterModifier;
+  }
+
+  clone(): PersistentModifier {
+    return new PokemonFriendshipBoosterModifier(this.type, this.pokemonId, this.stackCount);
+  }
+
+  /**
+   * Applies {@linkcode PokemonFriendshipBoosterModifier}
+   * @param _pokemon The {@linkcode Pokemon} to apply the friendship boost to
+   * @param friendship {@linkcode NumberHolder} holding the friendship boost value
+   * @returns always `true`
+   */
+  override apply(_pokemon: Pokemon, friendship: NumberHolder): boolean {
+    friendship.value = Math.floor(friendship.value * (1 + 0.5 * this.getStackCount()));
+
+    return true;
+  }
+
+  getMaxHeldItemCount(_pokemon: Pokemon): number {
+    return 3;
+  }
+}
+
 export class PokemonNatureWeightModifier extends PokemonHeldItemModifier {
   constructor(type: ModifierType, pokemonId: number, stackCount?: number) {
     super(type, pokemonId, stackCount);
@@ -2864,6 +2997,42 @@ export class PokemonFormChangeItemModifier extends PokemonHeldItemModifier {
   }
 }
 
+export class MoneyRewardModifier extends ConsumableModifier {
+  private moneyMultiplier: number;
+
+  constructor(type: ModifierType, moneyMultiplier: number) {
+    super(type);
+
+    this.moneyMultiplier = moneyMultiplier;
+  }
+
+  /**
+   * Applies {@linkcode MoneyRewardModifier}
+   * @returns always `true`
+   */
+  override apply(): boolean {
+    const moneyAmount = new NumberHolder(globalScene.getWaveMoneyAmount(this.moneyMultiplier));
+
+    globalScene.applyModifiers(MoneyMultiplierModifier, true, moneyAmount);
+
+    globalScene.addMoney(moneyAmount.value);
+
+    globalScene.getPlayerParty().map((p) => {
+      if (p.species?.speciesId === Species.GIMMIGHOUL || p.fusionSpecies?.speciesId === Species.GIMMIGHOUL) {
+        p.evoCounter
+          ? (p.evoCounter += Math.min(Math.floor(this.moneyMultiplier), 3))
+          : (p.evoCounter = Math.min(Math.floor(this.moneyMultiplier), 3));
+        const modifier = getModifierType(modifierTypes.EVOLUTION_TRACKER_GIMMIGHOUL).newModifier(
+          p,
+        ) as EvoTrackerModifier;
+        globalScene.addModifier(modifier);
+      }
+    });
+
+    return true;
+  }
+}
+
 export class MoneyMultiplierModifier extends PersistentModifier {
   constructor(type: ModifierType, stackCount?: number) {
     super(type, stackCount);
@@ -2889,6 +3058,38 @@ export class MoneyMultiplierModifier extends PersistentModifier {
   }
 
   getMaxStackCount(): number {
+    return 5;
+  }
+}
+
+export class DamageMoneyRewardModifier extends PokemonHeldItemModifier {
+  constructor(type: ModifierType, pokemonId: number, stackCount?: number) {
+    super(type, pokemonId, stackCount);
+  }
+
+  matchType(modifier: Modifier): boolean {
+    return modifier instanceof DamageMoneyRewardModifier;
+  }
+
+  clone(): DamageMoneyRewardModifier {
+    return new DamageMoneyRewardModifier(this.type, this.pokemonId, this.stackCount);
+  }
+
+  /**
+   * Applies {@linkcode DamageMoneyRewardModifier}
+   * @param pokemon The {@linkcode Pokemon} attacking
+   * @param multiplier {@linkcode NumberHolder} holding the multiplier value
+   * @returns always `true`
+   */
+  override apply(_pokemon: Pokemon, multiplier: NumberHolder): boolean {
+    const moneyAmount = new NumberHolder(Math.floor(multiplier.value * (0.5 * this.getStackCount())));
+    globalScene.applyModifiers(MoneyMultiplierModifier, true, moneyAmount);
+    globalScene.addMoney(moneyAmount.value);
+
+    return true;
+  }
+
+  getMaxHeldItemCount(_pokemon: Pokemon): number {
     return 5;
   }
 }

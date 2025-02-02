@@ -201,8 +201,7 @@ export const TheStrongStuffEncounter: MysteryEncounter = MysteryEncounterBuilder
     async () => {
       // Pick battle
       const encounter = globalScene.currentBattle.mysteryEncounter!;
-      // Pokeball is a temporary fill-in reward while modifiers are being removed from the game.
-      setEncounterRewards({ guaranteedModifierTypeFuncs: [modifierTypes.POKEBALL], fillRemaining: true });
+      setEncounterRewards({ guaranteedModifierTypeFuncs: [modifierTypes.SOUL_DEW], fillRemaining: true });
       encounter.startOfBattleEffects.push(
         {
           sourceBattlerIndex: BattlerIndex.ENEMY,

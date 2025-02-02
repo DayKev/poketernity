@@ -11,6 +11,7 @@ import { MoveId } from "#enums/move-id";
 import { Species } from "#enums/species";
 import { TimeOfDay } from "#enums/time-of-day";
 import {
+  DamageMoneyRewardModifier,
   ExtraModifierModifier,
   MoneyMultiplierModifier,
   TempExtraModifierModifier,
@@ -2120,6 +2121,7 @@ export const pokemonEvolutions: PokemonEvolutions = {
       new SpeciesEvolutionCondition(
         (p) =>
           p.evoCounter
+            + p.getHeldItems().filter((m) => m instanceof DamageMoneyRewardModifier).length
             + globalScene.findModifiers(
               (m) =>
                 m instanceof MoneyMultiplierModifier
@@ -2139,6 +2141,7 @@ export const pokemonEvolutions: PokemonEvolutions = {
       new SpeciesEvolutionCondition(
         (p) =>
           p.evoCounter
+            + p.getHeldItems().filter((m) => m instanceof DamageMoneyRewardModifier).length
             + globalScene.findModifiers(
               (m) =>
                 m instanceof MoneyMultiplierModifier
