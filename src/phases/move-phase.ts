@@ -10,7 +10,7 @@ import { allMoves } from "#app/data/all-moves";
 import { CommonAnim } from "#enums/common-anim";
 import { CenterOfAttentionTag, SkyDropTag } from "#app/data/battler-tags";
 import { BattlerTagLapseType } from "#enums/battler-tag-lapse-type";
-import { applyMoveAttrs } from "#app/data/move";
+import { applyMoveAttrs, isFieldTargeted } from "#app/data/move";
 import { BypassRedirectAttr } from "#app/data/move-attrs/bypass-redirect-attr";
 import { BypassSleepAttr } from "#app/data/move-attrs/bypass-sleep-attr";
 import { CopyMoveAttr } from "#app/data/move-attrs/copy-move-attr";
@@ -122,7 +122,7 @@ export class MovePhase extends BattlePhase {
     return (
       this.pokemon.isActive(true)
       && this.move.isUsable(this.pokemon, this.ignorePp, ignoreDisableTags)
-      && this.targets.length > 0
+      && (this.targets.length > 0 || this.move.getMove().isFieldTarget())
     );
   }
 
@@ -195,12 +195,19 @@ export class MovePhase extends BattlePhase {
     this.end();
   }
 
-  /** Check for cancellation edge cases - no targets remaining, or {@linkcode MoveId.NONE} is in the queue */
+  /**
+   * Check for cancellation edge cases.
+   * Currently only checks if {@linkcode MoveId.NONE}
+   * is in the user's move queue
+   */
   protected resolveFinalPreMoveCancellationChecks(): void {
-    const targets = this.getActiveTargetPokemon();
     const moveQueue = this.pokemon.getMoveQueue();
+    const targets = this.getActiveTargetPokemon();
 
-    if (targets.length === 0 || (moveQueue.length && moveQueue[0].moveId === MoveId.NONE)) {
+    if (
+      (targets.length === 0 && !isFieldTargeted(this.targets))
+      || (moveQueue.length && moveQueue[0].moveId === MoveId.NONE)
+    ) {
       this.showMoveText();
       this.showFailedText();
       this.cancel();
@@ -342,7 +349,7 @@ export class MovePhase extends BattlePhase {
      * Move conditions assume the move has a single target
      * TODO: is this sustainable?
      */
-    const passesConditions = move.applyConditions(this.pokemon, targets[0], move);
+    const passesConditions = move.applyConditions(this.pokemon, targets[0] ?? null, move);
     const failedDueToWeather: boolean = globalScene.arena.isMoveWeatherCancelled(this.pokemon, move);
     const failedDueToTerrain: boolean = globalScene.arena.isMoveTerrainCancelled(this.pokemon, this.targets, move);
 

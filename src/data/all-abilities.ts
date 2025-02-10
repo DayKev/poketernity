@@ -404,7 +404,8 @@ export function initAbilities() {
       .attr(IncreasePpAbAttr)
       .attr(PostSummonMessageAbAttr, (pokemon: Pokemon) =>
         i18next.t("abilityTriggers:postSummonPressure", { pokemonNameWithAffix: getPokemonNameWithAffix(pokemon) }),
-      ),
+      )
+      .partial(), // Does not affect PP cost for field-targeting moves
     new Ability(Abilities.THICK_FAT, 3)
       .attr(ReceivedTypeDamageMultiplierAbAttr, ElementalType.FIRE, 0.5)
       .attr(ReceivedTypeDamageMultiplierAbAttr, ElementalType.ICE, 0.5)
@@ -1479,8 +1480,7 @@ export function initAbilities() {
         MoveImmunityAbAttr,
         (pokemon, attacker, move) => pokemon !== attacker && move.category === MoveCategory.STATUS,
       )
-      .ignorable()
-      .partial(), // Lots of weird interactions with moves and abilities such as negating status moves that target the field
+      .ignorable(),
     new Ability(Abilities.VESSEL_OF_RUIN, 9)
       .attr(FieldMultiplyStatAbAttr, Stat.SPATK, 0.75)
       .attr(PostSummonMessageAbAttr, (user) =>
