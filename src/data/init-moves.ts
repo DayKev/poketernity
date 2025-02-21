@@ -213,7 +213,7 @@ import { UpperHandCondition } from "#app/data/move-conditions/upper-hand-conditi
 import { userSleptOrComatoseCondition } from "#app/data/move-conditions/user-slept-or-comatose-condition";
 import { ChargingAttackMove } from "#app/data/moves/charging-attack-move";
 import { ChargingSelfStatusMove } from "#app/data/moves/charging-self-status-move";
-import { getNonVolatileStatusEffects, isNonVolatileStatusEffect } from "#app/data/status-effect";
+import { getNonVolatileStatusEffects } from "#app/data/status-effect";
 import { globalScene } from "#app/global-scene";
 import { getPokemonNameWithAffix } from "#app/messages";
 import { isNullOrUndefined } from "#app/utils";
@@ -1170,11 +1170,7 @@ export function initMoves() {
       .attr(StatStageChangeAttr, [Stat.ATK, Stat.SPATK], -2),
     new AttackMove(MoveId.FACADE, ElementalType.NORMAL, MoveCategory.PHYSICAL, 70, 100, 20, -1, 0, 3)
       .attr(MovePowerMultiplierAttr, (user, _target, _move) =>
-        user.status
-        && (user.status.effect === StatusEffect.BURN
-          || user.status.effect === StatusEffect.POISON
-          || user.status.effect === StatusEffect.TOXIC
-          || user.status.effect === StatusEffect.PARALYSIS)
+        user.hasStatusEffect([StatusEffect.BURN, StatusEffect.POISON, StatusEffect.TOXIC, StatusEffect.PARALYSIS])
           ? 2
           : 1,
       )
@@ -1187,9 +1183,7 @@ export function initMoves() {
       .ignoresVirtual()
       .condition((user, _target, _move) => !user.turnData.attacksReceived.find((r) => r.damage)),
     new AttackMove(MoveId.SMELLING_SALTS, ElementalType.NORMAL, MoveCategory.PHYSICAL, 70, 100, 10, -1, 0, 3)
-      .attr(MovePowerMultiplierAttr, (_user, target, _move) =>
-        target.status?.effect === StatusEffect.PARALYSIS ? 2 : 1,
-      )
+      .attr(MovePowerMultiplierAttr, (_user, target, _move) => (target.hasStatusEffect(StatusEffect.PARALYSIS) ? 2 : 1))
       .attr(HealStatusEffectAttr, true, StatusEffect.PARALYSIS),
     new SelfStatusMove(MoveId.FOLLOW_ME, ElementalType.NORMAL, -1, 20, -1, 2, 3).attr(
       AddBattlerTagAttr,
@@ -1236,7 +1230,7 @@ export function initMoves() {
     ),
     new StatusMove(MoveId.YAWN, ElementalType.NORMAL, -1, 10, -1, 0, 3)
       .attr(AddBattlerTagAttr, BattlerTagType.DROWSY, false, { failOnOverlap: true })
-      .condition((user, target, _move) => !target.status && !target.isSafeguarded(user)),
+      .condition((user, target, _move) => !target.hasNonVolatileStatusEffect() && !target.isSafeguarded(user)),
     new AttackMove(MoveId.KNOCK_OFF, ElementalType.DARK, MoveCategory.PHYSICAL, 65, 100, 20, -1, 0, 3)
       .attr(MovePowerMultiplierAttr, (_user, target, _move) =>
         target.getHeldItems().filter((i) => i.isTransferable).length > 0 ? 1.5 : 1,
@@ -1263,13 +1257,8 @@ export function initMoves() {
         StatusEffect.TOXIC,
         StatusEffect.BURN,
       ])
-      .condition(
-        (user, _target, _move) =>
-          !!user.status
-          && (user.status.effect === StatusEffect.PARALYSIS
-            || user.status.effect === StatusEffect.POISON
-            || user.status.effect === StatusEffect.TOXIC
-            || user.status.effect === StatusEffect.BURN),
+      .condition((user, _target, _move) =>
+        user.hasStatusEffect([StatusEffect.BURN, StatusEffect.PARALYSIS, StatusEffect.POISON, StatusEffect.TOXIC]),
       ),
     new SelfStatusMove(MoveId.GRUDGE, ElementalType.GHOST, -1, 5, -1, 0, 3).attr(
       AddBattlerTagAttr,
@@ -1629,11 +1618,7 @@ export function initMoves() {
     new StatusMove(MoveId.PSYCHO_SHIFT, ElementalType.PSYCHIC, 100, 10, -1, 0, 4)
       .attr(PsychoShiftEffectAttr)
       .condition((user, target, _move) => {
-        let statusToApply = user.hasAbility(Abilities.COMATOSE) ? StatusEffect.SLEEP : undefined;
-        if (user.status?.effect && isNonVolatileStatusEffect(user.status.effect)) {
-          statusToApply = user.status.effect;
-        }
-        return !!statusToApply && target.canSetStatus(statusToApply, false, false, user);
+        return user.hasNonVolatileStatusEffect() && target.canSetStatus(user.getStatusEffect(), false, false, user);
       }),
     new AttackMove(MoveId.TRUMP_CARD, ElementalType.NORMAL, MoveCategory.SPECIAL, -1, -1, 5, -1, 0, 4)
       .makesContact()
@@ -2000,10 +1985,7 @@ export function initMoves() {
     ),
     new AttackMove(MoveId.VENOSHOCK, ElementalType.POISON, MoveCategory.SPECIAL, 65, 100, 10, -1, 0, 5).attr(
       MovePowerMultiplierAttr,
-      (_user, target, _move) =>
-        target.status && (target.status.effect === StatusEffect.POISON || target.status.effect === StatusEffect.TOXIC)
-          ? 2
-          : 1,
+      (_user, target, _move) => (target.hasStatusEffect([StatusEffect.POISON, StatusEffect.TOXIC]) ? 2 : 1),
     ),
     new SelfStatusMove(MoveId.AUTOTOMIZE, ElementalType.STEEL, -1, 15, -1, 0, 5)
       .attr(StatStageChangeAttr, [Stat.SPD], 2, true)
@@ -2145,7 +2127,7 @@ export function initMoves() {
       .triageMove(),
     new AttackMove(MoveId.HEX, ElementalType.GHOST, MoveCategory.SPECIAL, 65, 100, 10, -1, 0, 5).attr(
       MovePowerMultiplierAttr,
-      (_user, target, _move) => (target.status || target.hasAbility(Abilities.COMATOSE) ? 2 : 1),
+      (_user, target, _move) => (target.hasNonVolatileStatusEffect() ? 2 : 1),
     ),
     new ChargingAttackMove(MoveId.SKY_DROP, ElementalType.FLYING, MoveCategory.PHYSICAL, 60, 100, 10, -1, 0, 5)
       .chargeText(i18next.t("moveTriggers:tookTargetIntoSky", { pokemonName: "{USER}", targetName: "{TARGET}" }))
@@ -2537,8 +2519,7 @@ export function initMoves() {
     ),
     new StatusMove(MoveId.VENOM_DRENCH, ElementalType.POISON, 100, 20, -1, 0, 6)
       .attr(StatStageChangeAttr, [Stat.ATK, Stat.SPATK, Stat.SPD], -1, false, {
-        condition: (_user, target, _move) =>
-          target.status?.effect === StatusEffect.POISON || target.status?.effect === StatusEffect.TOXIC,
+        condition: (_user, target, _move) => target.hasStatusEffect([StatusEffect.POISON, StatusEffect.TOXIC]),
       })
       .target(MoveTarget.ALL_NEAR_ENEMIES),
     new StatusMove(MoveId.POWDER, ElementalType.BUG, 100, 20, -1, 1, 6)
@@ -2915,10 +2896,7 @@ export function initMoves() {
     new AttackMove(MoveId.SMART_STRIKE, ElementalType.STEEL, MoveCategory.PHYSICAL, 70, -1, 10, -1, 0, 7),
     new StatusMove(MoveId.PURIFY, ElementalType.POISON, -1, 20, -1, 0, 7)
       .condition((_user, target, _move) => {
-        if (!target.status) {
-          return false;
-        }
-        return isNonVolatileStatusEffect(target.status.effect);
+        return target.hasNonVolatileStatusEffect(false, true);
       })
       .attr(HealAttr, 0.5)
       .attr(HealStatusEffectAttr, false, getNonVolatileStatusEffects())
@@ -3562,9 +3540,7 @@ export function initMoves() {
     new AttackMove(MoveId.BARB_BARRAGE, ElementalType.POISON, MoveCategory.PHYSICAL, 60, 100, 10, 50, 0, 8)
       .makesContact(false)
       .attr(MovePowerMultiplierAttr, (_user, target, _move) =>
-        target.status && (target.status.effect === StatusEffect.POISON || target.status.effect === StatusEffect.TOXIC)
-          ? 2
-          : 1,
+        target.hasStatusEffect([StatusEffect.POISON, StatusEffect.TOXIC]) ? 2 : 1,
       )
       .attr(StatusEffectAttr, StatusEffect.POISON),
     new AttackMove(MoveId.ESPER_WING, ElementalType.PSYCHIC, MoveCategory.SPECIAL, 80, 100, 10, 100, 0, 8)
@@ -3588,7 +3564,7 @@ export function initMoves() {
       .attr(FlinchAttr),
     new AttackMove(MoveId.INFERNAL_PARADE, ElementalType.GHOST, MoveCategory.SPECIAL, 60, 100, 15, 30, 0, 8)
       .attr(StatusEffectAttr, StatusEffect.BURN)
-      .attr(MovePowerMultiplierAttr, (_user, target, _move) => (target.status ? 2 : 1)),
+      .attr(MovePowerMultiplierAttr, (_user, target, _move) => (target.hasNonVolatileStatusEffect() ? 2 : 1)),
     new AttackMove(MoveId.CEASELESS_EDGE, ElementalType.DARK, MoveCategory.PHYSICAL, 65, 90, 15, 100, 0, 8)
       .attr(AddArenaTrapTagAttr, ArenaTagType.SPIKES)
       .slicingMove(),

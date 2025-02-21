@@ -184,7 +184,7 @@ import { type Pokemon } from "#app/field/pokemon";
 import { globalScene } from "#app/global-scene";
 import { getPokemonNameWithAffix } from "#app/messages";
 import { type MovePhase } from "#app/phases/move-phase";
-import { isNullOrUndefined, NumberHolder, randSeedInt, toDmgValue } from "#app/utils";
+import { isNullOrUndefined, NumberHolder, toDmgValue } from "#app/utils";
 import { getWeatherCondition } from "#app/utils/ability-utils";
 import { applyMoveAttrs } from "#app/utils/move-utils";
 import { Abilities } from "#enums/abilities";
@@ -202,6 +202,7 @@ import { TerrainType } from "#enums/terrain-type";
 import { WeatherType } from "#enums/weather-type";
 import i18next from "i18next";
 import { BypassParaSpeedReductionAbAttr } from "./ab-attrs/bypass-para-speed-reduction-ab-attr";
+import { MockStatusEffectAbAttr } from "./ab-attrs/mock-status-effect-ab-attr";
 
 export function initAbilities() {
   allAbilities.push(
@@ -210,12 +211,7 @@ export function initAbilities() {
       PostAttackApplyBattlerTagAbAttr,
       false,
       (_user, target, move) =>
-        !move.hasAttr(FlinchAttr)
-        && !target.turnData.acted
-        && move.category !== MoveCategory.STATUS
-        && (target.status ? ![StatusEffect.FREEZE, StatusEffect.SLEEP].includes(target.status.effect) : true)
-          ? 10
-          : 0,
+        !move.hasAttr(FlinchAttr) && !target.turnData.acted && move.category !== MoveCategory.STATUS ? 10 : 0,
       BattlerTagType.FLINCHED,
     ),
     new Ability(Abilities.DRIZZLE, 3)
@@ -387,22 +383,15 @@ export function initAbilities() {
         WeatherType.FOG,
       ]),
     new Ability(Abilities.STICKY_HOLD, 3).attr(BlockItemTheftAbAttr).bypassFaint().ignorable(),
-    new Ability(Abilities.SHED_SKIN, 3).conditionalAttr((_pokemon) => !randSeedInt(3), PostTurnResetStatusAbAttr),
+    new Ability(Abilities.SHED_SKIN, 3).conditionalAttr(
+      (pokemon) => !pokemon.randSeedInt(3),
+      PostTurnResetStatusAbAttr,
+    ),
     new Ability(Abilities.GUTS, 3)
       .attr(BypassBurnDamageReductionAbAttr)
-      .conditionalAttr(
-        (pokemon) => !!pokemon.status || pokemon.hasAbility(Abilities.COMATOSE),
-        StatMultiplierAbAttr,
-        Stat.ATK,
-        1.5,
-      ),
+      .conditionalAttr((pokemon) => pokemon.hasNonVolatileStatusEffect(), StatMultiplierAbAttr, Stat.ATK, 1.5),
     new Ability(Abilities.MARVEL_SCALE, 3)
-      .conditionalAttr(
-        (pokemon) => !!pokemon.status || pokemon.hasAbility(Abilities.COMATOSE),
-        StatMultiplierAbAttr,
-        Stat.DEF,
-        1.5,
-      )
+      .conditionalAttr((pokemon) => pokemon.hasNonVolatileStatusEffect(), StatMultiplierAbAttr, Stat.DEF, 1.5)
       .ignorable(),
     new Ability(Abilities.LIQUID_OOZE, 3).attr(ReverseDrainAbAttr),
     new Ability(Abilities.OVERGROW, 3).attr(LowHpMoveTypeAttackMultiplierAbAttr, ElementalType.GRASS),
@@ -493,12 +482,7 @@ export function initAbilities() {
       .condition(getWeatherCondition(WeatherType.SUNNY, WeatherType.HARSH_SUN)),
     new Ability(Abilities.QUICK_FEET, 4)
       .attr(BypassParaSpeedReductionAbAttr)
-      .conditionalAttr(
-        (pokemon) => !!pokemon.status || pokemon.hasAbility(Abilities.COMATOSE),
-        StatMultiplierAbAttr,
-        Stat.SPD,
-        1.5,
-      ),
+      .conditionalAttr((pokemon) => pokemon.hasNonVolatileStatusEffect(), StatMultiplierAbAttr, Stat.SPD, 1.5),
     new Ability(Abilities.NORMALIZE, 4).attr(
       MoveTypeChangeAbAttr,
       ElementalType.NORMAL,
@@ -641,7 +625,7 @@ export function initAbilities() {
       .condition((pokemon) => pokemon.getHpRatio() <= 0.5),
     new Ability(Abilities.CURSED_BODY, 5).attr(PostDefendMoveDisableAbAttr, 30).bypassFaint(),
     new Ability(Abilities.HEALER, 5).conditionalAttr(
-      (pokemon) => pokemon.getAlly() && randSeedInt(10) < 3,
+      (pokemon) => pokemon.getAlly() && pokemon.randSeedInt(10) < 3,
       PostTurnResetStatusAbAttr,
       true,
     ),
@@ -668,12 +652,13 @@ export function initAbilities() {
       MovePowerBoostAbAttr,
       (user, _target, move) =>
         move?.category === MoveCategory.PHYSICAL
-        && (user?.status?.effect === StatusEffect.POISON || user?.status?.effect === StatusEffect.TOXIC),
+        && !!user?.hasStatusEffect([StatusEffect.TOXIC, StatusEffect.POISON]),
       1.5,
     ),
     new Ability(Abilities.FLARE_BOOST, 5).attr(
       MovePowerBoostAbAttr,
-      (user, _target, move) => move?.category === MoveCategory.SPECIAL && user?.status?.effect === StatusEffect.BURN,
+      (user, _target, move) =>
+        move?.category === MoveCategory.SPECIAL && !!user?.hasStatusEffect(StatusEffect.BURN),
       1.5,
     ),
     new Ability(Abilities.HARVEST, 5)
@@ -912,8 +897,7 @@ export function initAbilities() {
     ),
     new Ability(Abilities.MERCILESS, 7).attr(
       ConditionalCritAbAttr,
-      (_user, target, _move) =>
-        target?.status?.effect === StatusEffect.TOXIC || target?.status?.effect === StatusEffect.POISON,
+      (_user, target, _move) => !!target?.hasStatusEffect([StatusEffect.POISON, StatusEffect.TOXIC]),
     ),
     new Ability(Abilities.SHIELDS_DOWN, 7)
       .attr(PostBattleInitFormChangeAbAttr, () => 0)
@@ -1063,6 +1047,7 @@ export function initAbilities() {
       .attr(UncopiableAbilityAbAttr)
       .attr(UnswappableAbilityAbAttr)
       .attr(UnsuppressableAbilityAbAttr)
+      .attr(MockStatusEffectAbAttr, StatusEffect.SLEEP)
       .attr(StatusEffectImmunityAbAttr, ...getNonVolatileStatusEffects())
       .attr(BattlerTagImmunityAbAttr, BattlerTagType.DROWSY),
     new Ability(Abilities.QUEENLY_MAJESTY, 7).attr(FieldPriorityMoveImmunityAbAttr).ignorable(),
