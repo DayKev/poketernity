@@ -124,7 +124,6 @@ import type PokemonData from "#app/system/pokemon-data";
 import { settings } from "#app/system/settings/settings-manager";
 import type TrainerData from "#app/system/trainer-data";
 import { type Voucher, vouchers } from "#app/system/voucher";
-import { TimedEventManager } from "#app/timed-event-manager";
 import { CANVAS_SCALE, GAME_HEIGHT, GAME_WIDTH } from "#app/ui-constants";
 import { UiInputs } from "#app/ui-inputs";
 import AbilityBar from "#app/ui/ability-bar";
@@ -339,8 +338,6 @@ export default class BattleScene extends SceneBase {
   public inputMethod: string;
   private infoToggles: InfoToggle[] = [];
 
-  public eventManager: TimedEventManager;
-
   /** Handler for general {@linkcode Animation | animations} */
   public animations: Animation;
 
@@ -362,7 +359,6 @@ export default class BattleScene extends SceneBase {
     this.conditionalQueue = [];
     this.phaseQueuePrependSpliceIndex = -1;
     this.nextCommandPhaseQueue = [];
-    this.eventManager = new TimedEventManager();
     this.updateGameInfo();
     this.animations = new Animation(this);
     this.audioManager = new AudioManager(this);

@@ -120,8 +120,9 @@ import { StatStageChangePhase } from "#app/phases/stat-stage-change-phase";
 import { SwitchSummonPhase } from "#app/phases/switch-summon-phase";
 import { achvs } from "#app/system/achv";
 import type PokemonData from "#app/system/pokemon-data";
-import type { TurnCommand } from "#app/turn-command-manager";
 import { settings } from "#app/system/settings/settings-manager";
+import { timedEventManager } from "#app/timed-event-manager";
+import type { TurnCommand } from "#app/turn-command-manager";
 import type BattleInfo from "#app/ui/battle-info";
 import { EnemyBattleInfo, PlayerBattleInfo } from "#app/ui/battle-info";
 import {
@@ -161,6 +162,7 @@ import { Biome } from "#enums/biome";
 import { ChallengeType } from "#enums/challenge-type";
 import { Challenges } from "#enums/challenges";
 import { ElementalType } from "#enums/elemental-type";
+import { EventModifierType } from "#enums/event-modifier-type";
 import { FieldPosition } from "#enums/field-position";
 import { Gender } from "#enums/gender";
 import { HitResult } from "#enums/hit-result";
@@ -2084,8 +2086,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
 
     const shinyThreshold = new NumberHolder(BASE_SHINY_CHANCE);
     if (thresholdOverride === undefined) {
-      if (globalScene.eventManager.isEventActive()) {
-        shinyThreshold.value *= globalScene.eventManager.getShinyMultiplier();
+      if (timedEventManager.isEventActive(EventModifierType.WILD_SHINY_CHANCE)) {
+        shinyThreshold.value *= timedEventManager.getWildShinyChanceMultiplier();
       }
       if (!this.hasTrainer()) {
         globalScene.applyModifiers(ShinyRateBoosterModifier, true, shinyThreshold);
@@ -2119,8 +2121,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
       if (thresholdOverride !== undefined && applyModifiersToOverride) {
         shinyThreshold.value = thresholdOverride;
       }
-      if (globalScene.eventManager.isEventActive()) {
-        shinyThreshold.value *= globalScene.eventManager.getShinyMultiplier();
+      if (timedEventManager.isEventActive(EventModifierType.WILD_SHINY_CHANCE)) {
+        shinyThreshold.value *= timedEventManager.getWildShinyChanceMultiplier();
       }
       if (!this.hasTrainer()) {
         globalScene.applyModifiers(ShinyRateBoosterModifier, true, shinyThreshold);
@@ -4151,8 +4153,8 @@ export class PlayerPokemon extends Pokemon {
       const amount = new NumberHolder(friendship);
       globalScene.applyModifier(PokemonFriendshipBoosterModifier, true, this, amount);
       let candyFriendshipMultiplier = CLASSIC_CANDY_FRIENDSHIP_MULTIPLIER;
-      if (globalScene.eventManager.isEventActive()) {
-        candyFriendshipMultiplier *= globalScene.eventManager.getFriendshipMultiplier();
+      if (timedEventManager.isEventActive(EventModifierType.CLASSIC_CANDY_FRIENDSHIP_MULTIPLIER)) {
+        candyFriendshipMultiplier *= timedEventManager.getClassicCandyFriendshipMultiplier();
       }
       const starterAmount = new NumberHolder(
         Math.floor(amount.value * (globalScene.gameMode.isClassic ? candyFriendshipMultiplier : 1)),
