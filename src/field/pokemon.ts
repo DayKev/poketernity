@@ -513,8 +513,35 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
     ret |= this.gender !== Gender.FEMALE ? DexAttr.MALE : DexAttr.FEMALE;
     ret |= !this.shiny ? DexAttr.NON_SHINY : DexAttr.SHINY;
     ret |= this.variant >= 2 ? DexAttr.VARIANT_3 : this.variant === 1 ? DexAttr.VARIANT_2 : DexAttr.DEFAULT_VARIANT;
-    ret |= globalScene.gameData.getFormAttr(this.formIndex);
+    ret |= globalScene.gameData.getFormAttr(this.getSelectableFormIndex());
     return ret;
+  }
+
+  /**
+   * Get the form index of this Pokemon that is selectable as a starter, if different from the current one.
+   *
+   * Forms that are not selectable as starters (like Megas, battle specific transformation, or item only transformations)
+   * get ignored in the Pokemon's dex attribute. They are to be considered as seen/caught as soon as a corresponding,
+   * starter selectable, "base" form is seen/caught. This function returns said starter selectable form index,
+   * rather than the current form index and should only be used when manipulating dex data.
+   *
+   * If the current form is starter selectable, returns `this.formIndex`. If not, looks for a Pokemon with the current form's
+   * `baseFormKey` attribute. Defaults to form index 0 if it can't find one.
+   *
+   * @example for transformed ash Greninja this will return the form index of the non transformed battle bond Greninja.
+   *
+   * @returns the form index of the starter selectable form corresponding to the current one. Defaults to 0
+   */
+  public getSelectableFormIndex() {
+    const speciesForm = this.getSpeciesForm();
+    if (!speciesForm.isStarterSelectable && speciesForm.isPokemonForm()) {
+      if (speciesForm.baseFormKey) {
+        const baseFormIndex = this.species.forms.findIndex((form) => form.formKey === speciesForm.baseFormKey);
+        return baseFormIndex !== -1 ? baseFormIndex : 0;
+      }
+      return 0;
+    }
+    return this.formIndex;
   }
 
   /**
@@ -4212,9 +4239,13 @@ export class PlayerPokemon extends Pokemon {
     });
   }
 
-  public evolve(evolution: SpeciesFormEvolution | null): Promise<void> {
+  /**
+   * @param evolution - The {@linkcode SpeciesFormEvolution} to use
+   * @returns array of {@linkcode Species} of unlocked starters, if any (root species will be last in the array)
+   */
+  public evolve(evolution: SpeciesFormEvolution | null): Promise<Species[]> {
     if (!evolution) {
-      return new Promise((resolve) => resolve());
+      return new Promise((resolve) => resolve([]));
     }
     return new Promise((resolve) => {
       const preEvolutionSpecies = this.species;
@@ -4245,10 +4276,10 @@ export class PlayerPokemon extends Pokemon {
       }
       this.compatibleTms.splice(0, this.compatibleTms.length);
       this.generateCompatibleTms();
-      const updateAndResolve = () => {
+      const updateAndResolve = (unlockedStarters: Species[]) => {
         this.loadAssets().then(() => {
           this.calculateStats();
-          this.updateInfo(true).then(() => resolve());
+          this.updateInfo(true).then(() => resolve(unlockedStarters));
         });
       };
       // TODO: should this be done in "handleSpecialEvolutions" to keep all species-specific things in the same spot?
@@ -4261,9 +4292,11 @@ export class PlayerPokemon extends Pokemon {
       if (!globalScene.gameMode.isDaily || this.metBiome > -1) {
         globalScene.gameData.updateSpeciesDexIvs(this.species.speciesId, this.ivs);
         globalScene.gameData.setPokemonSeen(this, false);
-        globalScene.gameData.setPokemonCaught(this, false).then(() => updateAndResolve());
+        globalScene.gameData.setPokemonCaught(this, false, false, false).then((unlockedStarters) => {
+          updateAndResolve(unlockedStarters);
+        });
       } else {
-        updateAndResolve();
+        updateAndResolve([]);
       }
     });
   }
