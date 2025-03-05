@@ -140,6 +140,11 @@ export interface TerrainBattlerTag {
   terrainTypes: TerrainType[];
 }
 
+export interface RestrictingBattlerTag {
+  getInterruptedText: (pokemon: Pokemon, moveId: MoveId) => string;
+  getSelectionDeniedText: (pokemon: Pokemon, moveId: MoveId) => string;
+}
+
 /**
  * Base class for tags that restrict the usage of moves. This effect is generally referred to as "disabling" a move
  * in-game. This is not to be confused with {@linkcode MoveId.DISABLE}.
@@ -148,7 +153,7 @@ export interface TerrainBattlerTag {
  * match a condition. A restricted move gets cancelled before it is used. Players and enemies should not be allowed
  * to select restricted moves.
  */
-export abstract class MoveRestrictionBattlerTag extends BattlerTag {
+export abstract class MoveRestrictionBattlerTag extends BattlerTag implements RestrictingBattlerTag {
   constructor(
     tagType: BattlerTagType,
     lapseType: BattlerTagLapseType | BattlerTagLapseType[],
@@ -167,8 +172,8 @@ export abstract class MoveRestrictionBattlerTag extends BattlerTag {
       const move = phase.move;
 
       if (this.isMoveRestricted(move.moveId, pokemon)) {
-        if (this.interruptedText(pokemon, move.moveId)) {
-          globalScene.queueMessage(this.interruptedText(pokemon, move.moveId));
+        if (this.getInterruptedText(pokemon, move.moveId)) {
+          globalScene.queueMessage(this.getInterruptedText(pokemon, move.moveId));
         }
         phase.cancel();
       }
@@ -195,7 +200,7 @@ export abstract class MoveRestrictionBattlerTag extends BattlerTag {
    * @param _target - The {@linkcode Pokemon| target} of the move
    * @returns `false` unless overridden by the child tag
    */
-  isMoveTargetRestricted(_moveId: MoveId, _user: Pokemon, _target: Pokemon): boolean {
+  public isMoveTargetRestricted(_moveId: MoveId, _user: Pokemon, _target: Pokemon): boolean {
     return false;
   }
 
@@ -206,7 +211,7 @@ export abstract class MoveRestrictionBattlerTag extends BattlerTag {
    * @param moveId - {@linkcode MoveId | move} that is having its selection denied
    * @returns text to display when the player attempts to select the restricted move
    */
-  abstract selectionDeniedText(pokemon: Pokemon, moveId: MoveId): string;
+  abstract getSelectionDeniedText(pokemon: Pokemon, moveId: MoveId): string;
 
   /**
    * Gets the text to display when a move's execution is prevented as a result of the restriction.
@@ -217,9 +222,7 @@ export abstract class MoveRestrictionBattlerTag extends BattlerTag {
    * @param _moveId - The {@linkcode MoveId | move} being interrupted
    * @returns text to display when the move is interrupted
    */
-  interruptedText(_pokemon: Pokemon, _moveId: MoveId): string {
-    return "";
-  }
+  abstract getInterruptedText(_pokemon: Pokemon, _moveId: MoveId): string;
 
   /**
    * Gets the last valid move from the pokemon's move history.
@@ -266,7 +269,7 @@ export class ThroatChoppedTag extends MoveRestrictionBattlerTag {
    * @param moveId - The {@linkcode MoveId | move} that is being restricted
    * @returns the message to display when the player attempts to select the restricted move
    */
-  override selectionDeniedText(_pokemon: Pokemon, moveId: MoveId): string {
+  override getSelectionDeniedText(_pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveCannotBeSelected", { moveName: allMoves[moveId].name });
   }
 
@@ -277,7 +280,7 @@ export class ThroatChoppedTag extends MoveRestrictionBattlerTag {
    * @param _moveId - The {@linkcode MoveId | move} that was interrupted
    * @returns the message to display when the move is interrupted
    */
-  override interruptedText(pokemon: Pokemon, _moveId: MoveId): string {
+  override getInterruptedText(pokemon: Pokemon, _moveId: MoveId): string {
     return i18next.t("battle:throatChopInterruptedMove", { pokemonName: getPokemonNameWithAffix(pokemon) });
   }
 }
@@ -342,7 +345,7 @@ export class DisabledTag extends MoveRestrictionBattlerTag {
   }
 
   /** @override */
-  override selectionDeniedText(_pokemon: Pokemon, moveId: MoveId): string {
+  override getSelectionDeniedText(_pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabled", { moveName: allMoves[moveId].name });
   }
 
@@ -352,7 +355,7 @@ export class DisabledTag extends MoveRestrictionBattlerTag {
    * @param moveId - The {@linkcode MoveId | move} being interrupted
    * @returns text to display when the move is interrupted
    */
-  override interruptedText(pokemon: Pokemon, moveId: MoveId): string {
+  override getInterruptedText(pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:disableInterruptedMove", {
       pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
       moveName: allMoves[moveId].name,
@@ -425,11 +428,15 @@ export class GorillaTacticsTag extends MoveRestrictionBattlerTag {
    * @param _moveId {@linkcode MoveId} ID of the move being denied
    * @returns text to display when the move is denied
    */
-  override selectionDeniedText(pokemon: Pokemon, _moveId: MoveId): string {
+  override getSelectionDeniedText(pokemon: Pokemon, _moveId: MoveId): string {
     return i18next.t("battle:canOnlyUseMove", {
       moveName: allMoves[this.moveId].name,
       pokemonName: getPokemonNameWithAffix(pokemon),
     });
+  }
+
+  override getInterruptedText(_pokemon: Pokemon, _moveId: MoveId): string {
+    return "";
   }
 }
 
@@ -1312,8 +1319,12 @@ export class EncoreTag extends MoveRestrictionBattlerTag {
     return false;
   }
 
-  override selectionDeniedText(_pokemon: Pokemon, moveId: MoveId): string {
+  override getSelectionDeniedText(_pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabled", { moveName: allMoves[moveId].name });
+  }
+
+  override getInterruptedText(_pokemon: Pokemon, _moveId: MoveId): string {
+    return "";
   }
 
   override onRemove(pokemon: Pokemon): void {
@@ -2943,9 +2954,9 @@ export class HealBlockTag extends MoveRestrictionBattlerTag {
   }
 
   /**
-   * Uses its own unique selectionDeniedText() message
+   * Uses its own unique getSelectionDeniedText() message
    */
-  override selectionDeniedText(pokemon: Pokemon, moveId: MoveId): string {
+  override getSelectionDeniedText(pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabledHealBlock", {
       pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
       moveName: allMoves[moveId].name,
@@ -2959,7 +2970,7 @@ export class HealBlockTag extends MoveRestrictionBattlerTag {
    * @param moveId {@linkcode MoveId} ID of the move being interrupted
    * @returns text to display when the move is interrupted
    */
-  override interruptedText(pokemon: Pokemon, moveId: MoveId): string {
+  override getInterruptedText(pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabledHealBlock", {
       pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
       moveName: allMoves[moveId].name,
@@ -3271,8 +3282,12 @@ export class TormentTag extends MoveRestrictionBattlerTag {
     return false;
   }
 
-  override selectionDeniedText(pokemon: Pokemon, _moveId: MoveId): string {
+  override getSelectionDeniedText(pokemon: Pokemon, _moveId: MoveId): string {
     return i18next.t("battle:moveDisabledTorment", { pokemonNameWithAffix: getPokemonNameWithAffix(pokemon) });
+  }
+
+  override getInterruptedText(_pokemon: Pokemon, _moveId: MoveId): string {
+    return "";
   }
 }
 
@@ -3303,14 +3318,14 @@ export class TauntTag extends MoveRestrictionBattlerTag {
     return allMoves[moveId].category === MoveCategory.STATUS;
   }
 
-  override selectionDeniedText(pokemon: Pokemon, moveId: MoveId): string {
+  override getSelectionDeniedText(pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabledTaunt", {
       pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
       moveName: allMoves[moveId].name,
     });
   }
 
-  override interruptedText(pokemon: Pokemon, moveId: MoveId): string {
+  override getInterruptedText(pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabledTaunt", {
       pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
       moveName: allMoves[moveId].name,
@@ -3319,66 +3334,51 @@ export class TauntTag extends MoveRestrictionBattlerTag {
 }
 
 /**
- * BattlerTag that applies the effects of Imprison to the target Pokemon
- * Imprison restricts the opposing side's usage of moves shared by the source-user of Imprison.
- * The tag is only removed when the source-user is removed from the field.
+ * BattlerTag representing the move-disabling effect of
+ * {@link https://bulbapedia.bulbagarden.net/wiki/Imprison_(move) | Imprison}.
+ * Disables all opposing Pokemon's moves that are also found in the tag owner's moveset.
+ * @extends BattlerTag
+ * @implements RestrictingBattlerTag
  */
-export class ImprisonTag extends MoveRestrictionBattlerTag {
-  constructor(sourceId: number) {
-    super(
-      BattlerTagType.IMPRISON,
-      [BattlerTagLapseType.PRE_MOVE, BattlerTagLapseType.AFTER_MOVE],
-      1,
-      MoveId.IMPRISON,
-      sourceId,
+export class ImprisoningTag extends BattlerTag implements RestrictingBattlerTag {
+  constructor() {
+    super(BattlerTagType.IMPRISONING, BattlerTagLapseType.CUSTOM, 1);
+  }
+
+  override onAdd(pokemon: Pokemon): void {
+    globalScene.queueMessage(
+      i18next.t("battlerTags:imprisonOnAdd", { pokemonNameWithAffix: getPokemonNameWithAffix(pokemon) }),
     );
   }
 
   /**
-   * Checks if the source of Imprison is still active
-   * @override
-   * @param pokemon The pokemon this tag is attached to
-   * @returns `true` if the source is still active
+   * Prevents opposing Pokemon from using moves that match with
+   * the tag owner's moveset.
+   * @param pokemon The {@linkcode Pokemon} with this tag
+   * @param simulated If `true`, suppresses the message triggered by an interruption
+   * @param actingPokemon The {@linkcode Pokemon} attempting to select or use a move
+   * @param moveId The {@linkcode MoveId} for the move being selected or used
+   * @returns `true` if the given move is disabled by this tag
    */
-  public override lapse(pokemon: Pokemon, lapseType: BattlerTagLapseType): boolean {
-    const source = this.getSourcePokemon();
-    if (source) {
-      if (lapseType === BattlerTagLapseType.PRE_MOVE) {
-        return super.lapse(pokemon, lapseType) && source.isActive(true);
-      } else {
-        return source.isActive(true);
+  override apply(pokemon: Pokemon, simulated: boolean, actingPokemon: Pokemon, moveId: MoveId): boolean {
+    if (pokemon.getMoveset().some((mv) => mv.moveId === moveId)) {
+      if (!simulated) {
+        globalScene.queueMessage(this.getInterruptedText(actingPokemon, moveId));
       }
+      return true;
     }
     return false;
   }
 
-  /**
-   * Checks if the source of the tag has the parameter move in its moveset and that the source is still active
-   * @override
-   * @param moveId the move under investigation
-   * @returns `false` if either condition is not met
-   */
-  public override isMoveRestricted(moveId: MoveId, _user: Pokemon): boolean {
-    const source = this.getSourcePokemon();
-    if (source) {
-      const sourceMoveset = source.getMoveset().map((m) => m.moveId);
-      return sourceMoveset?.includes(moveId) && source.isActive(true);
-    }
-    return false;
-  }
-
-  override selectionDeniedText(pokemon: Pokemon, moveId: MoveId): string {
+  public getInterruptedText(pokemon: Pokemon, moveId: MoveId): string {
     return i18next.t("battle:moveDisabledImprison", {
       pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
       moveName: allMoves[moveId].name,
     });
   }
 
-  override interruptedText(pokemon: Pokemon, moveId: MoveId): string {
-    return i18next.t("battle:moveDisabledImprison", {
-      pokemonNameWithAffix: getPokemonNameWithAffix(pokemon),
-      moveName: allMoves[moveId].name,
-    });
+  public getSelectionDeniedText(pokemon: Pokemon, moveId: MoveId): string {
+    return this.getInterruptedText(pokemon, moveId);
   }
 }
 
@@ -3790,8 +3790,8 @@ export function getBattlerTag(
       return new TormentTag(sourceId);
     case BattlerTagType.TAUNT:
       return new TauntTag();
-    case BattlerTagType.IMPRISON:
-      return new ImprisonTag(sourceId);
+    case BattlerTagType.IMPRISONING:
+      return new ImprisoningTag();
     case BattlerTagType.SYRUP_BOMB:
       return new SyrupBombTag(sourceId);
     case BattlerTagType.TELEKINESIS:

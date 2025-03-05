@@ -111,7 +111,6 @@ export class AddBattlerTagAttr extends ChanceBasedMoveEffectAttr {
       case BattlerTagType.TAR_SHOT:
       case BattlerTagType.TORMENT:
       case BattlerTagType.TAUNT:
-      case BattlerTagType.IMPRISON:
       case BattlerTagType.SYRUP_BOMB:
       case BattlerTagType.TELEKINESIS:
       case BattlerTagType.POWDER:
@@ -160,6 +159,7 @@ export class AddBattlerTagAttr extends ChanceBasedMoveEffectAttr {
       case BattlerTagType.GRUDGE:
       case BattlerTagType.DESTINY_BOND:
       case BattlerTagType.RAGE:
+      case BattlerTagType.IMPRISONING:
       case BattlerTagType.BYPASS_SPEED:
         return 3;
       case BattlerTagType.PROTECTED:
