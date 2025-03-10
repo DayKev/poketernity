@@ -621,20 +621,18 @@ export default class BattleScene extends SceneBase {
     this.moneyText.setOrigin(1, 0.5);
     this.fieldUI.add(this.moneyText);
 
-    this.scoreText = addTextObject(GAME_WIDTH - 2, 0, "", TextStyle.PARTY, { fontSize: "54px" });
+    this.scoreText = addTextObject(GAME_WIDTH - 2, 0, "", TextStyle.SCORE);
     this.scoreText.setName("text-score");
     this.scoreText.setOrigin(1, 0.5);
     this.fieldUI.add(this.scoreText);
 
-    this.luckText = addTextObject(GAME_WIDTH - 2, 0, "", TextStyle.PARTY, { fontSize: "54px" });
+    this.luckText = addTextObject(GAME_WIDTH - 2, 0, "", TextStyle.SCORE);
     this.luckText.setName("text-luck");
     this.luckText.setOrigin(1, 0.5);
     this.luckText.setVisible(false);
     this.fieldUI.add(this.luckText);
 
-    this.luckLabelText = addTextObject(GAME_WIDTH - 2, 0, i18next.t("common:luckIndicator"), TextStyle.PARTY, {
-      fontSize: "54px",
-    });
+    this.luckLabelText = addTextObject(GAME_WIDTH - 2, 0, i18next.t("common:luckIndicator"), TextStyle.SCORE);
     this.luckLabelText.setName("text-luck-label");
     this.luckLabelText.setOrigin(1, 0.5);
     this.luckLabelText.setVisible(false);
@@ -1921,6 +1919,7 @@ export default class BattleScene extends SceneBase {
     if (luckValue < 14) {
       this.luckText.setTint(getLuckTextTint(luckValue));
     } else {
+      // TODO: create helper function
       this.luckText.setTint(0xffef5c, 0x47ff69, 0x6b6bff, 0xff6969);
     }
     this.luckLabelText.setX(GAME_WIDTH - 2 - (this.luckText.displayWidth + 2));
