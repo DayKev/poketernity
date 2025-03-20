@@ -16,7 +16,7 @@ import { DYNAMAX_DAMAGE_TAKEN_FACTOR, PLAYER_PARTY_MAX_SIZE } from "#app/constan
 import type { AbAttr } from "#app/data/abilities/ab-attrs/ab-attr";
 import type { Ability } from "#app/data/abilities/ability";
 import { applyAbAttrs, getAbApplyFunc } from "#app/data/abilities/apply-ab-attrs";
-import { applyBattlerTags } from "#app/data/apply-battler-tags";
+import { applyBattlerTags } from "#app/data/battler-tags/utils/apply-battler-tags";
 import { NoCritTag } from "#app/data/arena-tag";
 import { speciesEggMoves } from "#app/data/balance/egg-moves";
 import { starterPassiveAbilities } from "#app/data/balance/passives";
@@ -34,23 +34,21 @@ import {
   speciesStarterCosts,
 } from "#app/data/balance/starters";
 import { reverseCompatibleTms, tmPoolTiers, tmSpecies } from "#app/data/balance/tms";
-import {
-  BattlerTag,
-  DragonCheerTag,
-  ExposedTag,
-  HighestStatBoostTag,
-  MoveRestrictionBattlerTag,
-  PowerTrickTag,
-  TypeImmuneTag,
-  getBattlerTag,
-  type AutotomizedTag,
-  type CritBoostStackableTag,
-  type EncoreTag,
-  type ImprisoningTag,
-  type RestrictingBattlerTag,
-  type SubstituteTag,
-  type UproarTag,
-} from "#app/data/battler-tags";
+import { getBattlerTag } from "#app/data/battler-tags/utils/get-battler-tag";
+import type { AutotomizedTag } from "#app/data/battler-tags/autotomized-tag";
+import { BattlerTag } from "#app/data/battler-tags/battler-tag";
+import type { CritBoostStackableTag } from "#app/data/battler-tags/crit-boost-stackable-tag";
+import { DragonCheerTag } from "#app/data/battler-tags/dragon-cheer-tag";
+import type { EncoreTag } from "#app/data/battler-tags/encore-tag";
+import { ExposedTag } from "#app/data/battler-tags/exposed-tag";
+import { HighestStatBoostTag } from "#app/data/battler-tags/highest-stat-boost-tag";
+import type { ImprisoningTag } from "#app/data/battler-tags/imprisoning-tag";
+import { MoveRestrictionBattlerTag } from "#app/data/battler-tags/move-restriction-battler-tag";
+import { PowerTrickTag } from "#app/data/battler-tags/power-trick-tag";
+import { type RestrictingBattlerTag } from "#app/data/battler-tags/restricting-battler-tag";
+import type { SubstituteTag } from "#app/data/battler-tags/substitute-tag";
+import { TypeImmuneTag } from "#app/data/battler-tags/type-immune-tag";
+import type { UproarTag } from "#app/data/battler-tags/uproar-tag";
 import { CustomPokemonData } from "#app/data/custom-pokemon-data";
 import { allAbilities, allMoves } from "#app/data/data-lists";
 import { DexAttr } from "#app/data/dex-attributes";
