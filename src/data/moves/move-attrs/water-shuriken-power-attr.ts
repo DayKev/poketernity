@@ -3,15 +3,15 @@ import { Species } from "#enums/species";
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute implementing {@link https://bulbapedia.bulbagarden.net/wiki/Water_Shuriken_(move) | Water Shuriken}'s
  * effect of setting the move's power to 20 per strike when
  * used by Battle Bond Ash Greninja.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class WaterShurikenPowerAttr extends VariablePowerAttr {
+export class WaterShurikenPowerAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, _target: Pokemon, _move: Move, power: NumberHolder): boolean {
     if (user.species.speciesId === Species.GRENINJA && user.hasAbility(Abilities.BATTLE_BOND) && user.formIndex === 2) {
       power.value = 20;

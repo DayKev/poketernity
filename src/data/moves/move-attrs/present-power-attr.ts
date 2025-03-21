@@ -4,7 +4,7 @@ import { getPokemonNameWithAffix } from "#app/messages";
 import { type NumberHolder, toDmgValue } from "#app/utils";
 import i18next from "i18next";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute to set move power based on one of four random outcomes (listed below).
@@ -13,9 +13,9 @@ import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-att
  * - 10% : 120 BP attack
  * - 20% : Heal 25% of the target's HP
  * Used for {@link https://bulbapedia.bulbagarden.net/wiki/Present_(move) | Present}.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class PresentPowerAttr extends VariablePowerAttr {
+export class PresentPowerAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, target: Pokemon, _move: Move, power: NumberHolder): boolean {
     /**
      * If this move is multi-hit, and this attribute is applied to any hit

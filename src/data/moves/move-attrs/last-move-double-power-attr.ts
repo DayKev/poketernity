@@ -4,15 +4,15 @@ import { MoveResult } from "#enums/move-result";
 import { globalScene } from "#app/global-scene";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute used for moves that double in power if the given move immediately
  * preceded the move applying the attribute, namely Fusion Flare and
  * Fusion Bolt.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class LastMoveDoublePowerAttr extends VariablePowerAttr {
+export class LastMoveDoublePowerAttr extends VariableBasePowerAttr {
   /** The move that must precede the current move */
   private moveId: MoveId;
 

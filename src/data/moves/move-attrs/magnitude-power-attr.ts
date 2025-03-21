@@ -4,7 +4,7 @@ import type { NumberHolder } from "#app/utils";
 import { randSeedInt } from "#app/utils";
 import i18next from "i18next";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 export const magnitudeMessageFunc = (_user: Pokemon, _target: Pokemon, _move: Move) => {
   let message: string;
@@ -32,9 +32,9 @@ export const magnitudeMessageFunc = (_user: Pokemon, _target: Pokemon, _move: Mo
 /**
  * Attribute to set move power based on randomly assigned
  * {@link https://bulbapedia.bulbagarden.net/wiki/Magnitude_(move) | Magnitude} level.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class MagnitudePowerAttr extends VariablePowerAttr {
+export class MagnitudePowerAttr extends VariableBasePowerAttr {
   override apply(_user: Pokemon, _target: Pokemon, _move: Move, power: NumberHolder): boolean {
     const magnitudeThresholds = [5, 15, 35, 65, 75, 95];
     const magnitudePowers = [10, 30, 50, 70, 90, 100, 110, 150];

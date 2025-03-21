@@ -1,14 +1,14 @@
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute to change a {@link https://bulbapedia.bulbagarden.net/wiki/Move_variations#Pledge_moves | Pledge move}'s
  * power to 150 when combined with another unique Pledge move from an ally.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class CombinedPledgePowerAttr extends VariablePowerAttr {
+export class CombinedPledgePowerAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, _target: Pokemon, move: Move, power: NumberHolder): boolean {
     const combinedPledgeMove = user.turnData.combiningPledge;
 

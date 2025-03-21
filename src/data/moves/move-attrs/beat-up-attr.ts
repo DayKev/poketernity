@@ -2,7 +2,7 @@ import { Stat } from "#enums/stat";
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Helper function to calculate the the base power of an ally's hit when using Beat Up.
@@ -29,10 +29,10 @@ const beatUpFunc = (user: Pokemon, allyIndex: number): number => {
 /**
  * Attribute to modify the base power of a hit according to the party Pokemon contributing to the hit.
  * Used for {@link https://bulbapedia.bulbagarden.net/wiki/Beat_Up_(move) | Beat Up}.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  * @see {@linkcode beatUpFunc}
  */
-export class BeatUpAttr extends VariablePowerAttr {
+export class BeatUpAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, _target: Pokemon, _move: Move, power: NumberHolder): boolean {
     const party = user.getParty();
     const allyCount = party.filter((pokemon) => {

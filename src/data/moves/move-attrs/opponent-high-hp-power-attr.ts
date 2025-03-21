@@ -1,15 +1,15 @@
 import type { Pokemon } from "#app/field/pokemon";
 import { type NumberHolder, toDmgValue } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute used for moves whose base power scales with the opponent's HP
  * Used for Crush Grip, Wring Out, and Hard Press
  * `maxBasePower` 100 for Hard Press, 120 for others
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class OpponentHighHpPowerAttr extends VariablePowerAttr {
+export class OpponentHighHpPowerAttr extends VariableBasePowerAttr {
   maxBasePower: number;
 
   constructor(maxBasePower: number) {

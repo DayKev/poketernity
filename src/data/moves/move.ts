@@ -26,7 +26,7 @@ import { OneHitKOAccuracyAttr } from "#app/data/moves/move-attrs/one-hit-ko-accu
 import { SacrificialAttr } from "#app/data/moves/move-attrs/sacrificial-attr";
 import { TypelessAttr } from "#app/data/moves/move-attrs/typeless-attr";
 import { VariableAccuracyAttr } from "#app/data/moves/move-attrs/variable-accuracy-attr";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 import { VariableTargetAttr } from "#app/data/moves/move-attrs/variable-target-attr";
 import type { MoveConditionFunc } from "#app/@types/MoveConditionFunc";
 import { MoveCondition } from "#app/data/moves/move-conditions/move-condition";
@@ -757,7 +757,7 @@ export abstract class Move implements Localizable {
 
     applyAbAttrs(AbAttrFlag.MOVE_TYPE_CHANGE, source, true, this, target, undefined, typeChangeMovePowerMultiplier);
 
-    applyMoveAttrs(VariablePowerAttr, source, target, this, power);
+    applyMoveAttrs(VariableBasePowerAttr, source, target, this, power);
 
     applyAbAttrs(AbAttrFlag.VARIABLE_MOVE_POWER, source, simulated, this, target, power);
 
@@ -923,7 +923,7 @@ export class AttackMove extends Move {
       }
 
       const power = new NumberHolder(this.power);
-      applyMoveAttrs(VariablePowerAttr, user, target, move, power);
+      applyMoveAttrs(VariableBasePowerAttr, user, target, move, power);
 
       attackScore += Math.floor(power.value / 5);
     }

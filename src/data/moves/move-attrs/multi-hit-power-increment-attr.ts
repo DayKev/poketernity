@@ -1,14 +1,14 @@
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute used for multi-hit moves that increase power in increments of the
  * move's base power for each hit, namely Triple Kick and Triple Axel.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class MultiHitPowerIncrementAttr extends VariablePowerAttr {
+export class MultiHitPowerIncrementAttr extends VariableBasePowerAttr {
   /** The max number of base power increments allowed for this move */
   private maxHits: number;
 

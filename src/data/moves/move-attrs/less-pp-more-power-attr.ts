@@ -1,14 +1,14 @@
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute to scale move power inversely with its remaining PP.
  * Used for {@link https://bulbapedia.bulbagarden.net/wiki/Trump_Card_(move) | Trump Card}.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class LessPPMorePowerAttr extends VariablePowerAttr {
+export class LessPPMorePowerAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, _target: Pokemon, move: Move, power: NumberHolder): boolean {
     const ppMax = move.pp;
     const ppUsed = user.moveset.find((m) => m.moveId === move.id)?.ppUsed ?? 0;

@@ -1,14 +1,14 @@
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute to multiply move power by the output of
  * a set {@linkcode powerMultiplierFunc | function}.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class MovePowerMultiplierAttr extends VariablePowerAttr {
+export class MovePowerMultiplierAttr extends VariableBasePowerAttr {
   private powerMultiplierFunc: (user: Pokemon, target: Pokemon, move: Move) => number;
 
   constructor(powerMultiplier: (user: Pokemon, target: Pokemon, move: Move) => number) {

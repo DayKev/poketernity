@@ -1,15 +1,15 @@
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute to modify move power based on the user's weight relative to the target.
  * Used for {@link https://bulbapedia.bulbagarden.net/wiki/Heavy_Slam_(move) | Heavy Slam}
  * and {@linkcode https://bulbapedia.bulbagarden.net/wiki/Heat_Crash_(move) | Heat Crash}.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class CompareWeightPowerAttr extends VariablePowerAttr {
+export class CompareWeightPowerAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, target: Pokemon, _move: Move, power: NumberHolder): boolean {
     const userWeight = user.getWeight();
     const targetWeight = target.getWeight();

@@ -177,7 +177,7 @@ import { allMoves, allAbilities } from "#app/data/data-lists";
 import { type Move } from "#app/data/moves/move";
 import { FlinchAttr } from "#app/data/moves/move-attrs/flinch-attr";
 import { VariableMoveTypeAttr } from "#app/data/moves/move-attrs/variable-move-type-attr";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 import { getNonVolatileStatusEffects } from "#app/data/status-effect";
 import { type Pokemon } from "#app/field/pokemon";
 import { globalScene } from "#app/global-scene";
@@ -508,7 +508,7 @@ export function initAbilities() {
           return false;
         }
         const power = new NumberHolder(move.power);
-        applyMoveAttrs(VariablePowerAttr, user, target, move, power);
+        applyMoveAttrs(VariableBasePowerAttr, user, target, move, power);
         return power.value <= 60;
       },
       1.5,

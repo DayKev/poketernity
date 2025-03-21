@@ -1,7 +1,7 @@
 import type { Pokemon } from "#app/field/pokemon";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Tallies the number of positive stages for a given {@linkcode Pokemon}.
@@ -15,9 +15,9 @@ const countPositiveStatStages = (pokemon: Pokemon): number => {
 /**
  * Attribute that increases power based on the amount of positive stat stage increases.
  * Used for {@link https://bulbapedia.bulbagarden.net/wiki/Stored_Power_(move) | Stored Power}.
- * @extends VariablePowerAttr
+ * @extends VariableBasePowerAttr
  */
-export class PositiveStatStagePowerAttr extends VariablePowerAttr {
+export class PositiveStatStagePowerAttr extends VariableBasePowerAttr {
   override apply(user: Pokemon, _target: Pokemon, _move: Move, power: NumberHolder): boolean {
     const positiveStatStages: number = countPositiveStatStages(user);
 
@@ -31,7 +31,7 @@ export class PositiveStatStagePowerAttr extends VariablePowerAttr {
  * but gains 20 power for every increased stat stage the target has,
  * up to a maximum of 200 base power in total.
  */
-export class PunishmentPowerAttr extends VariablePowerAttr {
+export class PunishmentPowerAttr extends VariableBasePowerAttr {
   private PUNISHMENT_MIN_BASE_POWER = 60;
   private PUNISHMENT_MAX_BASE_POWER = 200;
 

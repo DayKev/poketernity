@@ -2,15 +2,15 @@ import type { Pokemon } from "#app/field/pokemon";
 import { globalScene } from "#app/global-scene";
 import type { NumberHolder } from "#app/utils";
 import type { Move } from "#app/data/moves/move";
-import { VariablePowerAttr } from "#app/data/moves/move-attrs/variable-power-attr";
+import { VariableBasePowerAttr } from "#app/data/moves/move-attrs/variable-base-power-attr";
 
 /**
  * Attribute to double move power if the target has not used a move this turn.
  * Used for {@linkcode https://bulbapedia.bulbagarden.net/wiki/Bolt_Beak_(move) | Bolt Beak}
  * and {@link https://bulbapedia.bulbagarden.net/wiki/Fishious_Rend_(move) | Fishious Rend}.
- * @extends VariablePowerAttr.
+ * @extends VariableBasePowerAttr.
  */
-export class FirstAttackDoublePowerAttr extends VariablePowerAttr {
+export class FirstAttackDoublePowerAttr extends VariableBasePowerAttr {
   override apply(_user: Pokemon, target: Pokemon, _move: Move, power: NumberHolder): boolean {
     console.log(target.getLastXMoves(1), globalScene.currentBattle.turn);
     if (!target.getLastXMoves(1).find((m) => m.turn === globalScene.currentBattle.turn)) {
