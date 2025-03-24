@@ -1233,9 +1233,6 @@ export default class BattleScene extends SceneBase {
     }
 
     if (clearScene) {
-      // Reload variant data in case sprite set has changed
-      this.initVariantData();
-
       this.audioManager.fadeOutBgm(250, false);
       this.tweens.add({
         targets: [this.uiContainer],
@@ -1245,8 +1242,15 @@ export default class BattleScene extends SceneBase {
         onComplete: () => {
           this.clearPhaseQueue();
 
+          // destroying those containers will call 'container.removeAll(true)', destroying all their children as well
+          this.uiContainer.destroy();
+          this.field.destroy();
+          this.fieldUI.destroy();
+
           this.children.removeAll(true);
           this.game.domContainer.innerHTML = "";
+
+          // TODO: launchBattle will call reset(false, false, true) too, this can probably be done better
           this.launchBattle();
         },
       });
