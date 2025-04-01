@@ -23,11 +23,11 @@ import type { PostBattleInitAbAttr } from "#app/data/abilities/ab-attrs/post-bat
 import type { PostItemLostAbAttr } from "#app/data/abilities/ab-attrs/post-item-lost-ab-attr";
 import { applyAbAttrs } from "#app/data/abilities/apply-ab-attrs";
 import { MoveChargeAnim } from "#app/data/animations/move-charge-anim";
-import { biomeDepths, getBiomeName } from "#app/data/balance/biomes";
 import { allTrainerConfigs } from "#app/data/balance/trainer-configs/all-trainer-configs";
 import type { DestinyBondTag } from "#app/data/battler-tags/destiny-bond-tag";
 import type { GrudgeTag } from "#app/data/battler-tags/grudge-tag";
-import { allAbilities, allMoves, allSpecies } from "#app/data/data-lists";
+import { getBiomeName } from "#app/data/biome-utils";
+import { allAbilities, allBiomes, allMoves, allSpecies } from "#app/data/data-lists";
 import { classicFinalBossDialogue } from "#app/data/dialogue";
 import { populateAnims } from "#app/data/init/init-anims";
 import { initCommonAnims } from "#app/data/init/init-common-anims";
@@ -151,6 +151,7 @@ import {
   randItem,
   randomString,
   randSeedInt,
+  randSeedItem,
   shiftCharCodes,
 } from "#app/utils";
 import { loadCommonAnimAssets } from "#app/utils/anim-utils";
@@ -1473,8 +1474,8 @@ export default class BattleScene extends SceneBase {
     return this.currentBattle;
   }
 
-  newArena(biome: BiomeId): Arena {
-    this.arena = new Arena(biome, BiomeId[biome].toLowerCase());
+  newArena(biomeId: BiomeId): Arena {
+    this.arena = new Arena(biomeId);
     this.eventTarget.dispatchEvent(new NewArenaEvent());
 
     this.arenaBg.pipelineData = { terrainColorRatio: this.arena.getBgTerrainColorRatioForBiome() };
@@ -1873,7 +1874,7 @@ export default class BattleScene extends SceneBase {
 
   updateBiomeWaveText(): void {
     const isBoss = !(this.currentBattle.waveIndex % 10);
-    const biomeString: string = getBiomeName(this.arena.biomeType);
+    const biomeString: string = getBiomeName(this.arena.biomeId);
     this.fieldUI.moveAbove(this.biomeWaveText, this.luckText);
     this.biomeWaveText.setText(biomeString + " - " + this.currentBattle.waveIndex.toString());
     this.biomeWaveText.setColor(isBoss ? CommonColor.SOFT_PINK : CommonColor.WHITE);
@@ -2036,29 +2037,12 @@ export default class BattleScene extends SceneBase {
     return filteredSpecies[randSeedInt(filteredSpecies.length)];
   }
 
-  generateRandomBiome(waveIndex: number): BiomeId {
-    const relWave = waveIndex % 250;
-    const biomes = getEnumValues(BiomeId).slice(1, getEnumValues(BiomeId).filter((b) => b >= 40).length * -1);
-    const maxDepth = biomeDepths[BiomeId.END][0] - 2;
-    const depthWeights = new Array(maxDepth + 1)
-      .fill(null)
-      .map((_, i: number) => ((1 - Math.min(Math.abs(i / (maxDepth - 1) - relWave / 250) + 0.25, 1)) / 0.75) * 250);
-    const biomeThresholds: number[] = [];
-    let totalWeight = 0;
-    for (const biome of biomes) {
-      totalWeight += Math.ceil(depthWeights[biomeDepths[biome][0] - 1] / biomeDepths[biome][1]);
-      biomeThresholds.push(totalWeight);
-    }
-
-    const randInt = randSeedInt(totalWeight);
-
-    for (const biome of biomes) {
-      if (randInt < biomeThresholds[biome]) {
-        return biome;
-      }
-    }
-
-    return biomes[randSeedInt(biomes.length)];
+  /**
+   * TODO: Rewrite this later for weighting?
+   */
+  generateRandomBiome(_waveIndex: number): BiomeId {
+    const excludedBiomeIds = [BiomeId.TOWN, BiomeId.END];
+    return randSeedItem([...allBiomes.keys()].filter((b) => !excludedBiomeIds.includes(b)));
   }
 
   toggleInvert(invert: boolean): void {
@@ -2975,7 +2959,7 @@ export default class BattleScene extends SceneBase {
     const gameInfo = {
       playTime: this.sessionPlayTime ?? 0,
       gameMode: this.currentBattle ? this.gameMode.getName() : "Title",
-      biome: this.currentBattle ? getBiomeName(this.arena.biomeType) : "",
+      biome: this.currentBattle ? getBiomeName(this.arena.biomeId) : "",
       wave: this.currentBattle?.waveIndex ?? 0,
       party: this.party
         ? this.party.map((p) => {
@@ -3367,7 +3351,7 @@ export default class BattleScene extends SceneBase {
         ? this.mysteryEncounterSaveData.encounteredEvents[this.mysteryEncounterSaveData.encounteredEvents.length - 1]
             .type
         : null;
-    const biomeMysteryEncounters = mysteryEncountersByBiome.get(this.arena.biomeType) ?? [];
+    const biomeMysteryEncounters = mysteryEncountersByBiome.get(this.arena.biomeId) ?? [];
     // If no valid encounters exist at tier, checks next tier down, continuing until there are some encounters available
     while (availableEncounters.length === 0 && tier !== null) {
       availableEncounters = biomeMysteryEncounters
