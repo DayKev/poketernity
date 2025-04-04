@@ -1,6 +1,5 @@
 // -- start tsdoc imports --
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { type getRandomWeatherType } from "#app/data/weather";
 import { type Arena } from "#app/field/arena";
 /* eslint-enable @typescript-eslint/no-unused-vars */
 // -- end tsdoc imports --
@@ -15,8 +14,7 @@ import type { WeatherType } from "#enums/weather-type";
 
 /**
  * @todo
- * - Consider `partial` and `Omit` or an interface for `pokemonPool` and `trainerPool`
- * - `weatherPool` and `terrainPool` are not used anywhere, move {@linkcode getRandomWeatherType} here
+ * - Consider `map`, `partial` and `Omit` or an interface for `pokemonPool` and `trainerPool`
  * - Add image assets here like `biomeWithProps` (in `arena.ts`)
  * - Consider moving `mysteryEncounterByBiome` here as well
  * - Move bgm loop point here as well
@@ -29,8 +27,14 @@ export class Biome {
   public readonly pokemonPool: Record<BiomePoolTier, Record<TimeOfDay, SpeciesId[]>>;
   /** A mapping of BiomePoolTier to a list of TrainerType representing the trainers that appear */
   public readonly trainerPool: Record<BiomePoolTier, TrainerType[]>;
-  /** weatherPool and terrainPool are currently unused, to be implemented in a future PR */
-  public readonly weatherPool: Record<WeatherType, number>;
+  /** The chance of a trainer where trainerChance is the denominator. A value of 0 means no trainer */
+  public readonly trainerChance: number;
+  /**
+   * A mapping of {@linkcode WeatherType} to weight for what weather the biome will attempt to set upon entry
+   * The chance of sun is set to 0 if it is dusk/night
+   */
+  public readonly weatherPool: Partial<Record<WeatherType, number>>;
+  /** terrainPool is currently unused, to be implemented in a later PR */
   public readonly terrainPool: Record<TerrainType, number>;
   /** String representing the bgm of the biome */
   public readonly bgm: string;
@@ -39,13 +43,15 @@ export class Biome {
     biomeId: BiomeId,
     pokemonPool: Record<BiomePoolTier, Record<TimeOfDay, SpeciesId[]>>,
     trainerPool: Record<BiomePoolTier, TrainerType[]>,
-    weatherPool: Record<WeatherType, number>,
+    trainerChance: number,
+    weatherPool: Partial<Record<WeatherType, number>>,
     terrainPool: Record<TerrainType, number>,
     bgm: string,
   ) {
     this.biomeId = biomeId;
     this.pokemonPool = pokemonPool;
     this.trainerPool = trainerPool;
+    this.trainerChance = trainerChance;
     this.weatherPool = weatherPool;
     this.terrainPool = terrainPool;
     this.bgm = bgm;

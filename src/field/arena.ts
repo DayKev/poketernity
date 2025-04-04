@@ -17,7 +17,7 @@ import { globalScene } from "#app/global-scene";
 import Overrides from "#app/overrides";
 import { CommonAnimPhase } from "#app/phases/common-anim-phase";
 import { ShowAbilityPhase } from "#app/phases/show-ability-phase";
-import { type AbstractConstructor, randSeedInt } from "#app/utils";
+import { type AbstractConstructor, getEnumValues, randSeedInt, weightedPick } from "#app/utils";
 import { getPokemonSpecies } from "#app/utils/pokemon-species-utils";
 import { AbAttrFlag } from "#enums/ab-attr-flag";
 import { AbilityId } from "#enums/ability-id";
@@ -564,47 +564,7 @@ export class Arena {
    * @returns n where 1/n is the chance of a trainer battle
    */
   getTrainerChance(): number {
-    switch (this.biomeId) {
-      case BiomeId.METROPOLIS:
-        return 2;
-      case BiomeId.SLUM:
-      case BiomeId.BEACH:
-      case BiomeId.DOJO:
-      case BiomeId.CONSTRUCTION_SITE:
-        return 4;
-      case BiomeId.PLAINS:
-      case BiomeId.GRASS:
-      case BiomeId.LAKE:
-      case BiomeId.CAVE:
-        return 6;
-      case BiomeId.TALL_GRASS:
-      case BiomeId.FOREST:
-      case BiomeId.SEA:
-      case BiomeId.SWAMP:
-      case BiomeId.MOUNTAIN:
-      case BiomeId.BADLANDS:
-      case BiomeId.DESERT:
-      case BiomeId.MEADOW:
-      case BiomeId.POWER_PLANT:
-      case BiomeId.GRAVEYARD:
-      case BiomeId.FACTORY:
-      case BiomeId.SNOWY_FOREST:
-        return 8;
-      case BiomeId.ICE_CAVE:
-      case BiomeId.VOLCANO:
-      case BiomeId.RUINS:
-      case BiomeId.WASTELAND:
-      case BiomeId.JUNGLE:
-      case BiomeId.FAIRY_CAVE:
-        return 12;
-      case BiomeId.SEABED:
-      case BiomeId.ABYSS:
-      case BiomeId.SPACE:
-      case BiomeId.TEMPLE:
-        return 16;
-      default:
-        return 0;
-    }
+    return allBiomes.get(this.biomeId).trainerChance;
   }
 
   /**
@@ -641,6 +601,25 @@ export class Arena {
     }
 
     return TimeOfDay.DAWN;
+  }
+
+  /**
+   * Sets a random weather based on the time of day and the current biome
+   */
+  setRandomWeather(): void {
+    const weatherPool = allBiomes.get(this.biomeId).weatherPool;
+    const weatherMap = new Map<WeatherType, number>();
+    for (const id of getEnumValues(WeatherType)) {
+      weatherMap.set(id, weatherPool[id] ?? 0);
+    }
+
+    // If the time is dusk or night, set the chance of sun to 0
+    if ([TimeOfDay.DUSK, TimeOfDay.NIGHT].includes(this.getTimeOfDay())) {
+      weatherMap.set(WeatherType.SUNNY, 0);
+    }
+
+    const randomWeather = weightedPick(weatherMap);
+    this.trySetWeather(randomWeather, false);
   }
 
   /**

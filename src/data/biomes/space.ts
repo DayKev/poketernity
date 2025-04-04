@@ -1,9 +1,11 @@
 import { Biome } from "#app/data/biome";
-import { townTrainerPool, townWeatherPool, townTerrainPool } from "#app/data/biomes/town";
+import { townTerrainPool } from "#app/data/biomes/town";
 import { BiomeId } from "#enums/biome-id";
 import { BiomePoolTier } from "#enums/biome-pool-tier";
 import { SpeciesId } from "#enums/species-id";
 import { TimeOfDay } from "#enums/time-of-day";
+import { TrainerType } from "#enums/trainer-type";
+import { WeatherType } from "#enums/weather-type";
 
 const pokemonPool = {
   [BiomePoolTier.COMMON]: {
@@ -77,11 +79,21 @@ const pokemonPool = {
   },
 };
 
-export const spaceBiome = new Biome(
-  BiomeId.SPACE,
-  pokemonPool,
-  townTrainerPool,
-  townWeatherPool,
-  townTerrainPool,
-  "town",
-);
+// @todo this trainerPool is empty but space has a nonzero chance of spawning trainers hmmm
+const trainerPool = {
+  [BiomePoolTier.COMMON]: [],
+  [BiomePoolTier.UNCOMMON]: [],
+  [BiomePoolTier.RARE]: [],
+  [BiomePoolTier.SUPER_RARE]: [],
+  [BiomePoolTier.ULTRA_RARE]: [],
+  [BiomePoolTier.BOSS]: [TrainerType.OLYMPIA],
+  [BiomePoolTier.BOSS_RARE]: [],
+  [BiomePoolTier.BOSS_SUPER_RARE]: [],
+  [BiomePoolTier.BOSS_ULTRA_RARE]: [],
+};
+
+const weatherPool = {
+  [WeatherType.NONE]: 1,
+};
+
+export const spaceBiome = new Biome(BiomeId.SPACE, pokemonPool, trainerPool, 16, weatherPool, townTerrainPool, "town");

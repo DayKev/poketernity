@@ -11,7 +11,7 @@ import { WeatherType } from "#enums/weather-type";
  * @todo Remove these exports. Currently exporting them as temporary
  * filler values for all other biomes.
  */
-export const townPokemonPool: Record<BiomePoolTier, Record<TimeOfDay, SpeciesId[]>> = {
+const pokemonPool: Record<BiomePoolTier, Record<TimeOfDay, SpeciesId[]>> = {
   [BiomePoolTier.COMMON]: {
     [TimeOfDay.DAWN]: [
       SpeciesId.CATERPIE,
@@ -163,7 +163,7 @@ export const townPokemonPool: Record<BiomePoolTier, Record<TimeOfDay, SpeciesId[
   },
 };
 
-export const townTrainerPool: Record<BiomePoolTier, TrainerType[]> = {
+const trainerPool: Record<BiomePoolTier, TrainerType[]> = {
   [BiomePoolTier.COMMON]: [TrainerType.YOUNGSTER],
   [BiomePoolTier.UNCOMMON]: [],
   [BiomePoolTier.RARE]: [],
@@ -175,17 +175,8 @@ export const townTrainerPool: Record<BiomePoolTier, TrainerType[]> = {
   [BiomePoolTier.BOSS_ULTRA_RARE]: [],
 };
 
-export const townWeatherPool: Record<WeatherType, number> = {
+const weatherPool: Partial<Record<WeatherType, number>> = {
   [WeatherType.NONE]: 1,
-  [WeatherType.SUNNY]: 0,
-  [WeatherType.RAIN]: 0,
-  [WeatherType.SANDSTORM]: 0,
-  [WeatherType.HAIL]: 0,
-  [WeatherType.SNOW]: 0,
-  [WeatherType.FOG]: 0,
-  [WeatherType.HEAVY_RAIN]: 0,
-  [WeatherType.HARSH_SUN]: 0,
-  [WeatherType.STRONG_WINDS]: 0,
 };
 
 export const townTerrainPool: Record<TerrainType, number> = {
@@ -196,11 +187,4 @@ export const townTerrainPool: Record<TerrainType, number> = {
   [TerrainType.PSYCHIC]: 0,
 };
 
-export const townBiome = new Biome(
-  BiomeId.TOWN,
-  townPokemonPool,
-  townTrainerPool,
-  townWeatherPool,
-  townTerrainPool,
-  "town",
-);
+export const townBiome = new Biome(BiomeId.TOWN, pokemonPool, trainerPool, 0, weatherPool, townTerrainPool, "town");
