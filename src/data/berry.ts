@@ -25,8 +25,7 @@ export function getBerryPredicate(berryType: BerryType): BerryPredicate {
     case BerryType.LUM:
       return (pokemon: Pokemon) => pokemon.hasNonVolatileStatusEffect(true, true);
     case BerryType.ENIGMA:
-      return (pokemon: Pokemon) =>
-        !!pokemon.turnData.attacksReceived.filter((a) => a.result === HitResult.SUPER_EFFECTIVE).length;
+      return (pokemon: Pokemon) => pokemon.turnData.attacksReceived.some((a) => a.result === HitResult.SUPER_EFFECTIVE);
     case BerryType.LIECHI:
     case BerryType.GANLON:
     case BerryType.PETAYA:
@@ -55,7 +54,7 @@ export function getBerryPredicate(berryType: BerryType): BerryPredicate {
       return (pokemon: Pokemon) => {
         const threshold = new NumberHolder(0.25);
         applyAbAttrs<ReduceBerryUseThresholdAbAttr>(AbAttrFlag.REDUCE_BERRY_USE_THRESHOLD, pokemon, false, threshold);
-        return !!pokemon.getMoveset().find((m) => !m.getPpRatio());
+        return pokemon.getMoveset().some((m) => !m.getPpRatio());
       };
   }
 }
