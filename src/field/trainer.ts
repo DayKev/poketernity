@@ -6,7 +6,7 @@ import type { TrainerConfig, TrainerPartyTemplate } from "#app/data/trainer-conf
 import { TrainerPartyCompoundTemplate, trainerPartyTemplates } from "#app/data/trainer-config";
 import { TrainerSlot } from "#enums/trainer-slot";
 import { TrainerPoolTier } from "#enums/trainer-pool-tier";
-import { signatureSpecies } from "#app/data/balance/signatureSpecies";
+import { signatureSpecies } from "#app/data/signatureSpecies";
 import type { EnemyPokemon } from "#app/field/pokemon";
 import { randSeedWeightedItem, randSeedItem, randSeedInt } from "#app/utils";
 import type { PersistentModifier } from "#app/modifier/modifier";
@@ -18,7 +18,7 @@ import i18next from "i18next";
 import { PartyMemberStrength } from "#enums/party-member-strength";
 import { SpeciesId } from "#enums/species-id";
 import { TrainerType } from "#enums/trainer-type";
-import { allTrainerConfigs } from "#app/data/balance/trainer-configs/all-trainer-configs";
+import { allTrainerConfigs } from "#app/data/trainer-configs/all-trainer-configs";
 import { TrainerVariant } from "#enums/trainer-variant";
 
 export default class Trainer extends Phaser.GameObjects.Container {

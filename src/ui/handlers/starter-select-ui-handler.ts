@@ -2,11 +2,8 @@ import type { DexEntry } from "#app/@types/DexData";
 import type { StarterConfig } from "#app/@types/StarterConfig";
 import type { StarterMoveset } from "#app/@types/StarterData";
 import { PLAYER_PARTY_MAX_SIZE } from "#app/constants";
-import { speciesEggMoves } from "#app/data/balance/egg-moves";
-import { starterPassiveAbilities } from "#app/data/balance/passives";
-import { pokemonFormLevelMoves } from "#app/data/balance/pokemon-form-level-moves";
-import type { LevelMoves } from "#app/data/balance/pokemon-level-moves";
-import { pokemonSpeciesLevelMoves } from "#app/data/balance/pokemon-level-moves";
+import type { LevelMoves } from "#app/data/pokemon-level-moves";
+import { pokemonSpeciesLevelMoves } from "#app/data/pokemon-level-moves";
 import {
   POKERUS_STARTER_COUNT,
   getCandyProgressRequirement,
@@ -14,13 +11,16 @@ import {
   getSameSpeciesEggCandyCounts,
   getValueReductionCandyCounts,
   speciesStarterCosts,
-} from "#app/data/balance/starters";
+} from "#app/data/starters";
 import { allAbilities, allMoves, allSpecies } from "#app/data/data-lists";
 import { AbilityAttr, DexAttr } from "#app/data/dex-attributes";
 import { Egg, getEggTierForSpecies } from "#app/data/egg";
+import { speciesEggMoves } from "#app/data/egg-moves";
 import { getGrowthRateColor } from "#app/data/exp";
 import { getGenderSymbol, getGenderTextStyle } from "#app/data/gender";
 import { getNatureName } from "#app/data/nature";
+import { starterPassiveAbilities } from "#app/data/passives";
+import { pokemonFormLevelMoves } from "#app/data/pokemon-form-level-moves";
 import { pokemonFormChanges } from "#app/data/pokemon-forms";
 import { pokemonPreEvolutions } from "#app/data/pokemon-pre-evolutions";
 import type PokemonSpecies from "#app/data/pokemon-species";

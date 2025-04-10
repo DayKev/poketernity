@@ -50,22 +50,22 @@ import type { WeightMultiplierAbAttr } from "#app/data/abilities/ab-attrs/weight
 import type { Ability } from "#app/data/abilities/ability";
 import { applyAbAttrs, getAbApplyFunc } from "#app/data/abilities/apply-ab-attrs";
 import { NoCritTag } from "#app/data/arena-tag";
-import { speciesEggMoves } from "#app/data/balance/egg-moves";
-import { starterPassiveAbilities } from "#app/data/balance/passives";
-import { pokemonEvolutions } from "#app/data/balance/pokemon-evolutions/init-pokemon-evolutions";
-import { EVOLVE_MOVE, RELEARN_MOVE, type LevelMoves } from "#app/data/balance/pokemon-level-moves";
+import { speciesEggMoves } from "#app/data/egg-moves";
+import { starterPassiveAbilities } from "#app/data/passives";
+import { pokemonEvolutions } from "#app/data/pokemon-evolutions/init-pokemon-evolutions";
+import { EVOLVE_MOVE, RELEARN_MOVE, type LevelMoves } from "#app/data/pokemon-level-moves";
 import {
   BASE_HIDDEN_ABILITY_CHANCE,
   BASE_SHINY_CHANCE,
   SHINY_EPIC_CHANCE,
   SHINY_VARIANT_CHANCE,
-} from "#app/data/balance/rates";
+} from "#app/data/rates";
 import {
   CLASSIC_CANDY_FRIENDSHIP_MULTIPLIER,
   getCandyProgressRequirement,
   speciesStarterCosts,
-} from "#app/data/balance/starters";
-import { reverseCompatibleTms, tmPoolTiers, tmSpecies } from "#app/data/balance/tms";
+} from "#app/data/starters";
+import { reverseCompatibleTms, tmPoolTiers, tmSpecies } from "#app/data/tms";
 import type { AutotomizedTag } from "#app/data/battler-tags/autotomized-tag";
 import { BattlerTag } from "#app/data/battler-tags/battler-tag";
 import type { CritBoostStackableTag } from "#app/data/battler-tags/crit-boost-stackable-tag";

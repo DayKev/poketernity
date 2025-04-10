@@ -13,16 +13,16 @@ import {
   bypassLogin,
 } from "#app/constants";
 import { EntryHazardTag } from "#app/data/arena-tag";
-import { defaultStarterSpecies } from "#app/data/balance/default-starters";
-import { speciesEggMoves } from "#app/data/balance/egg-moves";
+import { defaultStarterSpecies } from "#app/data/default-starters";
+import { speciesEggMoves } from "#app/data/egg-moves";
 import {
   STARTER_CANDY_GAIN_FROM_CATCH,
   STARTER_CANDY_MULIPLIER_FOR_BOSS,
   STARTER_CANDY_MULIPLIER_FOR_EGG,
   getCandyGainMultiplierForShinies,
   speciesStarterCosts,
-} from "#app/data/balance/starters";
-import { allTrainerConfigs } from "#app/data/balance/trainer-configs/all-trainer-configs";
+} from "#app/data/starters";
+import { allTrainerConfigs } from "#app/data/trainer-configs/all-trainer-configs";
 import { allMoves, allSpecies } from "#app/data/data-lists";
 import { AbilityAttr, DexAttr } from "#app/data/dex-attributes";
 import type { Egg } from "#app/data/egg";
