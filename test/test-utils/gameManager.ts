@@ -226,11 +226,12 @@ export class GameManager {
     // This will consider all battle entry dialog as seens and skip them
     vi.spyOn(this.scene.ui, "shouldSkipDialogue").mockReturnValue(true);
 
-    if (overrides.ENEMY_HELD_ITEMS_OVERRIDE.length === 0) {
+    await this.phaseInterceptor.to("EncounterPhase");
+
+    if (overrides.ENEMY_HELD_ITEMS_OVERRIDE.length === 0 && this.override.removeEnemyStartingItems) {
       this.removeEnemyHeldItems();
     }
 
-    await this.phaseInterceptor.to("EncounterPhase");
     console.log("===finished run to final boss encounter===");
   }
 
