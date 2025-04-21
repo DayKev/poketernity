@@ -47,7 +47,7 @@ describe("Abilities - ZERO TO HERO", () => {
     expect(palafin2.isFainted()).toBe(true);
 
     game.move.select(MoveId.SPLASH);
-    await game.doFaintOpponents();
+    await game.faintOpponents();
     await game.phaseInterceptor.to(TurnEndPhase);
     game.doSelectModifier();
     await game.phaseInterceptor.to(QuietFormChangePhase);
@@ -63,7 +63,7 @@ describe("Abilities - ZERO TO HERO", () => {
     const palafin = game.scene.getPlayerPokemon()!;
     expect(palafin.formIndex).toBe(baseForm);
 
-    game.doSwitchPokemon(1);
+    game.switchPokemon(1);
     await game.phaseInterceptor.to(QuietFormChangePhase);
     expect(palafin.formIndex).toBe(heroForm);
   });
@@ -76,7 +76,7 @@ describe("Abilities - ZERO TO HERO", () => {
 
     game.move.select(MoveId.SPLASH);
     await game.faintPokemon(palafin);
-    game.doSelectPartyPokemon(1);
+    game.selectPartyPokemon(1);
     await game.toNextTurn();
     expect(palafin.formIndex).toBe(baseForm);
   });
@@ -93,11 +93,11 @@ describe("Abilities - ZERO TO HERO", () => {
 
     game.move.select(MoveId.SPLASH);
     await game.faintPokemon(palafin);
-    game.doSelectPartyPokemon(1);
+    game.selectPartyPokemon(1);
     await game.toNextTurn();
 
-    game.doRevivePokemon(1);
-    game.doSwitchPokemon(1);
+    game.revivePokemon(1);
+    game.switchPokemon(1);
     await game.toNextTurn();
 
     expect(palafin.formIndex).toBe(heroForm);
