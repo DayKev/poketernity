@@ -268,7 +268,7 @@ describe("Test Battle Phase", () => {
 
     game.move.select(moveToUse);
     await game.phaseInterceptor.to("DamageAnimPhase", false);
-    await game.killPokemon(game.scene.currentBattle.enemyParty[0]);
+    await game.faintPokemon(game.scene.currentBattle.enemyParty[0]);
     expect(game.scene.currentBattle.enemyParty[0].isFainted()).toBe(true);
     await game.phaseInterceptor.to("VictoryPhase", false);
   });
@@ -309,7 +309,7 @@ describe("Test Battle Phase", () => {
     game.move.select(moveToUse);
 
     vi.spyOn(game.scene.arena, "trySetWeather");
-    await game.doKillOpponents();
+    await game.doFaintOpponents();
     await game.toNextWave();
     expect(game.scene.arena.trySetWeather).not.toHaveBeenCalled();
     expect(game.scene.currentBattle.waveIndex).toBeGreaterThan(waveIndex);

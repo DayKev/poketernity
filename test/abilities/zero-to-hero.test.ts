@@ -47,7 +47,7 @@ describe("Abilities - ZERO TO HERO", () => {
     expect(palafin2.isFainted()).toBe(true);
 
     game.move.select(MoveId.SPLASH);
-    await game.doKillOpponents();
+    await game.doFaintOpponents();
     await game.phaseInterceptor.to(TurnEndPhase);
     game.doSelectModifier();
     await game.phaseInterceptor.to(QuietFormChangePhase);
@@ -75,7 +75,7 @@ describe("Abilities - ZERO TO HERO", () => {
     expect(palafin.formIndex).toBe(baseForm);
 
     game.move.select(MoveId.SPLASH);
-    await game.killPokemon(palafin);
+    await game.faintPokemon(palafin);
     game.doSelectPartyPokemon(1);
     await game.toNextTurn();
     expect(palafin.formIndex).toBe(baseForm);
@@ -92,7 +92,7 @@ describe("Abilities - ZERO TO HERO", () => {
     expect(palafin.formIndex).toBe(heroForm);
 
     game.move.select(MoveId.SPLASH);
-    await game.killPokemon(palafin);
+    await game.faintPokemon(palafin);
     game.doSelectPartyPokemon(1);
     await game.toNextTurn();
 
