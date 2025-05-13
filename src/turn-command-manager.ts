@@ -1,31 +1,13 @@
 // -- start tsdoc imports --
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Phase } from "#app/phase";
-import type { MovePhase } from "#app/phases/move-phase";
+import type { MovePhase } from "#phases/move-phase";
 /* eslint-enable @typescript-eslint/no-unused-vars */
 // -- end tsdoc imports --
 
-import type { TurnCommandFilter } from "#app/@types/TurnCommandFilter";
-import type { TurnMove } from "#app/@types/TurnMove";
-import type { BypassSpeedChanceAbAttr } from "#app/data/abilities/ab-attrs/bypass-speed-chance-ab-attr";
-import { applyAbAttrs } from "#app/data/abilities/apply-ab-attrs";
-import { MoveHeaderAttr } from "#app/data/moves/move-attrs/move-header-attr";
-import type { Pokemon } from "#app/field/pokemon";
-import { PokemonMove } from "#app/field/pokemon-move";
+import { applyAbAttrs } from "#abilities/apply-ab-attrs";
+import type { BypassSpeedChanceAbAttr } from "#abilities/bypass-speed-chance-ab-attr";
 import { globalScene } from "#app/global-scene";
-import { BypassSpeedChanceModifier } from "#app/modifier/modifier";
-import { AttemptCapturePhase } from "#app/phases/attempt-capture-phase";
-import { AttemptRunPhase } from "#app/phases/attempt-run-phase";
-import { BerryPhase } from "#app/phases/berry-phase";
-import { CheckStatusEffectPhase } from "#app/phases/check-status-effect-phase";
-import { MoveHeaderPhase } from "#app/phases/move-header-phase";
-import { PostActionPhase } from "#app/phases/post-action-phase";
-import { SwitchSummonPhase } from "#app/phases/switch-summon-phase";
-import { TerastallizationPhase } from "#app/phases/terastallization-phase";
-import { TurnEndPhase } from "#app/phases/turn-end-phase";
-import { WeatherEffectPhase } from "#app/phases/weather-effect-phase";
-import { BooleanHolder, isNil } from "#app/utils/common-utils";
-import { randSeedShuffle } from "#app/utils/random-utils";
 import { AbAttrFlag } from "#enums/ab-attr-flag";
 import { AbilityId } from "#enums/ability-id";
 import { ArenaTagType } from "#enums/arena-tag-type";
@@ -35,6 +17,24 @@ import { BattlerTagType } from "#enums/battler-tag-type";
 import { PhaseId } from "#enums/phase-id";
 import { Stat } from "#enums/stat";
 import { SwitchType } from "#enums/switch-type";
+import type { Pokemon } from "#field/pokemon";
+import { PokemonMove } from "#field/pokemon-move";
+import { BypassSpeedChanceModifier } from "#modifier/modifier";
+import { MoveHeaderAttr } from "#moves/move-header-attr";
+import { AttemptCapturePhase } from "#phases/attempt-capture-phase";
+import { AttemptRunPhase } from "#phases/attempt-run-phase";
+import { BerryPhase } from "#phases/berry-phase";
+import { CheckStatusEffectPhase } from "#phases/check-status-effect-phase";
+import { MoveHeaderPhase } from "#phases/move-header-phase";
+import { PostActionPhase } from "#phases/post-action-phase";
+import { SwitchSummonPhase } from "#phases/switch-summon-phase";
+import { TerastallizationPhase } from "#phases/terastallization-phase";
+import { TurnEndPhase } from "#phases/turn-end-phase";
+import { WeatherEffectPhase } from "#phases/weather-effect-phase";
+import type { TurnCommandFilter } from "#types/TurnCommandFilter";
+import type { TurnMove } from "#types/TurnMove";
+import { BooleanHolder, isNil } from "#utils/common-utils";
+import { randSeedShuffle } from "#utils/random-utils";
 
 /** Lower number = lower priority */
 const COMMAND_PRIORITY_MAP = {

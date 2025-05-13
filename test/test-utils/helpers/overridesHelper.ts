@@ -1,32 +1,32 @@
 // -- start tsdoc imports --
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Arena } from "#app/field/arena";
+import type { Arena } from "#field/arena";
 import { GameManager } from "#test/test-utils/gameManager";
 /* eslint-enable @typescript-eslint/no-unused-vars */
 // -- end tsdoc imports --
 
-import type { TimedEvent } from "#app/@types/TimedEvent";
-import type { Variant } from "#app/data/variant";
-import type { ModifierOverride } from "#app/modifier/modifier-type";
 import type { BattleStyle } from "#app/overrides";
 import Overrides, { defaultOverrides } from "#app/overrides";
 import { timedEventManager } from "#app/timed-event-manager";
-import { coerceArray } from "#app/utils/common-utils";
-import { shiftCharCodes } from "#app/utils/string-utils";
+import type { Variant } from "#data/variant";
 import { AbilityId } from "#enums/ability-id";
 import { BiomeId } from "#enums/biome-id";
+import { ElementalType } from "#enums/elemental-type";
 import { MoveId } from "#enums/move-id";
 import type { MysteryEncounterTier } from "#enums/mystery-encounter-tier";
 import type { MysteryEncounterType } from "#enums/mystery-encounter-type";
 import { SpeciesId } from "#enums/species-id";
 import { StatusEffect } from "#enums/status-effect";
+import { TerrainType } from "#enums/terrain-type";
 import { TrainerType } from "#enums/trainer-type";
 import type { Unlockables } from "#enums/unlockables";
 import { WeatherType } from "#enums/weather-type";
+import type { ModifierOverride } from "#modifier/modifier-type";
 import { GameManagerHelper } from "#test/test-utils/helpers/gameManagerHelper";
+import type { TimedEvent } from "#types/TimedEvent";
+import { coerceArray } from "#utils/common-utils";
+import { shiftCharCodes } from "#utils/string-utils";
 import { expect, vi } from "vitest";
-import { TerrainType } from "#enums/terrain-type";
-import { ElementalType } from "#enums/elemental-type";
 
 /**
  * Helper to handle overrides in tests

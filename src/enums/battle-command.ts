@@ -1,6 +1,6 @@
 // -- start tsdoc imports --
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { CommandPhase } from "#app/phases/command-phase";
+import type { CommandPhase } from "#phases/command-phase";
 /* eslint-enable @typescript-eslint/no-unused-vars */
 // -- end tsdoc imports --
 

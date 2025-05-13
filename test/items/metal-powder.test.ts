@@ -1,9 +1,9 @@
-import { SpeciesStatBoosterModifier } from "#app/modifier/modifier";
-import { modifierTypes } from "#app/modifier/modifier-types";
-import { NumberHolder } from "#app/utils/common-utils";
 import { SpeciesId } from "#enums/species-id";
 import { Stat } from "#enums/stat";
+import { SpeciesStatBoosterModifier } from "#modifier/modifier";
+import { modifierTypes } from "#modifier/modifier-types";
 import { GameManager } from "#test/test-utils/gameManager";
+import { NumberHolder } from "#utils/common-utils";
 import Phase from "phaser";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
