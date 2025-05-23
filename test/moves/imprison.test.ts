@@ -32,7 +32,7 @@ describe("Moves - Imprison", () => {
   });
 
   it("should prevent opponents from using moves shared by the user", async () => {
-    await game.classicMode.startBattle([SpeciesId.REGIELEKI]);
+    await game.classicMode.startBattle(SpeciesId.REGIELEKI);
 
     const player = game.field.getPlayerPokemon();
     const enemy = game.field.getEnemyPokemon();
@@ -57,7 +57,7 @@ describe("Moves - Imprison", () => {
   it("should not prevent allies from using moves shared by the user", async () => {
     game.override.battleType("double");
 
-    await game.classicMode.startBattle([SpeciesId.FEEBAS, SpeciesId.MAGIKARP]);
+    await game.classicMode.startBattle(SpeciesId.FEEBAS, SpeciesId.MAGIKARP);
 
     const playerPokemon = game.scene.getPlayerField();
     const enemyPokemon = game.scene.getEnemyField();
@@ -80,7 +80,7 @@ describe("Moves - Imprison", () => {
   it("should not interrupt moves invoked by Sleep Talk", async () => {
     game.override.enemyStatusEffect(StatusEffect.SLEEP);
 
-    await game.classicMode.startBattle([SpeciesId.FEEBAS]);
+    await game.classicMode.startBattle(SpeciesId.FEEBAS);
 
     const player = game.field.getPlayerPokemon();
     const enemy = game.field.getEnemyPokemon();
@@ -99,7 +99,7 @@ describe("Moves - Imprison", () => {
   it("should not interfere with the effects of an ally's Imprison", async () => {
     game.override.battleType("double");
 
-    await game.classicMode.startBattle([SpeciesId.FEEBAS, SpeciesId.MAGIKARP]);
+    await game.classicMode.startBattle(SpeciesId.FEEBAS, SpeciesId.MAGIKARP);
 
     const [feebas, magikarp] = game.scene.getPlayerField();
     const enemyPokemon = game.scene.getEnemyField();
@@ -132,7 +132,7 @@ describe("Moves - Imprison", () => {
   it("should disable matching moves for opponents that enter the field afterward", async () => {
     game.override.moveset([MoveId.SPLASH, MoveId.GROWL]);
 
-    await game.classicMode.startBattle([SpeciesId.FEEBAS, SpeciesId.MAGIKARP]);
+    await game.classicMode.startBattle(SpeciesId.FEEBAS, SpeciesId.MAGIKARP);
 
     const [feebas, magikarp] = game.scene.getPlayerParty();
     const enemy = game.field.getEnemyPokemon();
