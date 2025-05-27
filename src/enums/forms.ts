@@ -1,4 +1,4 @@
-export const enum FormCategory {
+export enum FormCategory {
   COSMETIC,
   ALTERNATE,
   REGIONAL,
@@ -7,7 +7,7 @@ export const enum FormCategory {
   GIGANTAMAX,
 }
 
-export const enum CosmeticForm {
+export enum CosmeticForm {
   UNOWN,
   SHELLOS_WEST,
   SHELLOS_EAST,
@@ -46,7 +46,7 @@ export const enum CosmeticForm {
   DUDUNSPARCE_3,
 }
 
-export const enum UnownForm {
+export enum UnownForm {
   UNOWN_A,
   UNOWN_B,
   UNOWN_C,
@@ -77,7 +77,7 @@ export const enum UnownForm {
   UNOWN_QUESTION,
 }
 
-export const enum VivillonForm {
+export enum VivillonForm {
   ARCHIPELAGO,
   CONTINENTAL,
   ELEGANT,
@@ -100,7 +100,7 @@ export const enum VivillonForm {
   TUNDRA,
 }
 
-export const enum FurfrouForm {
+export enum FurfrouForm {
   HEART,
   STAR,
   DIAMOND,
@@ -112,7 +112,7 @@ export const enum FurfrouForm {
   PHARAOH,
 }
 
-export const enum MiniorForm {
+export enum MiniorForm {
   RED,
   ORANGE,
   YELLOW,
@@ -122,9 +122,9 @@ export const enum MiniorForm {
   VIOLET,
 }
 
-export const enum AlcremieForm {}
+export enum AlcremieForm {}
 
-export const enum AlternateForm {
+export enum AlternateForm {
   PIKACHU_PARTNER,
   PIKACHU_POPSTAR,
   PIKACHU_ROCKSTAR,
@@ -197,7 +197,7 @@ export const enum AlternateForm {
   OGERPON_CORNERSTONE,
 }
 
-export const enum ArceusForm {
+export enum ArceusForm {
   NORMAL,
   FIGHTING,
   FLYING,
@@ -219,7 +219,7 @@ export const enum ArceusForm {
   ORIGIN,
 }
 
-export const enum SilvallyForm {
+export enum SilvallyForm {
   NORMAL,
   FIGHTING,
   FLYING,
@@ -240,12 +240,12 @@ export const enum SilvallyForm {
   FAIRY,
 }
 
-export const enum MegaForm {
+export enum MegaForm {
   X,
   Y,
 }
 
-export const enum RegionalForm {
+export enum RegionalForm {
   ALOLA,
   GALAR,
   HISUI,
@@ -254,7 +254,7 @@ export const enum RegionalForm {
   PALDEA_C,
 }
 
-export const enum BattleForm {
+export enum BattleForm {
   CASTFORM_SUN,
   CASTFORM_RAIN,
   CASTFORM_SNOW,
