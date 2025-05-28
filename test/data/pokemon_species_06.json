@@ -1200,5 +1200,21 @@
     "growthRate": "SLOW",
     "speciesGroup": "MYTHICAL",
     "hasGenderDiff": false
+  },
+  {
+    "id": "ETERNAL_FLOETTE",
+    "types": ["FAIRY"],
+    "baseStats": { "hp": 54, "atk": 45, "def": 47, "spa": 75, "spd": 98, "spe": 52 },
+    "abilities": { "A1": "FLOWER_VEIL", "H": "SYMBIOSIS" },
+    "weight": 0.9,
+    "height": 0.2,
+    "evos": [null],
+    "color": "WHITE",
+    "shape": "ARMS",
+    "captureRate": 120,
+    "baseFriendship": 70,
+    "growthRate": "MEDIUM",
+    "speciesGroup": "SUBLEGENDARY",
+    "hasGenderDiff": false
   }
 ]
