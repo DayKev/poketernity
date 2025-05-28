@@ -12,10 +12,10 @@ import { readFileSync, writeFileSync } from "node:fs";
 import Phaser from "phaser";
 import { afterEach, beforeAll, beforeEach, describe, it } from "vitest";
 
-// interface GenderRatio {
-//   M: number;
-//   F: number;
-// }
+interface GenderRatio {
+  M: number;
+  F: number;
+}
 
 interface SpeciesAbilities {
   A1: string;
@@ -29,8 +29,8 @@ interface BaseStats {
   atk: number;
   def: number;
   spa: number;
-  spdef: number;
-  speed: number;
+  spd: number;
+  spe: number;
 }
 
 // enum FormType {
@@ -41,6 +41,35 @@ interface BaseStats {
 //   ALTERNATE,
 //   BATTLE,
 // }
+
+enum GrowthRate_PokeAPI {
+  SLOW = 1,
+  MEDIUM,
+  FAST,
+  MEDIUM_SLOW,
+  SLOW_THEN_VERY_FAST,
+  FAST_THEN_VERY_SLOW,
+}
+
+type SpeciesEntry = {
+  id: string;
+  types: string[];
+  baseStats: BaseStats;
+  abilities: SpeciesAbilities;
+  genderRatio: GenderRatio;
+  weight: number;
+  height: number;
+  prevo?: string;
+  evos?: string | string[];
+  color: string;
+  shape: string;
+  captureRate: number;
+  baseFriendship: number;
+  growthRate: string;
+  speciesGroup: string;
+  hasGenderDiff: boolean;
+  forms?;
+};
 
 describe("Data - Pokemon Species", () => {
   let phaserGame: Phaser.Game;
@@ -61,83 +90,115 @@ describe("Data - Pokemon Species", () => {
   });
   // From PokeAPI, growth rate, shape, capture rate, base friendship
 
-  it("should do X", async () => {
-    enum GrowthRate_PokeAPI {
-      SLOW = 1,
-      MEDIUM,
-      FAST,
-      MEDIUM_SLOW,
-      SLOW_THEN_VERY_FAST,
-      FAST_THEN_VERY_SLOW,
-    }
-    const speciesEntries: any[] = [];
-    const pokeapiEntries = JSON.parse(readFileSync("./test/data/pokeapi_species.json", "utf-8"));
-    const showdownEntries = Object.entries(Pokedex);
-    const speciesSample = allSpecies.filter((sp) => sp.generation === 1);
+  it.each([{ gen: 1 }, { gen: 2 }, { gen: 3 }, { gen: 4 }, { gen: 5 }, { gen: 6 }, { gen: 7 }, { gen: 8 }, { gen: 9 }])(
+    "write json files: $gen",
+    async ({ gen }) => {
+      const speciesEntries: SpeciesEntry[] = [];
+      const pokeapiEntries = JSON.parse(readFileSync("./test/data/pokeapi_species.json", "utf-8"));
+      const showdownEntries = Object.entries(Pokedex);
+      const speciesSample = allSpecies.filter((sp) => sp.generation === gen);
 
-    for (const sp of speciesSample) {
-      console.log(SpeciesId[sp.speciesId]);
-      const speciesEntry = {};
-      const smogonKey = showdownEntries
-        .filter((x) => x[1]["num"] === sp.speciesId && isNil(x[1]["baseSpecies"]))[0][1]
-        .name.toLowerCase();
-      const smogonEntry = Pokedex[smogonKey];
-      if (smogonEntry) {
-        const pokeapiEntry = pokeapiEntries.filter((x) => x["id"] === sp.speciesId)[0];
-        speciesEntry["id"] = SpeciesId[sp.speciesId];
-        speciesEntry["types"] = smogonEntry["types"].map((x) => x.toUpperCase());
-        const statsObject: BaseStats = {
-          hp: smogonEntry.baseStats.hp,
-          atk: smogonEntry.baseStats.atk,
-          def: smogonEntry.baseStats.def,
-          spa: smogonEntry.baseStats.spa,
-          spdef: smogonEntry.baseStats.spd,
-          speed: smogonEntry.baseStats.spe,
-        };
-        speciesEntry["baseStats"] = statsObject;
-        const abilityObj: SpeciesAbilities = { A1: "" };
-        processAbilities(abilityObj, smogonEntry.abilities, sp.speciesId);
-        speciesEntry["abilities"] = abilityObj;
-        if (!(smogonEntry.gender && smogonEntry["gender"] !== "N")) {
-          if (smogonEntry.genderRatio) {
-            speciesEntry["genderRatio"] = smogonEntry.genderRatio;
-          } else {
-            speciesEntry["genderRatio"] = { M: 0.5, F: 0.5 };
+      for (const sp of speciesSample) {
+        let speciesId = sp.speciesId;
+        const speciesEnumName = SpeciesId[speciesId];
+        console.log(speciesEnumName);
+        const region = sp.getRegion();
+        if (region > 0) {
+          speciesId = speciesId - 2000 * region;
+        }
+        const speciesEntry: any = {};
+        const filteredEntry = showdownEntries.filter((x) => x[1]["num"] === speciesId && isNil(x[1]["baseSpecies"]));
+        if (filteredEntry.length === 0) {
+          console.error(
+            `------ Missing entry for ${speciesEnumName} (id: ${sp.speciesId}, adjusted id: ${speciesId}, name: ${sp.name})`,
+          );
+          continue;
+        }
+        const smogonKey = filteredEntry[0][1].name.toLowerCase();
+        const smogonEntry = Pokedex[smogonKey];
+        if (smogonEntry) {
+          const pokeapiEntry = pokeapiEntries.filter((x) => x["id"] === speciesId)[0];
+          speciesEntry["id"] = speciesEnumName;
+          speciesEntry["types"] = smogonEntry["types"].map((x) => x.toUpperCase());
+          const statsObject: BaseStats = {
+            hp: smogonEntry.baseStats.hp,
+            atk: smogonEntry.baseStats.atk,
+            def: smogonEntry.baseStats.def,
+            spa: smogonEntry.baseStats.spa,
+            spd: smogonEntry.baseStats.spd,
+            spe: smogonEntry.baseStats.spe,
+          };
+          speciesEntry["baseStats"] = statsObject;
+          const abilityObj: SpeciesAbilities = { A1: "" };
+          processAbilities(abilityObj, smogonEntry.abilities, speciesId);
+          speciesEntry["abilities"] = abilityObj;
+          if (!(smogonEntry.gender && smogonEntry["gender"] !== "N")) {
+            if (smogonEntry.genderRatio) {
+              speciesEntry["genderRatio"] = smogonEntry.genderRatio;
+            } else {
+              speciesEntry["genderRatio"] = { M: 0.5, F: 0.5 };
+            }
+          }
+          speciesEntry["weight"] = smogonEntry.weightkg;
+          speciesEntry["height"] = smogonEntry.heightm;
+          if (smogonEntry["prevo"]) {
+            try {
+              const prevoName = (smogonEntry.prevo as string)
+                .normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .toLowerCase();
+              const prevoNameCondensed = prevoName.replace(/[-:\s]/g, "");
+              if (prevoName !== prevoNameCondensed) {
+                console.error("special name found:", prevoName, prevoNameCondensed);
+              }
+              const preevoId = Pokedex[prevoNameCondensed].num;
+              speciesEntry["prevo"] = SpeciesId[preevoId + (region ? 2000 * region : 0)];
+            } catch (err) {
+              console.log(smogonEntry);
+              const prevoName = (smogonEntry.prevo as string)
+                .normalize("NFD")
+                .replace(/\p{Diacritic}/gu, "")
+                .toLowerCase();
+              console.log(
+                smogonEntry["prevo"],
+                "|",
+                smogonEntry.prevo,
+                "|",
+                prevoName,
+                "|",
+                prevoName.replace(/[-:\s]/g, ""),
+              );
+              throw new Error(err);
+            }
+          }
+          if (smogonEntry["evos"]) {
+            const evoList: string[] = [];
+            (smogonEntry["evos"] as string[]).forEach((x: string) => {
+              if (Pokedex[x.toLowerCase()]) {
+                const evoId = Pokedex[x.toLowerCase()].num;
+                evoList.push(SpeciesId[evoId + (region ? 2000 * region : 0)]);
+              }
+            });
+            speciesEntry["evos"] = evoList;
+          }
+          speciesEntry["color"] = (smogonEntry.color as string).toUpperCase();
+          speciesEntry["shape"] = PokemonShapes[pokeapiEntry["shape_id"]];
+          speciesEntry["captureRate"] = pokeapiEntry["capture_rate"];
+          speciesEntry["baseFriendship"] = pokeapiEntry["base_happiness"];
+          speciesEntry["growthRate"] = GrowthRate_PokeAPI[pokeapiEntry["growth_rate_id"]];
+          speciesEntry["speciesGroup"] = SpeciesGroups[sp.group];
+          speciesEntry["hasGenderDiff"] = sp.genderDiffs;
+          if (sp.canChangeForm) {
+            speciesEntries["forms"] = [];
           }
         }
-        speciesEntry["weight"] = smogonEntry.weightkg;
-        speciesEntry["height"] = smogonEntry.heightm;
-        if (smogonEntry["prevo"]) {
-          const preevoId = Pokedex[(smogonEntry.prevo as string).toLowerCase()].num;
-          speciesEntry["prevo"] = SpeciesId[preevoId];
-        }
-        if (smogonEntry["evos"]) {
-          const evoList: string[] = [];
-          (smogonEntry["evos"] as string[]).forEach((x: string) => {
-            if (Pokedex[x.toLowerCase()]) {
-              const evoId = Pokedex[x.toLowerCase()].num;
-              evoList.push(SpeciesId[evoId]);
-            }
-          });
-          speciesEntry["evos"] = evoList;
-        }
-        speciesEntry["color"] = (smogonEntry.color as string).toUpperCase();
-        speciesEntry["shape"] = PokemonShapes[pokeapiEntry["shape_id"]];
-        speciesEntry["captureRate"] = pokeapiEntry["capture_rate"];
-        speciesEntry["baseFriendship"] = pokeapiEntry["base_happiness"];
-        speciesEntry["growthRate"] = GrowthRate_PokeAPI[pokeapiEntry["growth_rate_id"]];
-        speciesEntry["speciesGroup"] = SpeciesGroups[sp.group];
-        speciesEntry["hasGenderDiff"] = sp.genderDiffs;
-        if (sp.canChangeForm) {
-          speciesEntries["forms"] = [];
-        }
+        speciesEntries.push(speciesEntry);
       }
-      speciesEntries.push(speciesEntry);
-    }
 
-    writeFileSync("./test/data/pokemon_species_01.json", JSON.stringify(speciesEntries));
-    retrieveMegaPokemon(showdownEntries.filter((x) => x[1]["forme"] && x[1]["forme"] === "Mega"));
-  });
+      writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));
+      retrieveMegaPokemon(showdownEntries.filter((x) => x[1]["forme"] && x[1]["forme"] === "Mega"));
+    },
+  );
 
   function processAbilities(abilityObj: SpeciesAbilities, smogonData, speciesId) {
     abilityObj.A1 = smogonData["0"].toUpperCase().replace(" ", "_");
