@@ -909,9 +909,9 @@ export const Pokedex = {
     evoItem: "Ice Stone",
     eggGroups: ["Field"],
   },
-  nidoran_f: {
+  nidoranf: {
     num: 29,
-    name: "Nidoran_F",
+    name: "Nidoran-F",
     types: ["Poison"],
     gender: "F",
     baseStats: { hp: 55, atk: 47, def: 52, spa: 40, spd: 40, spe: 41 },
@@ -932,7 +932,7 @@ export const Pokedex = {
     heightm: 0.8,
     weightkg: 20,
     color: "Blue",
-    prevo: "Nidoran_F",
+    prevo: "Nidoran-F",
     evoLevel: 16,
     evos: ["Nidoqueen"],
     eggGroups: ["Undiscovered"],
@@ -952,9 +952,9 @@ export const Pokedex = {
     evoItem: "Moon Stone",
     eggGroups: ["Undiscovered"],
   },
-  nidoran_m: {
+  nidoranm: {
     num: 32,
-    name: "Nidoran_M",
+    name: "Nidoran-M",
     types: ["Poison"],
     gender: "M",
     baseStats: { hp: 46, atk: 57, def: 40, spa: 40, spd: 40, spe: 50 },
@@ -976,7 +976,7 @@ export const Pokedex = {
     heightm: 0.9,
     weightkg: 19.5,
     color: "Purple",
-    prevo: "Nidoran_M",
+    prevo: "Nidoran-M",
     evoLevel: 16,
     evos: ["Nidoking"],
     eggGroups: ["Monster", "Field"],
@@ -12025,10 +12025,10 @@ export const Pokedex = {
     ],
     formeOrder: [
       "Flabe\u0301be\u0301",
-      "Flabe\u0301be\u0301-Blue",
-      "Flabe\u0301be\u0301-Orange",
-      "Flabe\u0301be\u0301-White",
       "Flabe\u0301be\u0301-Yellow",
+      "Flabe\u0301be\u0301-Orange",
+      "Flabe\u0301be\u0301-Blue",
+      "Flabe\u0301be\u0301-White",
     ],
   },
   floette: {
@@ -12048,7 +12048,7 @@ export const Pokedex = {
     eggGroups: ["Fairy"],
     otherFormes: ["Floette-Eternal"],
     cosmeticFormes: ["Floette-Blue", "Floette-Orange", "Floette-White", "Floette-Yellow"],
-    formeOrder: ["Floette", "Floette-Blue", "Floette-Orange", "Floette-White", "Floette-Yellow", "Floette-Eternal"],
+    formeOrder: ["Floette", "Floette-Yellow", "Floette-Orange", "Floette-Blue", "Floette-White", "Floette-Eternal"],
   },
   floetteeternal: {
     num: 670,
@@ -12080,7 +12080,7 @@ export const Pokedex = {
     evoItem: "Shiny Stone",
     eggGroups: ["Fairy"],
     cosmeticFormes: ["Florges-Blue", "Florges-Orange", "Florges-White", "Florges-Yellow"],
-    formeOrder: ["Florges", "Florges-Blue", "Florges-Orange", "Florges-White", "Florges-Yellow"],
+    formeOrder: ["Florges", "Florges-Yellow", "Florges-Orange", "Florges-Blue", "Florges-White"],
   },
   skiddo: {
     num: 672,
@@ -13434,9 +13434,24 @@ export const Pokedex = {
     heightm: 0.5,
     weightkg: 9.2,
     color: "Brown",
-    evos: ["Lycanroc", "Lycanroc-Midnight", "Lycanroc-Dusk"],
+    evos: ["Lycanroc", "Lycanroc-Midnight"],
     eggGroups: ["Field"],
-    formeOrder: ["Rockruff", "Rockruff"], // TODO: Rockruff-Dusk
+    otherFormes: ["Rockruff-Dusk"],
+    formeOrder: ["Rockruff", "Rockruff-Dusk"],
+  },
+  rockruffdusk: {
+    num: 744,
+    name: "Rockruff-Dusk",
+    baseSpecies: "Rockruff",
+    forme: "Dusk",
+    types: ["Rock"],
+    baseStats: { hp: 45, atk: 65, def: 40, spa: 30, spd: 40, spe: 60 },
+    abilities: { 0: "Own Tempo" },
+    heightm: 0.5,
+    weightkg: 9.2,
+    color: "Brown",
+    evos: ["Lycanroc-Dusk"],
+    eggGroups: ["Field"],
   },
   lycanroc: {
     num: 745,
@@ -13482,7 +13497,7 @@ export const Pokedex = {
     heightm: 0.8,
     weightkg: 25,
     color: "Brown",
-    prevo: "Rockruff",
+    prevo: "Rockruff-Dusk",
     evoLevel: 25,
     evoCondition: "from a special Rockruff during the evening",
     eggGroups: ["Field"],
@@ -13895,6 +13910,7 @@ export const Pokedex = {
   silvally: {
     num: 773,
     name: "Silvally",
+    baseForme: "Normal",
     types: ["Normal"],
     gender: "N",
     baseStats: { hp: 95, atk: 95, def: 95, spa: 95, spd: 95, spe: 95 },
@@ -15976,7 +15992,7 @@ export const Pokedex = {
   alcremie: {
     num: 869,
     name: "Alcremie",
-    baseForme: "Vanilla Cream",
+    baseForme: "Vanilla-Cream",
     types: ["Fairy"],
     gender: "F",
     baseStats: { hp: 65, atk: 60, def: 75, spa: 110, spd: 121, spe: 64 },
@@ -16089,6 +16105,7 @@ export const Pokedex = {
   eiscue: {
     num: 875,
     name: "Eiscue",
+    baseForme: "Ice",
     types: ["Ice"],
     baseStats: { hp: 75, atk: 80, def: 110, spa: 65, spd: 90, spe: 50 },
     abilities: { 0: "Ice Face" },
@@ -16147,6 +16164,7 @@ export const Pokedex = {
   morpeko: {
     num: 877,
     name: "Morpeko",
+    baseForme: "Full-Belly",
     types: ["Electric", "Dark"],
     baseStats: { hp: 58, atk: 95, def: 58, spa: 70, spd: 58, spe: 97 },
     abilities: { 0: "Hunger Switch" },
@@ -18434,7 +18452,7 @@ export const Pokedex = {
       "Ogerpon-Hearthflame-Tera",
       "Ogerpon-Cornerstone-Tera",
     ],
-    forceTeraType: "Grass",
+    requiredTeraType: "Grass",
   },
   ogerponwellspring: {
     num: 1017,
@@ -18451,7 +18469,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     requiredItem: "Wellspring Mask",
     changesFrom: "Ogerpon",
-    forceTeraType: "Water",
+    requiredTeraType: "Water",
   },
   ogerponhearthflame: {
     num: 1017,
@@ -18468,7 +18486,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     requiredItem: "Hearthflame Mask",
     changesFrom: "Ogerpon",
-    forceTeraType: "Fire",
+    requiredTeraType: "Fire",
   },
   ogerponcornerstone: {
     num: 1017,
@@ -18485,7 +18503,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     requiredItem: "Cornerstone Mask",
     changesFrom: "Ogerpon",
-    forceTeraType: "Rock",
+    requiredTeraType: "Rock",
   },
   ogerpontealtera: {
     num: 1017,
@@ -18501,7 +18519,7 @@ export const Pokedex = {
     color: "Green",
     eggGroups: ["Undiscovered"],
     battleOnly: "Ogerpon",
-    forceTeraType: "Grass",
+    requiredTeraType: "Grass",
   },
   ogerponwellspringtera: {
     num: 1017,
@@ -18518,7 +18536,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     requiredItem: "Wellspring Mask",
     battleOnly: "Ogerpon-Wellspring",
-    forceTeraType: "Water",
+    requiredTeraType: "Water",
   },
   ogerponhearthflametera: {
     num: 1017,
@@ -18535,7 +18553,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     requiredItem: "Hearthflame Mask",
     battleOnly: "Ogerpon-Hearthflame",
-    forceTeraType: "Fire",
+    requiredTeraType: "Fire",
   },
   ogerponcornerstonetera: {
     num: 1017,
@@ -18552,7 +18570,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     requiredItem: "Cornerstone Mask",
     battleOnly: "Ogerpon-Cornerstone",
-    forceTeraType: "Rock",
+    requiredTeraType: "Rock",
   },
   archaludon: {
     num: 1018,
@@ -18643,7 +18661,7 @@ export const Pokedex = {
     eggGroups: ["Undiscovered"],
     otherFormes: ["Terapagos-Terastal", "Terapagos-Stellar"],
     formeOrder: ["Terapagos", "Terapagos-Terastal", "Terapagos-Stellar"],
-    forceTeraType: "Stellar",
+    requiredTeraType: "Stellar",
   },
   terapagosterastal: {
     num: 1024,
@@ -18658,7 +18676,7 @@ export const Pokedex = {
     color: "Blue",
     eggGroups: ["Undiscovered"],
     battleOnly: "Terapagos",
-    forceTeraType: "Stellar",
+    requiredTeraType: "Stellar",
   },
   terapagosstellar: {
     num: 1024,
@@ -18673,7 +18691,7 @@ export const Pokedex = {
     color: "Blue",
     eggGroups: ["Undiscovered"],
     battleOnly: "Terapagos",
-    forceTeraType: "Stellar",
+    requiredTeraType: "Stellar",
   },
   pecharunt: {
     num: 1025,
