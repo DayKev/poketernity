@@ -1,5 +1,6 @@
 [
   {
+    "speciesId": 152,
     "id": "CHIKORITA",
     "types": ["GRASS"],
     "baseStats": { "hp": 45, "atk": 49, "def": 65, "spa": 49, "spd": 65, "spe": 45 },
@@ -17,6 +18,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 153,
     "id": "BAYLEEF",
     "types": ["GRASS"],
     "baseStats": { "hp": 60, "atk": 62, "def": 80, "spa": 63, "spd": 80, "spe": 60 },
@@ -35,6 +37,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 154,
     "id": "MEGANIUM",
     "types": ["GRASS"],
     "baseStats": { "hp": 80, "atk": 82, "def": 100, "spa": 83, "spd": 100, "spe": 80 },
@@ -52,6 +55,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 155,
     "id": "CYNDAQUIL",
     "types": ["FIRE"],
     "baseStats": { "hp": 39, "atk": 52, "def": 43, "spa": 60, "spd": 50, "spe": 65 },
@@ -69,6 +73,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 156,
     "id": "QUILAVA",
     "types": ["FIRE"],
     "baseStats": { "hp": 58, "atk": 64, "def": 58, "spa": 80, "spd": 65, "spe": 80 },
@@ -87,6 +92,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 157,
     "id": "TYPHLOSION",
     "types": ["FIRE"],
     "baseStats": { "hp": 78, "atk": 84, "def": 78, "spa": 109, "spd": 85, "spe": 100 },
@@ -104,6 +110,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 158,
     "id": "TOTODILE",
     "types": ["WATER"],
     "baseStats": { "hp": 50, "atk": 65, "def": 64, "spa": 44, "spd": 48, "spe": 43 },
@@ -121,6 +128,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 159,
     "id": "CROCONAW",
     "types": ["WATER"],
     "baseStats": { "hp": 65, "atk": 80, "def": 80, "spa": 59, "spd": 63, "spe": 58 },
@@ -139,6 +147,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 160,
     "id": "FERALIGATR",
     "types": ["WATER"],
     "baseStats": { "hp": 85, "atk": 105, "def": 100, "spa": 79, "spd": 83, "spe": 78 },
@@ -156,6 +165,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 161,
     "id": "SENTRET",
     "types": ["NORMAL"],
     "baseStats": { "hp": 35, "atk": 46, "def": 34, "spa": 35, "spd": 45, "spe": 20 },
@@ -173,6 +183,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 162,
     "id": "FURRET",
     "types": ["NORMAL"],
     "baseStats": { "hp": 85, "atk": 76, "def": 64, "spa": 45, "spd": 55, "spe": 90 },
@@ -190,6 +201,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 163,
     "id": "HOOTHOOT",
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 60, "atk": 30, "def": 30, "spa": 36, "spd": 56, "spe": 50 },
@@ -207,6 +219,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 164,
     "id": "NOCTOWL",
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 100, "atk": 50, "def": 50, "spa": 86, "spd": 96, "spe": 70 },
@@ -224,6 +237,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 165,
     "id": "LEDYBA",
     "types": ["BUG", "FLYING"],
     "baseStats": { "hp": 40, "atk": 20, "def": 30, "spa": 40, "spd": 80, "spe": 55 },
@@ -241,6 +255,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 166,
     "id": "LEDIAN",
     "types": ["BUG", "FLYING"],
     "baseStats": { "hp": 55, "atk": 35, "def": 50, "spa": 55, "spd": 110, "spe": 85 },
@@ -258,6 +273,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 167,
     "id": "SPINARAK",
     "types": ["BUG", "POISON"],
     "baseStats": { "hp": 40, "atk": 60, "def": 40, "spa": 40, "spd": 40, "spe": 30 },
@@ -275,6 +291,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 168,
     "id": "ARIADOS",
     "types": ["BUG", "POISON"],
     "baseStats": { "hp": 70, "atk": 90, "def": 70, "spa": 60, "spd": 70, "spe": 40 },
@@ -292,6 +309,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 169,
     "id": "CROBAT",
     "types": ["POISON", "FLYING"],
     "baseStats": { "hp": 85, "atk": 90, "def": 80, "spa": 70, "spd": 80, "spe": 130 },
@@ -309,6 +327,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 170,
     "id": "CHINCHOU",
     "types": ["WATER", "ELECTRIC"],
     "baseStats": { "hp": 75, "atk": 38, "def": 38, "spa": 56, "spd": 56, "spe": 67 },
@@ -326,6 +345,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 171,
     "id": "LANTURN",
     "types": ["WATER", "ELECTRIC"],
     "baseStats": { "hp": 125, "atk": 58, "def": 58, "spa": 76, "spd": 76, "spe": 67 },
@@ -343,6 +363,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 172,
     "id": "PICHU",
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 20, "atk": 40, "def": 15, "spa": 35, "spd": 35, "spe": 60 },
@@ -360,6 +381,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 173,
     "id": "CLEFFA",
     "types": ["FAIRY"],
     "baseStats": { "hp": 50, "atk": 25, "def": 28, "spa": 45, "spd": 55, "spe": 15 },
@@ -377,6 +399,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 174,
     "id": "IGGLYBUFF",
     "types": ["NORMAL", "FAIRY"],
     "baseStats": { "hp": 90, "atk": 30, "def": 15, "spa": 40, "spd": 20, "spe": 15 },
@@ -394,6 +417,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 175,
     "id": "TOGEPI",
     "types": ["FAIRY"],
     "baseStats": { "hp": 35, "atk": 20, "def": 65, "spa": 40, "spd": 65, "spe": 20 },
@@ -411,6 +435,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 176,
     "id": "TOGETIC",
     "types": ["FAIRY", "FLYING"],
     "baseStats": { "hp": 55, "atk": 40, "def": 85, "spa": 80, "spd": 105, "spe": 40 },
@@ -429,6 +454,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 177,
     "id": "NATU",
     "types": ["PSYCHIC", "FLYING"],
     "baseStats": { "hp": 40, "atk": 50, "def": 45, "spa": 70, "spd": 45, "spe": 70 },
@@ -446,6 +472,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 178,
     "id": "XATU",
     "types": ["PSYCHIC", "FLYING"],
     "baseStats": { "hp": 65, "atk": 75, "def": 70, "spa": 95, "spd": 70, "spe": 95 },
@@ -463,6 +490,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 179,
     "id": "MAREEP",
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 55, "atk": 40, "def": 40, "spa": 65, "spd": 45, "spe": 35 },
@@ -480,6 +508,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 180,
     "id": "FLAAFFY",
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 70, "atk": 55, "def": 55, "spa": 80, "spd": 60, "spe": 45 },
@@ -498,6 +527,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 181,
     "id": "AMPHAROS",
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 90, "atk": 75, "def": 85, "spa": 115, "spd": 90, "spe": 55 },
@@ -515,6 +545,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 182,
     "id": "BELLOSSOM",
     "types": ["GRASS"],
     "baseStats": { "hp": 75, "atk": 80, "def": 95, "spa": 90, "spd": 100, "spe": 50 },
@@ -532,6 +563,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 183,
     "id": "MARILL",
     "types": ["WATER", "FAIRY"],
     "baseStats": { "hp": 70, "atk": 20, "def": 50, "spa": 20, "spd": 50, "spe": 40 },
@@ -550,6 +582,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 184,
     "id": "AZUMARILL",
     "types": ["WATER", "FAIRY"],
     "baseStats": { "hp": 100, "atk": 50, "def": 80, "spa": 60, "spd": 80, "spe": 50 },
@@ -567,6 +600,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 185,
     "id": "SUDOWOODO",
     "types": ["ROCK"],
     "baseStats": { "hp": 70, "atk": 100, "def": 115, "spa": 30, "spd": 65, "spe": 30 },
@@ -584,6 +618,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 186,
     "id": "POLITOED",
     "types": ["WATER"],
     "baseStats": { "hp": 90, "atk": 75, "def": 75, "spa": 90, "spd": 100, "spe": 70 },
@@ -601,6 +636,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 187,
     "id": "HOPPIP",
     "types": ["GRASS", "FLYING"],
     "baseStats": { "hp": 35, "atk": 35, "def": 40, "spa": 35, "spd": 55, "spe": 50 },
@@ -618,6 +654,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 188,
     "id": "SKIPLOOM",
     "types": ["GRASS", "FLYING"],
     "baseStats": { "hp": 55, "atk": 45, "def": 50, "spa": 45, "spd": 65, "spe": 80 },
@@ -636,6 +673,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 189,
     "id": "JUMPLUFF",
     "types": ["GRASS", "FLYING"],
     "baseStats": { "hp": 75, "atk": 55, "def": 70, "spa": 55, "spd": 95, "spe": 110 },
@@ -653,6 +691,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 190,
     "id": "AIPOM",
     "types": ["NORMAL"],
     "baseStats": { "hp": 55, "atk": 70, "def": 55, "spa": 40, "spd": 55, "spe": 85 },
@@ -670,6 +709,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 191,
     "id": "SUNKERN",
     "types": ["GRASS"],
     "baseStats": { "hp": 30, "atk": 30, "def": 30, "spa": 30, "spd": 30, "spe": 30 },
@@ -687,6 +727,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 192,
     "id": "SUNFLORA",
     "types": ["GRASS"],
     "baseStats": { "hp": 75, "atk": 75, "def": 55, "spa": 105, "spd": 85, "spe": 30 },
@@ -704,6 +745,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 193,
     "id": "YANMA",
     "types": ["BUG", "FLYING"],
     "baseStats": { "hp": 65, "atk": 65, "def": 45, "spa": 75, "spd": 45, "spe": 95 },
@@ -721,6 +763,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 194,
     "id": "WOOPER",
     "types": ["WATER", "GROUND"],
     "baseStats": { "hp": 55, "atk": 45, "def": 45, "spa": 25, "spd": 25, "spe": 15 },
@@ -738,6 +781,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 195,
     "id": "QUAGSIRE",
     "types": ["WATER", "GROUND"],
     "baseStats": { "hp": 95, "atk": 85, "def": 85, "spa": 65, "spd": 65, "spe": 35 },
@@ -755,6 +799,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 196,
     "id": "ESPEON",
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 65, "atk": 65, "def": 60, "spa": 130, "spd": 95, "spe": 110 },
@@ -772,6 +817,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 197,
     "id": "UMBREON",
     "types": ["DARK"],
     "baseStats": { "hp": 95, "atk": 65, "def": 110, "spa": 60, "spd": 130, "spe": 65 },
@@ -789,6 +835,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 198,
     "id": "MURKROW",
     "types": ["DARK", "FLYING"],
     "baseStats": { "hp": 60, "atk": 85, "def": 42, "spa": 85, "spd": 42, "spe": 91 },
@@ -806,6 +853,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 199,
     "id": "SLOWKING",
     "types": ["WATER", "PSYCHIC"],
     "baseStats": { "hp": 95, "atk": 75, "def": 80, "spa": 100, "spd": 110, "spe": 30 },
@@ -823,6 +871,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 200,
     "id": "MISDREAVUS",
     "types": ["GHOST"],
     "baseStats": { "hp": 60, "atk": 60, "def": 60, "spa": 85, "spd": 85, "spe": 85 },
@@ -840,6 +889,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 201,
     "id": "UNOWN",
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 48, "atk": 72, "def": 48, "spa": 72, "spd": 48, "spe": 48 },
@@ -856,6 +906,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 202,
     "id": "WOBBUFFET",
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 190, "atk": 33, "def": 58, "spa": 33, "spd": 58, "spe": 33 },
@@ -873,6 +924,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 203,
     "id": "GIRAFARIG",
     "types": ["NORMAL", "PSYCHIC"],
     "baseStats": { "hp": 70, "atk": 80, "def": 65, "spa": 90, "spd": 65, "spe": 85 },
@@ -890,6 +942,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 204,
     "id": "PINECO",
     "types": ["BUG"],
     "baseStats": { "hp": 50, "atk": 65, "def": 90, "spa": 35, "spd": 35, "spe": 15 },
@@ -907,6 +960,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 205,
     "id": "FORRETRESS",
     "types": ["BUG", "STEEL"],
     "baseStats": { "hp": 75, "atk": 90, "def": 140, "spa": 60, "spd": 60, "spe": 40 },
@@ -924,6 +978,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 206,
     "id": "DUNSPARCE",
     "types": ["NORMAL"],
     "baseStats": { "hp": 100, "atk": 70, "def": 70, "spa": 65, "spd": 65, "spe": 45 },
@@ -941,6 +996,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 207,
     "id": "GLIGAR",
     "types": ["GROUND", "FLYING"],
     "baseStats": { "hp": 65, "atk": 75, "def": 105, "spa": 35, "spd": 65, "spe": 85 },
@@ -958,6 +1014,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 208,
     "id": "STEELIX",
     "types": ["STEEL", "GROUND"],
     "baseStats": { "hp": 75, "atk": 85, "def": 200, "spa": 55, "spd": 65, "spe": 30 },
@@ -975,6 +1032,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 209,
     "id": "SNUBBULL",
     "types": ["FAIRY"],
     "baseStats": { "hp": 60, "atk": 80, "def": 50, "spa": 40, "spd": 40, "spe": 30 },
@@ -992,6 +1050,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 210,
     "id": "GRANBULL",
     "types": ["FAIRY"],
     "baseStats": { "hp": 90, "atk": 120, "def": 75, "spa": 60, "spd": 60, "spe": 45 },
@@ -1009,6 +1068,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 211,
     "id": "QWILFISH",
     "types": ["WATER", "POISON"],
     "baseStats": { "hp": 65, "atk": 95, "def": 85, "spa": 55, "spd": 55, "spe": 85 },
@@ -1025,6 +1085,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 212,
     "id": "SCIZOR",
     "types": ["BUG", "STEEL"],
     "baseStats": { "hp": 70, "atk": 130, "def": 100, "spa": 55, "spd": 80, "spe": 65 },
@@ -1042,6 +1103,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 213,
     "id": "SHUCKLE",
     "types": ["BUG", "ROCK"],
     "baseStats": { "hp": 20, "atk": 10, "def": 230, "spa": 10, "spd": 230, "spe": 5 },
@@ -1058,6 +1120,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 214,
     "id": "HERACROSS",
     "types": ["BUG", "FIGHTING"],
     "baseStats": { "hp": 80, "atk": 125, "def": 75, "spa": 40, "spd": 95, "spe": 85 },
@@ -1074,6 +1137,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 215,
     "id": "SNEASEL",
     "types": ["DARK", "ICE"],
     "baseStats": { "hp": 55, "atk": 95, "def": 55, "spa": 35, "spd": 75, "spe": 115 },
@@ -1091,6 +1155,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 216,
     "id": "TEDDIURSA",
     "types": ["NORMAL"],
     "baseStats": { "hp": 60, "atk": 80, "def": 50, "spa": 50, "spd": 50, "spe": 40 },
@@ -1108,6 +1173,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 217,
     "id": "URSARING",
     "types": ["NORMAL"],
     "baseStats": { "hp": 90, "atk": 130, "def": 75, "spa": 75, "spd": 75, "spe": 55 },
@@ -1126,6 +1192,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 218,
     "id": "SLUGMA",
     "types": ["FIRE"],
     "baseStats": { "hp": 40, "atk": 40, "def": 40, "spa": 70, "spd": 40, "spe": 20 },
@@ -1143,6 +1210,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 219,
     "id": "MAGCARGO",
     "types": ["FIRE", "ROCK"],
     "baseStats": { "hp": 60, "atk": 50, "def": 120, "spa": 90, "spd": 80, "spe": 30 },
@@ -1160,6 +1228,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 220,
     "id": "SWINUB",
     "types": ["ICE", "GROUND"],
     "baseStats": { "hp": 50, "atk": 50, "def": 40, "spa": 30, "spd": 30, "spe": 50 },
@@ -1177,6 +1246,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 221,
     "id": "PILOSWINE",
     "types": ["ICE", "GROUND"],
     "baseStats": { "hp": 100, "atk": 100, "def": 80, "spa": 60, "spd": 60, "spe": 50 },
@@ -1195,6 +1265,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 222,
     "id": "CORSOLA",
     "types": ["WATER", "ROCK"],
     "baseStats": { "hp": 65, "atk": 55, "def": 95, "spa": 65, "spd": 95, "spe": 35 },
@@ -1211,6 +1282,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 223,
     "id": "REMORAID",
     "types": ["WATER"],
     "baseStats": { "hp": 35, "atk": 65, "def": 35, "spa": 65, "spd": 35, "spe": 65 },
@@ -1228,6 +1300,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 224,
     "id": "OCTILLERY",
     "types": ["WATER"],
     "baseStats": { "hp": 75, "atk": 105, "def": 75, "spa": 105, "spd": 75, "spe": 45 },
@@ -1245,6 +1318,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 225,
     "id": "DELIBIRD",
     "types": ["ICE", "FLYING"],
     "baseStats": { "hp": 45, "atk": 55, "def": 45, "spa": 65, "spd": 45, "spe": 75 },
@@ -1261,6 +1335,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 226,
     "id": "MANTINE",
     "types": ["WATER", "FLYING"],
     "baseStats": { "hp": 85, "atk": 40, "def": 70, "spa": 80, "spd": 140, "spe": 70 },
@@ -1278,6 +1353,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 227,
     "id": "SKARMORY",
     "types": ["STEEL", "FLYING"],
     "baseStats": { "hp": 65, "atk": 80, "def": 140, "spa": 40, "spd": 70, "spe": 70 },
@@ -1294,6 +1370,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 228,
     "id": "HOUNDOUR",
     "types": ["DARK", "FIRE"],
     "baseStats": { "hp": 45, "atk": 60, "def": 30, "spa": 80, "spd": 50, "spe": 65 },
@@ -1311,6 +1388,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 229,
     "id": "HOUNDOOM",
     "types": ["DARK", "FIRE"],
     "baseStats": { "hp": 75, "atk": 90, "def": 50, "spa": 110, "spd": 80, "spe": 95 },
@@ -1328,6 +1406,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 230,
     "id": "KINGDRA",
     "types": ["WATER", "DRAGON"],
     "baseStats": { "hp": 75, "atk": 95, "def": 95, "spa": 95, "spd": 95, "spe": 85 },
@@ -1345,6 +1424,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 231,
     "id": "PHANPY",
     "types": ["GROUND"],
     "baseStats": { "hp": 90, "atk": 60, "def": 60, "spa": 40, "spd": 40, "spe": 40 },
@@ -1362,6 +1442,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 232,
     "id": "DONPHAN",
     "types": ["GROUND"],
     "baseStats": { "hp": 90, "atk": 120, "def": 120, "spa": 60, "spd": 60, "spe": 50 },
@@ -1379,6 +1460,7 @@
     "hasGenderDiff": true
   },
   {
+    "speciesId": 233,
     "id": "PORYGON2",
     "types": ["NORMAL"],
     "baseStats": { "hp": 85, "atk": 80, "def": 90, "spa": 105, "spd": 95, "spe": 60 },
@@ -1397,6 +1479,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 234,
     "id": "STANTLER",
     "types": ["NORMAL"],
     "baseStats": { "hp": 73, "atk": 95, "def": 62, "spa": 85, "spd": 65, "spe": 85 },
@@ -1414,6 +1497,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 235,
     "id": "SMEARGLE",
     "types": ["NORMAL"],
     "baseStats": { "hp": 55, "atk": 20, "def": 35, "spa": 20, "spd": 45, "spe": 75 },
@@ -1430,6 +1514,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 236,
     "id": "TYROGUE",
     "types": ["FIGHTING"],
     "baseStats": { "hp": 35, "atk": 35, "def": 35, "spa": 35, "spd": 35, "spe": 35 },
@@ -1446,6 +1531,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 237,
     "id": "HITMONTOP",
     "types": ["FIGHTING"],
     "baseStats": { "hp": 50, "atk": 95, "def": 95, "spa": 35, "spd": 110, "spe": 70 },
@@ -1462,6 +1548,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 238,
     "id": "SMOOCHUM",
     "types": ["ICE", "PSYCHIC"],
     "baseStats": { "hp": 45, "atk": 30, "def": 15, "spa": 85, "spd": 65, "spe": 65 },
@@ -1478,6 +1565,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 239,
     "id": "ELEKID",
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 45, "atk": 63, "def": 37, "spa": 65, "spd": 55, "spe": 95 },
@@ -1495,6 +1583,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 240,
     "id": "MAGBY",
     "types": ["FIRE"],
     "baseStats": { "hp": 45, "atk": 75, "def": 37, "spa": 70, "spd": 55, "spe": 83 },
@@ -1512,6 +1601,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 241,
     "id": "MILTANK",
     "types": ["NORMAL"],
     "baseStats": { "hp": 95, "atk": 80, "def": 105, "spa": 40, "spd": 70, "spe": 100 },
@@ -1527,6 +1617,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 242,
     "id": "BLISSEY",
     "types": ["NORMAL"],
     "baseStats": { "hp": 255, "atk": 10, "def": 10, "spa": 75, "spd": 135, "spe": 55 },
@@ -1543,6 +1634,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 243,
     "id": "RAIKOU",
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 90, "atk": 85, "def": 75, "spa": 115, "spd": 100, "spe": 115 },
@@ -1559,6 +1651,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 244,
     "id": "ENTEI",
     "types": ["FIRE"],
     "baseStats": { "hp": 115, "atk": 115, "def": 85, "spa": 90, "spd": 75, "spe": 100 },
@@ -1575,6 +1668,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 245,
     "id": "SUICUNE",
     "types": ["WATER"],
     "baseStats": { "hp": 100, "atk": 75, "def": 115, "spa": 90, "spd": 115, "spe": 85 },
@@ -1591,6 +1685,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 246,
     "id": "LARVITAR",
     "types": ["ROCK", "GROUND"],
     "baseStats": { "hp": 50, "atk": 64, "def": 50, "spa": 45, "spd": 50, "spe": 41 },
@@ -1608,6 +1703,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 247,
     "id": "PUPITAR",
     "types": ["ROCK", "GROUND"],
     "baseStats": { "hp": 70, "atk": 84, "def": 70, "spa": 65, "spd": 70, "spe": 51 },
@@ -1626,6 +1722,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 248,
     "id": "TYRANITAR",
     "types": ["ROCK", "DARK"],
     "baseStats": { "hp": 100, "atk": 134, "def": 110, "spa": 95, "spd": 100, "spe": 61 },
@@ -1643,6 +1740,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 249,
     "id": "LUGIA",
     "types": ["PSYCHIC", "FLYING"],
     "baseStats": { "hp": 106, "atk": 90, "def": 130, "spa": 90, "spd": 154, "spe": 110 },
@@ -1659,6 +1757,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 250,
     "id": "HO_OH",
     "types": ["FIRE", "FLYING"],
     "baseStats": { "hp": 106, "atk": 130, "def": 90, "spa": 110, "spd": 154, "spe": 90 },
@@ -1675,6 +1774,7 @@
     "hasGenderDiff": false
   },
   {
+    "speciesId": 251,
     "id": "CELEBI",
     "types": ["PSYCHIC", "GRASS"],
     "baseStats": { "hp": 100, "atk": 100, "def": 100, "spa": 100, "spd": 100, "spe": 100 },
