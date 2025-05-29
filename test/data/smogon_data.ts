@@ -1,4 +1,6 @@
-export const Pokedex = {
+import type { SpeciesDataTable } from "#test/data/showdown-dex-species";
+
+export const Pokedex: SpeciesDataTable = {
   bulbasaur: {
     num: 1,
     name: "Bulbasaur",
