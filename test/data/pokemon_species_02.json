@@ -77,7 +77,7 @@
     "weight": 19,
     "height": 0.9,
     "prevo": "CYNDAQUIL",
-    "evos": ["TYPHLOSION"],
+    "evos": ["TYPHLOSION", "TYPHLOSION"],
     "color": "YELLOW",
     "shape": "WINGS",
     "captureRate": 45,
@@ -168,7 +168,7 @@
     "shape": "WINGS",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -185,7 +185,7 @@
     "shape": "WINGS",
     "captureRate": 90,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -202,7 +202,7 @@
     "shape": "QUADRUPED",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -219,7 +219,7 @@
     "shape": "QUADRUPED",
     "captureRate": 90,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -304,7 +304,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 90,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -354,8 +354,8 @@
     "color": "YELLOW",
     "shape": "WINGS",
     "captureRate": 190,
-    "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "baseFriendship": 70,
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -441,7 +441,7 @@
     "shape": "QUADRUPED",
     "captureRate": 190,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -458,7 +458,7 @@
     "shape": "QUADRUPED",
     "captureRate": 75,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -579,7 +579,7 @@
     "shape": "HUMANOID",
     "captureRate": 65,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -716,7 +716,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 75,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -733,7 +733,7 @@
     "shape": "LEGS",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -750,7 +750,7 @@
     "shape": "UPRIGHT",
     "captureRate": 90,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -767,7 +767,7 @@
     "shape": "WINGS",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -784,7 +784,7 @@
     "shape": "WINGS",
     "captureRate": 45,
     "baseFriendship": 35,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -818,7 +818,7 @@
     "shape": "UPRIGHT",
     "captureRate": 70,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -851,7 +851,7 @@
     "shape": "BALL",
     "captureRate": 225,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -868,7 +868,7 @@
     "shape": "BLOB",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -885,7 +885,7 @@
     "shape": "WINGS",
     "captureRate": 60,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -902,7 +902,7 @@
     "shape": "BALL",
     "captureRate": 190,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -919,7 +919,7 @@
     "shape": "BALL",
     "captureRate": 75,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -931,12 +931,12 @@
     "genderRatio": { "M": 0.5, "F": 0.5 },
     "weight": 14,
     "height": 1.5,
-    "evos": ["DUDUNSPARCE"],
+    "evos": ["DUDUNSPARCE", "DUDUNSPARCE"],
     "color": "YELLOW",
     "shape": "SQUIGGLE",
     "captureRate": 190,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -970,7 +970,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 25,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1020,7 +1020,7 @@
     "shape": "FISH",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1037,7 +1037,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 25,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1103,7 +1103,7 @@
     "shape": "UPRIGHT",
     "captureRate": 120,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1121,7 +1121,7 @@
     "shape": "UPRIGHT",
     "captureRate": 60,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1138,7 +1138,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 190,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1155,7 +1155,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 75,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1223,7 +1223,7 @@
     "shape": "FISH",
     "captureRate": 190,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1240,7 +1240,7 @@
     "shape": "TENTACLES",
     "captureRate": 75,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1340,7 +1340,7 @@
     "shape": "BLOB",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1357,7 +1357,7 @@
     "shape": "WINGS",
     "captureRate": 120,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1374,7 +1374,7 @@
     "shape": "WINGS",
     "captureRate": 60,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1392,7 +1392,7 @@
     "shape": "LEGS",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1441,7 +1441,7 @@
     "shape": "HUMANOID",
     "captureRate": 75,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1457,7 +1457,7 @@
     "shape": "UPRIGHT",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1473,7 +1473,7 @@
     "shape": "HUMANOID",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1490,7 +1490,7 @@
     "shape": "HUMANOID",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1507,7 +1507,7 @@
     "shape": "UPRIGHT",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1611,7 +1611,7 @@
     "id": "PUPITAR",
     "types": ["ROCK", "GROUND"],
     "baseStats": { "hp": 70, "atk": 84, "def": 70, "spa": 65, "spd": 70, "spe": 51 },
-    "abilities": { "A1": "SHED_SKIN" },
+    "abilities": { "A1": "SHED_SKIN", "H": "SHED_SKIN" },
     "genderRatio": { "M": 0.5, "F": 0.5 },
     "weight": 152,
     "height": 1.2,

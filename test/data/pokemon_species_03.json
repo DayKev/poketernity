@@ -168,7 +168,7 @@
     "shape": "WINGS",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -185,7 +185,7 @@
     "shape": "WINGS",
     "captureRate": 127,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -202,7 +202,7 @@
     "shape": "WINGS",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -219,7 +219,7 @@
     "shape": "WINGS",
     "captureRate": 90,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -236,7 +236,7 @@
     "shape": "ARMOR",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -244,7 +244,7 @@
     "id": "SILCOON",
     "types": ["BUG"],
     "baseStats": { "hp": 50, "atk": 35, "def": 55, "spa": 25, "spd": 25, "spe": 15 },
-    "abilities": { "A1": "SHED_SKIN" },
+    "abilities": { "A1": "SHED_SKIN", "H": "SHED_SKIN" },
     "genderRatio": { "M": 0.5, "F": 0.5 },
     "weight": 10,
     "height": 0.6,
@@ -254,7 +254,7 @@
     "shape": "BALL",
     "captureRate": 120,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -271,7 +271,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 45,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -279,7 +279,7 @@
     "id": "CASCOON",
     "types": ["BUG"],
     "baseStats": { "hp": 50, "atk": 35, "def": 55, "spa": 25, "spd": 25, "spe": 15 },
-    "abilities": { "A1": "SHED_SKIN" },
+    "abilities": { "A1": "SHED_SKIN", "H": "SHED_SKIN" },
     "genderRatio": { "M": 0.5, "F": 0.5 },
     "weight": 11.5,
     "height": 0.7,
@@ -289,7 +289,7 @@
     "shape": "BALL",
     "captureRate": 120,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -306,7 +306,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 45,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -461,7 +461,7 @@
     "shape": "QUADRUPED",
     "captureRate": 190,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -478,7 +478,7 @@
     "shape": "QUADRUPED",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -547,7 +547,7 @@
     "shape": "ARMOR",
     "captureRate": 200,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -564,7 +564,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 75,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -581,7 +581,7 @@
     "shape": "LEGS",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -598,7 +598,7 @@
     "shape": "UPRIGHT",
     "captureRate": 90,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -667,7 +667,7 @@
     "shape": "ARMOR",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -684,7 +684,7 @@
     "shape": "BUG_WINGS",
     "captureRate": 120,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -701,7 +701,7 @@
     "shape": "BLOB",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -770,7 +770,7 @@
     "shape": "HUMANOID",
     "captureRate": 180,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -787,7 +787,7 @@
     "shape": "HUMANOID",
     "captureRate": 200,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -821,7 +821,7 @@
     "shape": "HUMANOID",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -956,7 +956,7 @@
     "shape": "HUMANOID",
     "captureRate": 180,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -973,7 +973,7 @@
     "shape": "HUMANOID",
     "captureRate": 90,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1023,7 +1023,7 @@
     "shape": "UPRIGHT",
     "captureRate": 200,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1039,7 +1039,7 @@
     "shape": "UPRIGHT",
     "captureRate": 200,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1054,7 +1054,7 @@
     "shape": "UPRIGHT",
     "captureRate": 150,
     "baseFriendship": 70,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1069,7 +1069,7 @@
     "shape": "HUMANOID",
     "captureRate": 150,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1104,7 +1104,7 @@
     "shape": "ARMS",
     "captureRate": 225,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1121,7 +1121,7 @@
     "shape": "ARMS",
     "captureRate": 75,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1172,7 +1172,7 @@
     "shape": "FISH",
     "captureRate": 125,
     "baseFriendship": 50,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1189,7 +1189,7 @@
     "shape": "FISH",
     "captureRate": 60,
     "baseFriendship": 50,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1206,7 +1206,7 @@
     "shape": "WINGS",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1223,7 +1223,7 @@
     "shape": "WINGS",
     "captureRate": 150,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1239,7 +1239,7 @@
     "shape": "WINGS",
     "captureRate": 90,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1392,7 +1392,7 @@
     "shape": "QUADRUPED",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1409,7 +1409,7 @@
     "shape": "QUADRUPED",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1425,7 +1425,7 @@
     "shape": "UPRIGHT",
     "captureRate": 90,
     "baseFriendship": 70,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1441,7 +1441,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 90,
     "baseFriendship": 70,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1490,7 +1490,7 @@
     "shape": "FISH",
     "captureRate": 190,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1507,7 +1507,7 @@
     "shape": "FISH",
     "captureRate": 75,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1524,7 +1524,7 @@
     "shape": "ARMOR",
     "captureRate": 205,
     "baseFriendship": 50,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1541,7 +1541,7 @@
     "shape": "ARMOR",
     "captureRate": 155,
     "baseFriendship": 50,
-    "growthRate": "FAST_THEN_VERY_SLOW",
+    "growthRate": "FLUCTUATING",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1558,7 +1558,7 @@
     "shape": "ARMS",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1575,7 +1575,7 @@
     "shape": "ARMS",
     "captureRate": 90,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1592,7 +1592,7 @@
     "shape": "BLOB",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1609,7 +1609,7 @@
     "shape": "BLOB",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1626,7 +1626,7 @@
     "shape": "ARMOR",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1643,7 +1643,7 @@
     "shape": "UPRIGHT",
     "captureRate": 45,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1660,7 +1660,7 @@
     "shape": "FISH",
     "captureRate": 255,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1677,7 +1677,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 60,
     "baseFriendship": 50,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
@@ -1693,7 +1693,7 @@
     "shape": "BALL",
     "captureRate": 45,
     "baseFriendship": 70,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1844,7 +1844,7 @@
     "shape": "UPRIGHT",
     "captureRate": 125,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1861,7 +1861,7 @@
     "shape": "HUMANOID",
     "captureRate": 190,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1878,7 +1878,7 @@
     "shape": "BALL",
     "captureRate": 75,
     "baseFriendship": 50,
-    "growthRate": "MEDIUM",
+    "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1947,7 +1947,7 @@
     "shape": "BALL",
     "captureRate": 255,
     "baseFriendship": 70,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1964,7 +1964,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 60,
     "baseFriendship": 70,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -1981,7 +1981,7 @@
     "shape": "SQUIGGLE",
     "captureRate": 60,
     "baseFriendship": 70,
-    "growthRate": "SLOW_THEN_VERY_FAST",
+    "growthRate": "ERRATIC",
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
@@ -2080,7 +2080,7 @@
     "evos": ["METANG"],
     "color": "BLUE",
     "shape": "BLOB",
-    "captureRate": 3,
+    "captureRate": 45,
     "baseFriendship": 35,
     "growthRate": "SLOW",
     "speciesGroup": "COMMON",
@@ -2098,7 +2098,7 @@
     "evos": ["METAGROSS"],
     "color": "BLUE",
     "shape": "ARMS",
-    "captureRate": 3,
+    "captureRate": 25,
     "baseFriendship": 35,
     "growthRate": "SLOW",
     "speciesGroup": "COMMON",
@@ -2115,7 +2115,7 @@
     "prevo": "METANG",
     "color": "BLUE",
     "shape": "HEADS",
-    "captureRate": 3,
+    "captureRate": 10,
     "baseFriendship": 35,
     "growthRate": "SLOW",
     "speciesGroup": "COMMON",
