@@ -327,7 +327,22 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
-  {},
+  {
+    "id": "FLABEBE",
+    "types": ["FAIRY"],
+    "baseStats": { "hp": 44, "atk": 38, "def": 39, "spa": 61, "spd": 79, "spe": 42 },
+    "abilities": { "A1": "FLOWER_VEIL", "H": "SYMBIOSIS", "P": "GRASSY_SURGE" },
+    "weight": 0.1,
+    "height": 0.1,
+    "evos": ["FLOETTE"],
+    "color": "WHITE",
+    "shape": "ARMS",
+    "captureRate": 225,
+    "baseFriendship": 70,
+    "growthRate": "MEDIUM",
+    "speciesGroup": "COMMON",
+    "hasGenderDiff": false
+  },
   {
     "id": "FLOETTE",
     "types": ["FAIRY"],

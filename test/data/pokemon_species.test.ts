@@ -111,8 +111,11 @@ describe("Data - Pokemon Species", () => {
           );
           continue;
         }
-        const smogonKey = filteredEntry[0][1].name.toLowerCase();
+        const smogonKey = filteredEntry[0][1].name.toLowerCase().replace(/[^\w\d]/g, "");
         const smogonEntry = Pokedex[smogonKey];
+        if (!smogonEntry) {
+          throw new Error("Missing entry in smogondex for " + speciesEnumName + "!");
+        }
         if (smogonEntry) {
           const pokeapiEntry = pokeapiEntries.filter((x) => x["id"] === speciesId)[0];
           speciesEntry["id"] = speciesEnumName;
@@ -144,7 +147,7 @@ describe("Data - Pokemon Species", () => {
                 .normalize("NFD")
                 .replace(/\p{Diacritic}/gu, "")
                 .toLowerCase();
-              const prevoNameCondensed = prevoName.replace(/[-:\s]/g, "");
+              const prevoNameCondensed = prevoName.replace(/[^\w\d]/g, "");
               if (prevoName !== prevoNameCondensed) {
                 console.error("special name found:", prevoName, prevoNameCondensed);
               }
@@ -170,7 +173,7 @@ describe("Data - Pokemon Species", () => {
                 "|",
                 prevoName,
                 "|",
-                prevoName.replace(/[-:\s]/g, ""),
+                prevoName.replace(/[^\w\d]/g, ""),
               );
               throw new Error(err);
             }

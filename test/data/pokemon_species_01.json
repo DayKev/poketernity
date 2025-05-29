@@ -1407,7 +1407,22 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {},
+  {
+    "id": "FARFETCHD",
+    "types": ["NORMAL", "FLYING"],
+    "baseStats": { "hp": 52, "atk": 90, "def": 55, "spa": 58, "spd": 62, "spe": 60 },
+    "abilities": { "A1": "KEEN_EYE", "A2": "INNER_FOCUS", "H": "DEFIANT", "P": "SNIPER" },
+    "genderRatio": { "M": 0.5, "F": 0.5 },
+    "weight": 15,
+    "height": 0.8,
+    "color": "BROWN",
+    "shape": "QUADRUPED",
+    "captureRate": 45,
+    "baseFriendship": 50,
+    "growthRate": "MEDIUM",
+    "speciesGroup": "COMMON",
+    "hasGenderDiff": false
+  },
   {
     "id": "DODUO",
     "types": ["NORMAL", "FLYING"],
@@ -2053,7 +2068,23 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {},
+  {
+    "id": "MR_MIME",
+    "types": ["PSYCHIC", "FAIRY"],
+    "baseStats": { "hp": 40, "atk": 45, "def": 65, "spa": 100, "spd": 120, "spe": 90 },
+    "abilities": { "A1": "SOUNDPROOF", "A2": "FILTER", "H": "TECHNICIAN" },
+    "genderRatio": { "M": 0.5, "F": 0.5 },
+    "weight": 54.5,
+    "height": 1.3,
+    "prevo": "MIME_JR",
+    "color": "PINK",
+    "shape": "HUMANOID",
+    "captureRate": 45,
+    "baseFriendship": 50,
+    "growthRate": "MEDIUM",
+    "speciesGroup": "COMMON",
+    "hasGenderDiff": false
+  },
   {
     "id": "SCYTHER",
     "types": ["BUG", "FLYING"],

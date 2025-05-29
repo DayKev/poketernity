@@ -884,7 +884,22 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {},
+  {
+    "id": "MIME_JR",
+    "types": ["PSYCHIC", "FAIRY"],
+    "baseStats": { "hp": 20, "atk": 25, "def": 45, "spa": 70, "spd": 90, "spe": 60 },
+    "abilities": { "A1": "SOUNDPROOF", "A2": "FILTER", "H": "TECHNICIAN", "P": "PRANKSTER" },
+    "genderRatio": { "M": 0.5, "F": 0.5 },
+    "weight": 13,
+    "height": 0.6,
+    "color": "PINK",
+    "shape": "HUMANOID",
+    "captureRate": 145,
+    "baseFriendship": 50,
+    "growthRate": "MEDIUM",
+    "speciesGroup": "COMMON",
+    "hasGenderDiff": false
+  },
   {
     "id": "HAPPINY",
     "types": ["NORMAL"],
@@ -1460,7 +1475,23 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
-  {},
+  {
+    "id": "PORYGON_Z",
+    "types": ["NORMAL"],
+    "baseStats": { "hp": 85, "atk": 80, "def": 70, "spa": 135, "spd": 75, "spe": 90 },
+    "abilities": { "A1": "ADAPTABILITY", "A2": "DOWNLOAD", "H": "ANALYTIC" },
+    "genderRatio": { "M": 0.5, "F": 0.5 },
+    "weight": 34,
+    "height": 0.9,
+    "prevo": "PORYGON2",
+    "color": "RED",
+    "shape": "ARMS",
+    "captureRate": 30,
+    "baseFriendship": 50,
+    "growthRate": "MEDIUM",
+    "speciesGroup": "COMMON",
+    "hasGenderDiff": false
+  },
   {
     "id": "GALLADE",
     "types": ["PSYCHIC", "FIGHTING"],
