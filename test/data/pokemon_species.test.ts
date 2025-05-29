@@ -6,10 +6,11 @@ import { PokemonRegion } from "#enums/pokemon-regions";
 import { PokemonShapes } from "#enums/pokemon-shapes";
 import { SpeciesGroups } from "#enums/pokemon-species-groups";
 import { SpeciesId } from "#enums/species-id";
+import { Stat } from "#enums/stat";
 import { Pokedex } from "#test/data/smogon_data";
 import { GameManager } from "#test/test-utils/game-manager";
 import { isNil } from "#utils/common-utils";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import Phaser from "phaser";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
@@ -112,7 +113,6 @@ describe("Data - Pokemon Species", () => {
       const filteredEntry = showdownEntries.filter((x) => {
         const idMatch = x[1]["num"] === speciesId;
         const baseSpecies: string | undefined = x[1]["baseSpecies"];
-        let regionMatch = isNil(baseSpecies);
         const forme: string | undefined = x[1]["forme"];
         if (speciesEnumName === "ETERNAL_FLOETTE") {
           return idMatch && baseSpecies === "Floette" && forme === "Eternal";
@@ -120,24 +120,12 @@ describe("Data - Pokemon Species", () => {
         if (speciesEnumName === "BLOODMOON_URSALUNA") {
           return idMatch && baseSpecies === "Ursaluna" && forme === "Bloodmoon";
         }
+        if (speciesEnumName === "MINIOR") {
+          return idMatch && baseSpecies === "Minior" && forme === "Meteor";
+        }
+        const regionMatch = setRegionMatch(region, isNil(baseSpecies), forme);
         const mega = forme?.includes("Mega");
         const gmax = forme === "Gmax";
-        switch (region) {
-          case PokemonRegion.NORMAL:
-            break;
-          case PokemonRegion.ALOLA:
-            regionMatch = forme === "Alola";
-            break;
-          case PokemonRegion.GALAR:
-            regionMatch = forme === "Galar";
-            break;
-          case PokemonRegion.HISUI:
-            regionMatch = forme === "Hisui";
-            break;
-          case PokemonRegion.PALDEA:
-            regionMatch = forme === "Paldea";
-            break;
-        }
         return idMatch && regionMatch && !mega && !gmax;
       });
       const dexEntryMissingErrorMessage = `Missing entry for ${speciesEnumName} (id: ${sp.speciesId}, adjusted id: ${speciesId}, name: ${sp.name})`;
@@ -157,18 +145,63 @@ describe("Data - Pokemon Species", () => {
         expect(speciesEntry["types"][1]).toBe(ElementalType[sp.type2]);
       }
 
+      // const statsObject: BaseStats = {
+      //   hp: smogonEntry.baseStats.hp,
+      //   atk: smogonEntry.baseStats.atk,
+      //   def: smogonEntry.baseStats.def,
+      //   spa: smogonEntry.baseStats.spa,
+      //   spd: smogonEntry.baseStats.spd,
+      //   spe: smogonEntry.baseStats.spe,
+      // };
       const statsObject: BaseStats = {
-        hp: smogonEntry.baseStats.hp,
-        atk: smogonEntry.baseStats.atk,
-        def: smogonEntry.baseStats.def,
-        spa: smogonEntry.baseStats.spa,
-        spd: smogonEntry.baseStats.spd,
-        spe: smogonEntry.baseStats.spe,
+        hp: sp.getBaseStat(Stat.HP),
+        atk: sp.getBaseStat(Stat.ATK),
+        def: sp.getBaseStat(Stat.DEF),
+        spa: sp.getBaseStat(Stat.SPATK),
+        spd: sp.getBaseStat(Stat.SPDEF),
+        spe: sp.getBaseStat(Stat.SPD),
       };
+      expect(smogonEntry.baseStats.hp).toBe(sp.getBaseStat(Stat.HP));
+      expect(smogonEntry.baseStats.atk).toBe(sp.getBaseStat(Stat.ATK));
+      expect(smogonEntry.baseStats.def).toBe(sp.getBaseStat(Stat.DEF));
+      expect(smogonEntry.baseStats.spa).toBe(sp.getBaseStat(Stat.SPATK));
+      expect(smogonEntry.baseStats.spd).toBe(sp.getBaseStat(Stat.SPDEF));
+      expect(smogonEntry.baseStats.spe).toBe(sp.getBaseStat(Stat.SPD));
       speciesEntry["baseStats"] = statsObject;
-      const abilityObj: SpeciesAbilities = { A1: "" };
-      processAbilities(abilityObj, smogonEntry.abilities, speciesId);
+
+      const abilityObj: SpeciesAbilities = { A1: AbilityId[sp.ability1] };
+      const a1 = smogonEntry.abilities["0"].toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
+      const a2 = smogonEntry.abilities["1"]?.toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
+      const h = smogonEntry.abilities["H"]?.toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
+
+      expect(a1, `${speciesEnumName} first ability should be: ${a1} is: ${abilityObj.A1}`).toBe(abilityObj.A1);
+      if (sp.ability2 !== sp.ability1) {
+        abilityObj.A2 = AbilityId[sp.ability2];
+        expect(a2, `${speciesEnumName} second ability should be: ${a2} is: ${abilityObj.A2}`).toBe(abilityObj.A2);
+      } else {
+        expect(!!a2).toBe(sp.ability2 !== sp.ability1);
+      }
+      if (sp.abilityHidden) {
+        abilityObj.H = AbilityId[sp.abilityHidden];
+        const pktyCustomHidden = [
+          SpeciesId.METAPOD,
+          SpeciesId.KAKUNA,
+          SpeciesId.PUPITAR,
+          SpeciesId.CASCOON,
+          SpeciesId.SILCOON,
+          SpeciesId.FERROSEED,
+          SpeciesId.ETERNAL_FLOETTE,
+        ];
+        if (!pktyCustomHidden.includes(sp.speciesId)) {
+          expect(h, `${speciesEnumName} hidden ability should be: ${h} is: ${abilityObj.H}`).toBe(abilityObj.H);
+        }
+      }
+      if (starterPassiveAbilities[sp.speciesId]) {
+        abilityObj.P = AbilityId[starterPassiveAbilities[sp.speciesId]];
+      }
       speciesEntry["abilities"] = abilityObj;
+
+      // todo:
       if (!(smogonEntry.gender && smogonEntry["gender"] !== "N")) {
         if (smogonEntry.genderRatio) {
           speciesEntry["genderRatio"] = smogonEntry.genderRatio;
@@ -176,11 +209,21 @@ describe("Data - Pokemon Species", () => {
           speciesEntry["genderRatio"] = { M: 0.5, F: 0.5 };
         }
       }
+
       speciesEntry["weight"] = smogonEntry.weightkg;
+      expect(
+        speciesEntry["weight"],
+        `${speciesEnumName} weight should be: ${speciesEntry["weight"]} is: ${sp.weight}`,
+      ).toBe(sp.weight);
       speciesEntry["height"] = smogonEntry.heightm;
+      expect(
+        speciesEntry["height"],
+        `${speciesEnumName} height should be: ${speciesEntry["height"]} is: ${sp.height}`,
+      ).toBe(sp.height);
+
       if (smogonEntry["prevo"]) {
         try {
-          const prevoName = (smogonEntry.prevo as string)
+          const prevoName = smogonEntry.prevo
             .normalize("NFD")
             .replace(/\p{Diacritic}/gu, "")
             .toLowerCase();
@@ -276,22 +319,22 @@ describe("Data - Pokemon Species", () => {
       speciesEntries.push(speciesEntry);
     }
 
-    writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));
+    // writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));
     // retrieveMegaPokemon(showdownEntries.filter((x) => x[1]["forme"] && x[1]["forme"] === "Mega"));
   });
 
-  function processAbilities(abilityObj: SpeciesAbilities, smogonData, speciesId) {
-    abilityObj.A1 = smogonData["0"].toUpperCase().replace(" ", "_");
-    if ("1" in smogonData) {
-      abilityObj.A2 = smogonData["1"].toUpperCase().replace(" ", "_");
-    }
-    if ("H" in smogonData) {
-      abilityObj.H = smogonData["H"].toUpperCase().replace(" ", "_");
-    }
-    if (starterPassiveAbilities[speciesId]) {
-      abilityObj.P = AbilityId[starterPassiveAbilities[speciesId]];
-    }
-  }
+  // function processAbilities(abilityObj: SpeciesAbilities, smogonData: SpeciesAbility, speciesId: number) {
+  //   abilityObj.A1 = smogonData["0"].toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
+  //   if ("1" in smogonData) {
+  //     abilityObj.A2 = smogonData["1"]!.toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
+  //   }
+  //   if ("H" in smogonData) {
+  //     abilityObj.H = smogonData["H"]!.toUpperCase().replace(" ", "_");
+  //   }
+  //   if (starterPassiveAbilities[speciesId]) {
+  //     abilityObj.P = AbilityId[starterPassiveAbilities[speciesId]];
+  //   }
+  // }
 
   // function retrieveMegaPokemon(megaList) {
   //   const printList: any[] = [];
@@ -310,3 +353,18 @@ describe("Data - Pokemon Species", () => {
   //   writeFileSync("./test/data/megaPokemon.json", JSON.stringify(printList));
   // }
 });
+
+function setRegionMatch(region: PokemonRegion, regionMatch: boolean, forme: string | undefined): boolean {
+  switch (region) {
+    case PokemonRegion.NORMAL:
+      return regionMatch;
+    case PokemonRegion.ALOLA:
+      return forme === "Alola";
+    case PokemonRegion.GALAR:
+      return forme === "Galar";
+    case PokemonRegion.HISUI:
+      return forme === "Hisui";
+    case PokemonRegion.PALDEA:
+      return forme === "Paldea";
+  }
+}
