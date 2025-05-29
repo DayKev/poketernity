@@ -1,7 +1,6 @@
 import { allSpecies } from "#data/data-lists";
 import { starterPassiveAbilities } from "#data/passives";
 import { AbilityId } from "#enums/ability-id";
-import { FormCategory } from "#enums/forms";
 import { PokemonShapes } from "#enums/pokemon-shapes";
 import { SpeciesGroups } from "#enums/pokemon-species-groups";
 import { SpeciesId } from "#enums/species-id";
@@ -152,7 +151,14 @@ describe("Data - Pokemon Species", () => {
                 console.error("special name found:", prevoName, prevoNameCondensed);
               }
               const preevoId = Pokedex[prevoNameCondensed].num;
-              speciesEntry["prevo"] = SpeciesId[preevoId + (region ? 2000 * region : 0)];
+              const prevoRegional = SpeciesId[preevoId + 2000 * region];
+              if (speciesEnumName === "ETERNAL_FLOETTE" || speciesEnumName === "BLOODMOON_URSALUNA") {
+                // do nothing
+              } else if (region && !isNil(prevoRegional)) {
+                speciesEntry["prevo"] = prevoRegional;
+              } else {
+                speciesEntry["prevo"] = SpeciesId[preevoId];
+              }
             } catch (err) {
               console.log(smogonEntry);
               const prevoName = (smogonEntry.prevo as string)
@@ -171,15 +177,52 @@ describe("Data - Pokemon Species", () => {
               throw new Error(err);
             }
           }
-          if (smogonEntry["evos"]) {
+          const smogonEvos: string[] = smogonEntry["evos"];
+          if (smogonEvos) {
             const evoList: string[] = [];
-            (smogonEntry["evos"] as string[]).forEach((x: string) => {
-              if (Pokedex[x.toLowerCase()]) {
-                const evoId = Pokedex[x.toLowerCase()].num;
-                evoList.push(SpeciesId[evoId + (region ? 2000 * region : 0)]);
+            for (const x of smogonEvos) {
+              const dexEntry = Pokedex[x.toLowerCase()];
+              if (dexEntry) {
+                const evoId = dexEntry.num;
+                if (region) {
+                  switch (speciesEntry["id"]) {
+                    case "ETERNAL_FLOETTE":
+                      break;
+                    case "GALAR_MEOWTH":
+                      evoList.push(SpeciesId[SpeciesId.PERRSERKER]);
+                      break;
+                    case "GALAR_YAMASK":
+                      evoList.push(SpeciesId[SpeciesId.RUNERIGUS]);
+                      break;
+                    case "HISUI_SNEASEL":
+                      evoList.push(SpeciesId[SpeciesId.SNEASLER]);
+                      break;
+                    case "PALDEA_WOOPER":
+                      evoList.push(SpeciesId[SpeciesId.CLODSIRE]);
+                      break;
+                    default: {
+                      const evoRegion = SpeciesId[evoId + 2000 * region];
+                      if (!isNil(evoRegion)) {
+                        evoList.push(evoRegion);
+                      } else {
+                        const evoBase = SpeciesId[evoId];
+                        if (!isNil(evoBase)) {
+                          evoList.push(evoBase);
+                        } else {
+                          evoList.push("Could not get evo for" + speciesEnumName);
+                        }
+                      }
+                      break;
+                    }
+                  }
+                } else {
+                  evoList.push(SpeciesId[evoId]);
+                }
               }
-            });
-            speciesEntry["evos"] = evoList;
+            }
+            if (evoList.length > 0) {
+              speciesEntry["evos"] = evoList;
+            }
           }
           speciesEntry["color"] = (smogonEntry.color as string).toUpperCase();
           speciesEntry["shape"] = PokemonShapes[pokeapiEntry["shape_id"]];
@@ -196,7 +239,7 @@ describe("Data - Pokemon Species", () => {
       }
 
       writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));
-      retrieveMegaPokemon(showdownEntries.filter((x) => x[1]["forme"] && x[1]["forme"] === "Mega"));
+      // retrieveMegaPokemon(showdownEntries.filter((x) => x[1]["forme"] && x[1]["forme"] === "Mega"));
     },
   );
 
@@ -213,20 +256,20 @@ describe("Data - Pokemon Species", () => {
     }
   }
 
-  function retrieveMegaPokemon(megaList) {
-    const printList: any[] = [];
-    megaList.forEach((x) => {
-      const megaEntry = x[1];
-      const printOut = {};
-      printOut["formCategory"] = FormCategory[FormCategory["MEGA"]];
-      printOut["types"] = megaEntry["types"];
-      printOut["baseStats"] = megaEntry["baseStats"];
-      const ability = { A1: megaEntry["abilities"]["0"].toUpperCase().replace(" ", "_") };
-      printOut["abilities"] = ability;
-      printOut["height"] = megaEntry["heightm"];
-      printOut["weight"] = megaEntry["weightkg"];
-      printList.push(printOut);
-    });
-    writeFileSync("./test/data/megaPokemon.json", JSON.stringify(printList));
-  }
+  // function retrieveMegaPokemon(megaList) {
+  //   const printList: any[] = [];
+  //   megaList.forEach((x) => {
+  //     const megaEntry = x[1];
+  //     const printOut = {};
+  //     printOut["formCategory"] = FormCategory[FormCategory["MEGA"]];
+  //     printOut["types"] = megaEntry["types"];
+  //     printOut["baseStats"] = megaEntry["baseStats"];
+  //     const ability = { A1: megaEntry["abilities"]["0"].toUpperCase().replace(" ", "_") };
+  //     printOut["abilities"] = ability;
+  //     printOut["height"] = megaEntry["heightm"];
+  //     printOut["weight"] = megaEntry["weightkg"];
+  //     printList.push(printOut);
+  //   });
+  //   writeFileSync("./test/data/megaPokemon.json", JSON.stringify(printList));
+  // }
 });
