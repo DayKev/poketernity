@@ -102,9 +102,7 @@ describe("Data - Pokemon Species", () => {
         const speciesEnumName = SpeciesId[speciesId];
         console.log(speciesEnumName);
         const region = sp.getRegion();
-        if (region > 0) {
-          speciesId = speciesId - 2000 * region;
-        }
+        speciesId = speciesId - 2000 * region;
         const speciesEntry: any = {};
         const filteredEntry = showdownEntries.filter((x) => x[1]["num"] === speciesId && isNil(x[1]["baseSpecies"]));
         if (filteredEntry.length === 0) {
