@@ -38942,7 +38942,7 @@ export function initSpecies() {
       95,
       80,
       90,
-      85,
+      75,
       50,
       194,
       GrowthRate.SLOW,
