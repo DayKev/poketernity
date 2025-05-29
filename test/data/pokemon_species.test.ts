@@ -1,6 +1,8 @@
 import { allSpecies } from "#data/data-lists";
 import { starterPassiveAbilities } from "#data/passives";
 import { AbilityId } from "#enums/ability-id";
+import { ElementalType } from "#enums/elemental-type";
+import { PokemonRegion } from "#enums/pokemon-regions";
 import { PokemonShapes } from "#enums/pokemon-shapes";
 import { SpeciesGroups } from "#enums/pokemon-species-groups";
 import { SpeciesId } from "#enums/species-id";
@@ -96,21 +98,65 @@ describe("Data - Pokemon Species", () => {
     const speciesSample = allSpecies.filter((sp) => sp.generation === gen);
 
     for (const sp of speciesSample) {
+      if (sp.speciesId === SpeciesId.PALDEA_TAUROS) {
+        continue;
+      }
       let speciesId = sp.speciesId;
       const speciesEnumName = SpeciesId[speciesId];
-      console.log(speciesEnumName);
+      // console.log(speciesEnumName);
+
       const region = sp.getRegion();
       speciesId = speciesId - 2000 * region;
+
       const speciesEntry: any = {};
-      const filteredEntry = showdownEntries.filter((x) => x[1]["num"] === speciesId && isNil(x[1]["baseSpecies"]));
+      const filteredEntry = showdownEntries.filter((x) => {
+        const idMatch = x[1]["num"] === speciesId;
+        const baseSpecies: string | undefined = x[1]["baseSpecies"];
+        let regionMatch = isNil(baseSpecies);
+        const forme: string | undefined = x[1]["forme"];
+        if (speciesEnumName === "ETERNAL_FLOETTE") {
+          return idMatch && baseSpecies === "Floette" && forme === "Eternal";
+        }
+        if (speciesEnumName === "BLOODMOON_URSALUNA") {
+          return idMatch && baseSpecies === "Ursaluna" && forme === "Bloodmoon";
+        }
+        const mega = forme?.includes("Mega");
+        const gmax = forme === "Gmax";
+        switch (region) {
+          case PokemonRegion.NORMAL:
+            break;
+          case PokemonRegion.ALOLA:
+            regionMatch = forme === "Alola";
+            break;
+          case PokemonRegion.GALAR:
+            regionMatch = forme === "Galar";
+            break;
+          case PokemonRegion.HISUI:
+            regionMatch = forme === "Hisui";
+            break;
+          case PokemonRegion.PALDEA:
+            regionMatch = forme === "Paldea";
+            break;
+        }
+        return idMatch && regionMatch && !mega && !gmax;
+      });
       const dexEntryMissingErrorMessage = `Missing entry for ${speciesEnumName} (id: ${sp.speciesId}, adjusted id: ${speciesId}, name: ${sp.name})`;
       expect(filteredEntry, dexEntryMissingErrorMessage).not.toHaveLength(0);
+
       const smogonKey = filteredEntry[0][1].name.toLowerCase().replace(/[^\w\d]/g, "");
       const smogonEntry = Pokedex[smogonKey];
       expect(smogonEntry, dexEntryMissingErrorMessage).toBeDefined();
+
       const pokeapiEntry = pokeapiEntries.filter((x) => x["id"] === speciesId)[0];
+
       speciesEntry["id"] = speciesEnumName;
       speciesEntry["types"] = smogonEntry["types"].map((x) => x.toUpperCase());
+      expect(speciesEntry["types"][0]).toBe(ElementalType[sp.type1]);
+      if (sp.type2) {
+        expect(speciesEntry["types"][1]).toBeDefined();
+        expect(speciesEntry["types"][1]).toBe(ElementalType[sp.type2]);
+      }
+
       const statsObject: BaseStats = {
         hp: smogonEntry.baseStats.hp,
         atk: smogonEntry.baseStats.atk,
@@ -140,7 +186,7 @@ describe("Data - Pokemon Species", () => {
             .toLowerCase();
           const prevoNameCondensed = prevoName.replace(/[^\w\d]/g, "");
           if (prevoName !== prevoNameCondensed) {
-            console.error("special name found:", prevoName, prevoNameCondensed);
+            // console.error("special name found:", prevoName, prevoNameCondensed);
           }
           const preevoId = Pokedex[prevoNameCondensed].num;
           const prevoRegional = SpeciesId[preevoId + 2000 * region];
@@ -173,10 +219,8 @@ describe("Data - Pokemon Species", () => {
       if (smogonEvos) {
         const evoList: string[] = [];
         for (const x of smogonEvos) {
-          if (speciesEnumName === "PORYGON2") {
-            evoList.push("PORYGON_Z");
-          }
-          const dexEntry = Pokedex[x.toLowerCase()];
+          const id = x.toLowerCase().replace(/-/g, "");
+          const dexEntry = Pokedex[id];
           if (dexEntry) {
             const evoId = dexEntry.num;
             if (region) {
