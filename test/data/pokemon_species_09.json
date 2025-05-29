@@ -1662,7 +1662,7 @@
     "genderRatio": { "M": 0.5, "F": 0.5 },
     "weight": 8.5,
     "height": 0.4,
-    "evos": [null],
+    "evos": ["CLODSIRE"],
     "color": "BLUE",
     "shape": "LEGS",
     "captureRate": 255,

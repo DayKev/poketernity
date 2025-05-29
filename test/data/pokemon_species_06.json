@@ -1208,7 +1208,6 @@
     "abilities": { "A1": "FLOWER_VEIL", "H": "SYMBIOSIS" },
     "weight": 0.9,
     "height": 0.2,
-    "evos": [null],
     "color": "WHITE",
     "shape": "ARMS",
     "captureRate": 120,
