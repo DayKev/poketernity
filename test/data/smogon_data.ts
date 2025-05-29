@@ -18391,7 +18391,7 @@ export const Pokedex: SpeciesDataTable = {
     baseStats: { hp: 88, atk: 128, def: 115, spa: 58, spd: 86, spe: 80 },
     abilities: { 0: "Toxic Chain", H: "Guard Dog" },
     heightm: 1.8,
-    weightkg: 92,
+    weightkg: 92.2,
     color: "Black",
     tags: ["Sub-Legendary"],
     eggGroups: ["Undiscovered"],
