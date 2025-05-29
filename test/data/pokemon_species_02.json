@@ -1387,7 +1387,7 @@
     "weight": 32.5,
     "height": 0.6,
     "prevo": "PORYGON",
-    "evos": [],
+    "evos": ["PORYGON_Z"],
     "color": "RED",
     "shape": "LEGS",
     "captureRate": 45,

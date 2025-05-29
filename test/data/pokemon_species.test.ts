@@ -181,6 +181,9 @@ describe("Data - Pokemon Species", () => {
           if (smogonEvos) {
             const evoList: string[] = [];
             for (const x of smogonEvos) {
+              if (speciesEnumName === "PORYGON2") {
+                evoList.push("PORYGON_Z");
+              }
               const dexEntry = Pokedex[x.toLowerCase()];
               if (dexEntry) {
                 const evoId = dexEntry.num;
