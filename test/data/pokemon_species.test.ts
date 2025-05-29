@@ -2,6 +2,8 @@ import { allSpecies } from "#data/data-lists";
 import { starterPassiveAbilities } from "#data/passives";
 import { AbilityId } from "#enums/ability-id";
 import { ElementalType } from "#enums/elemental-type";
+import { GrowthRate } from "#enums/growth-rates";
+import type { PokemonColors } from "#enums/pokemon-colors";
 import { PokemonRegion } from "#enums/pokemon-regions";
 import { PokemonShapes } from "#enums/pokemon-shapes";
 import { SpeciesGroups } from "#enums/pokemon-species-groups";
@@ -10,7 +12,7 @@ import { Stat } from "#enums/stat";
 import { Pokedex } from "#test/data/smogon_data";
 import { GameManager } from "#test/test-utils/game-manager";
 import { isNil } from "#utils/common-utils";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import Phaser from "phaser";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
@@ -53,8 +55,18 @@ enum GrowthRate_PokeAPI {
   FAST_THEN_VERY_SLOW,
 }
 
+const GrowthRateMap = {
+  [GrowthRate_PokeAPI.SLOW_THEN_VERY_FAST]: GrowthRate.ERRATIC,
+  [GrowthRate_PokeAPI.FAST]: GrowthRate.FAST,
+  [GrowthRate_PokeAPI.MEDIUM]: GrowthRate.MEDIUM_FAST,
+  [GrowthRate_PokeAPI.MEDIUM_SLOW]: GrowthRate.MEDIUM_SLOW,
+  [GrowthRate_PokeAPI.SLOW]: GrowthRate.SLOW,
+  [GrowthRate_PokeAPI.FAST_THEN_VERY_SLOW]: GrowthRate.FLUCTUATING,
+};
+
 type SpeciesEntry = {
   id: string;
+  speciesId: number;
   types: string[];
   baseStats: BaseStats;
   abilities: SpeciesAbilities;
@@ -70,7 +82,30 @@ type SpeciesEntry = {
   growthRate: string;
   speciesGroup: string;
   hasGenderDiff: boolean;
-  forms?;
+  forms?; // TODO
+};
+
+type PokeAPI_Data = {
+  id: number;
+  identifier: string;
+  generation_id: number;
+  evolves_from_species_id: string | number;
+  evolution_chain_id: number;
+  color_id: PokemonColors;
+  shape_id: PokemonShapes;
+  habitat_id: number;
+  gender_rate: number;
+  capture_rate: number;
+  base_happiness: number;
+  is_baby: number;
+  hatch_counter: number;
+  has_gender_differences: number;
+  growth_rate_id: number;
+  forms_switchable: number;
+  is_legendary: number;
+  is_mythical: number;
+  order: number;
+  conquest_order: string;
 };
 
 describe("Data - Pokemon Species", () => {
@@ -90,11 +125,12 @@ describe("Data - Pokemon Species", () => {
   beforeEach(() => {
     game = new GameManager(phaserGame);
   });
-  // From PokeAPI, growth rate, shape, capture rate, base friendship
+
+  // From PokeAPI: growth rate, shape, capture rate, base friendship
 
   it.each([1, 2, 3, 4, 5, 6, 7, 8, 9])("write json files: gen %d", async (gen) => {
     const speciesEntries: SpeciesEntry[] = [];
-    const pokeapiEntries = JSON.parse(readFileSync("./test/data/pokeapi_species.json", "utf-8"));
+    const pokeapiEntries: PokeAPI_Data[] = JSON.parse(readFileSync("./test/data/pokeapi_species.json", "utf-8"));
     const showdownEntries = Object.entries(Pokedex);
     const speciesSample = allSpecies.filter((sp) => sp.generation === gen);
 
@@ -109,7 +145,8 @@ describe("Data - Pokemon Species", () => {
       const region = sp.getRegion();
       speciesId = speciesId - 2000 * region;
 
-      const speciesEntry: any = {};
+      const speciesEntry: any = { speciesId: sp.speciesId };
+
       const filteredEntry = showdownEntries.filter((x) => {
         const idMatch = x[1]["num"] === speciesId;
         const baseSpecies: string | undefined = x[1]["baseSpecies"];
@@ -195,13 +232,15 @@ describe("Data - Pokemon Species", () => {
         if (!pktyCustomHidden.includes(sp.speciesId)) {
           expect(h, `${speciesEnumName} hidden ability should be: ${h} is: ${abilityObj.H}`).toBe(abilityObj.H);
         }
+      } else {
+        expect(!!h).toBe(!!sp.abilityHidden);
       }
       if (starterPassiveAbilities[sp.speciesId]) {
         abilityObj.P = AbilityId[starterPassiveAbilities[sp.speciesId]];
       }
       speciesEntry["abilities"] = abilityObj;
 
-      // todo:
+      // todo: validate
       if (!(smogonEntry.gender && smogonEntry["gender"] !== "N")) {
         if (smogonEntry.genderRatio) {
           speciesEntry["genderRatio"] = smogonEntry.genderRatio;
@@ -221,43 +260,28 @@ describe("Data - Pokemon Species", () => {
         `${speciesEnumName} height should be: ${speciesEntry["height"]} is: ${sp.height}`,
       ).toBe(sp.height);
 
+      // todo: validate
       if (smogonEntry["prevo"]) {
-        try {
-          const prevoName = smogonEntry.prevo
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLowerCase();
-          const prevoNameCondensed = prevoName.replace(/[^\w\d]/g, "");
-          if (prevoName !== prevoNameCondensed) {
-            // console.error("special name found:", prevoName, prevoNameCondensed);
-          }
-          const preevoId = Pokedex[prevoNameCondensed].num;
-          const prevoRegional = SpeciesId[preevoId + 2000 * region];
-          if (speciesEnumName === "ETERNAL_FLOETTE" || speciesEnumName === "BLOODMOON_URSALUNA") {
-            // do nothing
-          } else if (region && !isNil(prevoRegional)) {
-            speciesEntry["prevo"] = prevoRegional;
-          } else {
-            speciesEntry["prevo"] = SpeciesId[preevoId];
-          }
-        } catch (err) {
-          console.log(smogonEntry);
-          const prevoName = (smogonEntry.prevo as string)
-            .normalize("NFD")
-            .replace(/\p{Diacritic}/gu, "")
-            .toLowerCase();
-          console.log(
-            smogonEntry["prevo"],
-            "|",
-            smogonEntry.prevo,
-            "|",
-            prevoName,
-            "|",
-            prevoName.replace(/[^\w\d]/g, ""),
-          );
-          throw new Error(err);
+        const prevoName = smogonEntry.prevo
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .toLowerCase();
+        const prevoNameCondensed = prevoName.replace(/[^\w\d]/g, "");
+        if (prevoName !== prevoNameCondensed) {
+          // console.error("special name found:", prevoName, prevoNameCondensed);
+        }
+        const preevoId = Pokedex[prevoNameCondensed].num;
+        const prevoRegional = SpeciesId[preevoId + 2000 * region];
+        if (speciesEnumName === "ETERNAL_FLOETTE" || speciesEnumName === "BLOODMOON_URSALUNA") {
+          // do nothing
+        } else if (region && !isNil(prevoRegional)) {
+          speciesEntry["prevo"] = prevoRegional;
+        } else {
+          speciesEntry["prevo"] = SpeciesId[preevoId];
         }
       }
+
+      // todo: validate
       const smogonEvos = smogonEntry["evos"];
       if (smogonEvos) {
         const evoList: string[] = [];
@@ -306,20 +330,67 @@ describe("Data - Pokemon Species", () => {
           speciesEntry["evos"] = evoList;
         }
       }
-      speciesEntry["color"] = (smogonEntry.color as string).toUpperCase();
+      speciesEntry["color"] = smogonEntry.color?.toUpperCase();
       speciesEntry["shape"] = PokemonShapes[pokeapiEntry["shape_id"]];
-      speciesEntry["captureRate"] = pokeapiEntry["capture_rate"];
-      speciesEntry["baseFriendship"] = pokeapiEntry["base_happiness"];
-      speciesEntry["growthRate"] = GrowthRate_PokeAPI[pokeapiEntry["growth_rate_id"]];
+
+      const pktyCatchRateExceptions = [
+        SpeciesId.BELDUM,
+        SpeciesId.METANG,
+        SpeciesId.METAGROSS,
+        SpeciesId.WALKING_WAKE,
+        SpeciesId.IRON_LEAVES,
+        SpeciesId.TERAPAGOS,
+      ];
+      if (!pktyCatchRateExceptions.includes(sp.speciesId)) {
+        expect(
+          sp.catchRate,
+          `${speciesEnumName} catch rate should be: ${pokeapiEntry["capture_rate"]} is: ${sp.catchRate}`,
+        ).toBe(pokeapiEntry["capture_rate"]);
+      }
+      speciesEntry["captureRate"] = sp.catchRate; // pokeapiEntry["capture_rate"];
+
+      const pokeapiFriendshipValueErrors = [
+        SpeciesId.PICHU,
+        SpeciesId.WYRDEER,
+        SpeciesId.KLEAVOR,
+        SpeciesId.URSALUNA,
+        SpeciesId.BASCULEGION,
+        SpeciesId.SNEASLER,
+        SpeciesId.OVERQWIL,
+        SpeciesId.ENAMORUS,
+        SpeciesId.BLOODMOON_URSALUNA,
+        SpeciesId.DIPPLIN,
+        SpeciesId.POLTCHAGEIST,
+        SpeciesId.SINISTCHA,
+        SpeciesId.OGERPON,
+      ];
+      if (!pokeapiFriendshipValueErrors.includes(sp.speciesId)) {
+        expect(
+          sp.baseFriendship,
+          `${speciesEnumName} base friendship should be: ${pokeapiEntry["base_happiness"]} is: ${sp.baseFriendship}`,
+        ).toBe(pokeapiEntry["base_happiness"]);
+      }
+      speciesEntry["baseFriendship"] = sp.baseFriendship; // pokeapiEntry["base_happiness"];
+
+      // pokeapi dipplin value is incorrect
+      if (sp.speciesId !== SpeciesId.DIPPLIN) {
+        expect(sp.growthRate).toBe(GrowthRateMap[pokeapiEntry["growth_rate_id"]]);
+      }
+      speciesEntry["growthRate"] = GrowthRate[sp.growthRate];
+
       speciesEntry["speciesGroup"] = SpeciesGroups[sp.group];
+
       speciesEntry["hasGenderDiff"] = sp.genderDiffs;
+
+      // todo
       if (sp.canChangeForm) {
         speciesEntries["forms"] = [];
       }
+
       speciesEntries.push(speciesEntry);
     }
 
-    // writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));
+    writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));
     // retrieveMegaPokemon(showdownEntries.filter((x) => x[1]["forme"] && x[1]["forme"] === "Mega"));
   });
 
