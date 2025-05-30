@@ -177,7 +177,7 @@ describe("Data - Pokemon Species", () => {
       speciesEntry["id"] = speciesEnumName;
       speciesEntry["types"] = smogonEntry["types"].map((x) => x.toUpperCase());
       expect(speciesEntry["types"][0]).toBe(ElementalType[sp.type1]);
-      if (sp.type2) {
+      if (!isNil(sp.type2)) {
         expect(speciesEntry["types"][1]).toBeDefined();
         expect(speciesEntry["types"][1]).toBe(ElementalType[sp.type2]);
       }
