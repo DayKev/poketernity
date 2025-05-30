@@ -1,7 +1,6 @@
-[
-  {
-    "speciesId": 494,
-    "id": "VICTINI",
+{
+  "VICTINI": {
+    "id": 494,
     "types": ["PSYCHIC", "FIRE"],
     "baseStats": { "hp": 100, "atk": 100, "def": 100, "spa": 100, "spd": 100, "spe": 100 },
     "abilities": { "A1": "VICTORY_STAR", "P": "SHEER_FORCE" },
@@ -16,9 +15,8 @@
     "speciesGroup": "MYTHICAL",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 495,
-    "id": "SNIVY",
+  "SNIVY": {
+    "id": 495,
     "types": ["GRASS"],
     "baseStats": { "hp": 45, "atk": 45, "def": 55, "spa": 45, "spd": 55, "spe": 63 },
     "abilities": { "A1": "OVERGROW", "H": "CONTRARY", "P": "MULTISCALE" },
@@ -34,9 +32,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 496,
-    "id": "SERVINE",
+  "SERVINE": {
+    "id": 496,
     "types": ["GRASS"],
     "baseStats": { "hp": 60, "atk": 60, "def": 75, "spa": 60, "spd": 75, "spe": 83 },
     "abilities": { "A1": "OVERGROW", "H": "CONTRARY" },
@@ -53,9 +50,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 497,
-    "id": "SERPERIOR",
+  "SERPERIOR": {
+    "id": 497,
     "types": ["GRASS"],
     "baseStats": { "hp": 75, "atk": 75, "def": 95, "spa": 75, "spd": 95, "spe": 113 },
     "abilities": { "A1": "OVERGROW", "H": "CONTRARY" },
@@ -71,9 +67,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 498,
-    "id": "TEPIG",
+  "TEPIG": {
+    "id": 498,
     "types": ["FIRE"],
     "baseStats": { "hp": 65, "atk": 63, "def": 45, "spa": 45, "spd": 45, "spe": 45 },
     "abilities": { "A1": "BLAZE", "H": "THICK_FAT", "P": "ROCK_HEAD" },
@@ -89,9 +84,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 499,
-    "id": "PIGNITE",
+  "PIGNITE": {
+    "id": 499,
     "types": ["FIRE", "FIGHTING"],
     "baseStats": { "hp": 90, "atk": 93, "def": 55, "spa": 70, "spd": 55, "spe": 55 },
     "abilities": { "A1": "BLAZE", "H": "THICK_FAT" },
@@ -108,9 +102,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 500,
-    "id": "EMBOAR",
+  "EMBOAR": {
+    "id": 500,
     "types": ["FIRE", "FIGHTING"],
     "baseStats": { "hp": 110, "atk": 123, "def": 65, "spa": 100, "spd": 65, "spe": 65 },
     "abilities": { "A1": "BLAZE", "H": "RECKLESS" },
@@ -126,9 +119,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 501,
-    "id": "OSHAWOTT",
+  "OSHAWOTT": {
+    "id": 501,
     "types": ["WATER"],
     "baseStats": { "hp": 55, "atk": 55, "def": 45, "spa": 63, "spd": 45, "spe": 45 },
     "abilities": { "A1": "TORRENT", "H": "SHELL_ARMOR", "P": "INTREPID_SWORD" },
@@ -144,9 +136,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 502,
-    "id": "DEWOTT",
+  "DEWOTT": {
+    "id": 502,
     "types": ["WATER"],
     "baseStats": { "hp": 75, "atk": 75, "def": 60, "spa": 83, "spd": 60, "spe": 60 },
     "abilities": { "A1": "TORRENT", "H": "SHELL_ARMOR" },
@@ -163,9 +154,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 503,
-    "id": "SAMUROTT",
+  "SAMUROTT": {
+    "id": 503,
     "types": ["WATER"],
     "baseStats": { "hp": 95, "atk": 100, "def": 85, "spa": 108, "spd": 70, "spe": 70 },
     "abilities": { "A1": "TORRENT", "H": "SHELL_ARMOR" },
@@ -181,9 +171,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 504,
-    "id": "PATRAT",
+  "PATRAT": {
+    "id": 504,
     "types": ["NORMAL"],
     "baseStats": { "hp": 45, "atk": 55, "def": 39, "spa": 35, "spd": 39, "spe": 42 },
     "abilities": { "A1": "RUN_AWAY", "A2": "KEEN_EYE", "H": "ANALYTIC", "P": "NO_GUARD" },
@@ -199,9 +188,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 505,
-    "id": "WATCHOG",
+  "WATCHOG": {
+    "id": 505,
     "types": ["NORMAL"],
     "baseStats": { "hp": 60, "atk": 85, "def": 69, "spa": 60, "spd": 69, "spe": 77 },
     "abilities": { "A1": "ILLUMINATE", "A2": "KEEN_EYE", "H": "ANALYTIC" },
@@ -217,9 +205,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 506,
-    "id": "LILLIPUP",
+  "LILLIPUP": {
+    "id": 506,
     "types": ["NORMAL"],
     "baseStats": { "hp": 45, "atk": 60, "def": 45, "spa": 25, "spd": 45, "spe": 55 },
     "abilities": { "A1": "VITAL_SPIRIT", "A2": "PICKUP", "H": "RUN_AWAY", "P": "FUR_COAT" },
@@ -235,9 +222,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 507,
-    "id": "HERDIER",
+  "HERDIER": {
+    "id": 507,
     "types": ["NORMAL"],
     "baseStats": { "hp": 65, "atk": 80, "def": 65, "spa": 35, "spd": 65, "spe": 60 },
     "abilities": { "A1": "INTIMIDATE", "A2": "SAND_RUSH", "H": "SCRAPPY" },
@@ -254,9 +240,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 508,
-    "id": "STOUTLAND",
+  "STOUTLAND": {
+    "id": 508,
     "types": ["NORMAL"],
     "baseStats": { "hp": 85, "atk": 110, "def": 90, "spa": 45, "spd": 90, "spe": 80 },
     "abilities": { "A1": "INTIMIDATE", "A2": "SAND_RUSH", "H": "SCRAPPY" },
@@ -272,9 +257,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 509,
-    "id": "PURRLOIN",
+  "PURRLOIN": {
+    "id": 509,
     "types": ["DARK"],
     "baseStats": { "hp": 41, "atk": 50, "def": 37, "spa": 50, "spd": 37, "spe": 66 },
     "abilities": { "A1": "LIMBER", "A2": "UNBURDEN", "H": "PRANKSTER", "P": "PICKUP" },
@@ -290,9 +274,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 510,
-    "id": "LIEPARD",
+  "LIEPARD": {
+    "id": 510,
     "types": ["DARK"],
     "baseStats": { "hp": 64, "atk": 88, "def": 50, "spa": 88, "spd": 50, "spe": 106 },
     "abilities": { "A1": "LIMBER", "A2": "UNBURDEN", "H": "PRANKSTER" },
@@ -308,9 +291,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 511,
-    "id": "PANSAGE",
+  "PANSAGE": {
+    "id": 511,
     "types": ["GRASS"],
     "baseStats": { "hp": 50, "atk": 53, "def": 48, "spa": 53, "spd": 48, "spe": 64 },
     "abilities": { "A1": "GLUTTONY", "H": "OVERGROW", "P": "WELL_BAKED_BODY" },
@@ -326,9 +308,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 512,
-    "id": "SIMISAGE",
+  "SIMISAGE": {
+    "id": 512,
     "types": ["GRASS"],
     "baseStats": { "hp": 75, "atk": 98, "def": 63, "spa": 98, "spd": 63, "spe": 101 },
     "abilities": { "A1": "GLUTTONY", "H": "OVERGROW" },
@@ -344,9 +325,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 513,
-    "id": "PANSEAR",
+  "PANSEAR": {
+    "id": 513,
     "types": ["FIRE"],
     "baseStats": { "hp": 50, "atk": 53, "def": 48, "spa": 53, "spd": 48, "spe": 64 },
     "abilities": { "A1": "GLUTTONY", "H": "BLAZE", "P": "WATER_ABSORB" },
@@ -362,9 +342,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 514,
-    "id": "SIMISEAR",
+  "SIMISEAR": {
+    "id": 514,
     "types": ["FIRE"],
     "baseStats": { "hp": 75, "atk": 98, "def": 63, "spa": 98, "spd": 63, "spe": 101 },
     "abilities": { "A1": "GLUTTONY", "H": "BLAZE" },
@@ -380,9 +359,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 515,
-    "id": "PANPOUR",
+  "PANPOUR": {
+    "id": 515,
     "types": ["WATER"],
     "baseStats": { "hp": 50, "atk": 53, "def": 48, "spa": 53, "spd": 48, "spe": 64 },
     "abilities": { "A1": "GLUTTONY", "H": "TORRENT", "P": "SAP_SIPPER" },
@@ -398,9 +376,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 516,
-    "id": "SIMIPOUR",
+  "SIMIPOUR": {
+    "id": 516,
     "types": ["WATER"],
     "baseStats": { "hp": 75, "atk": 98, "def": 63, "spa": 98, "spd": 63, "spe": 101 },
     "abilities": { "A1": "GLUTTONY", "H": "TORRENT" },
@@ -416,9 +393,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 517,
-    "id": "MUNNA",
+  "MUNNA": {
+    "id": 517,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 76, "atk": 25, "def": 45, "spa": 67, "spd": 55, "spe": 24 },
     "abilities": { "A1": "FOREWARN", "A2": "SYNCHRONIZE", "H": "TELEPATHY", "P": "NEUTRALIZING_GAS" },
@@ -434,9 +410,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 518,
-    "id": "MUSHARNA",
+  "MUSHARNA": {
+    "id": 518,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 116, "atk": 55, "def": 85, "spa": 107, "spd": 95, "spe": 29 },
     "abilities": { "A1": "FOREWARN", "A2": "SYNCHRONIZE", "H": "TELEPATHY" },
@@ -452,9 +427,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 519,
-    "id": "PIDOVE",
+  "PIDOVE": {
+    "id": 519,
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 50, "atk": 55, "def": 50, "spa": 36, "spd": 30, "spe": 43 },
     "abilities": { "A1": "BIG_PECKS", "A2": "SUPER_LUCK", "H": "RIVALRY", "P": "SNIPER" },
@@ -470,9 +444,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 520,
-    "id": "TRANQUILL",
+  "TRANQUILL": {
+    "id": 520,
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 62, "atk": 77, "def": 62, "spa": 50, "spd": 42, "spe": 65 },
     "abilities": { "A1": "BIG_PECKS", "A2": "SUPER_LUCK", "H": "RIVALRY" },
@@ -489,9 +462,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 521,
-    "id": "UNFEZANT",
+  "UNFEZANT": {
+    "id": 521,
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 80, "atk": 115, "def": 80, "spa": 65, "spd": 55, "spe": 93 },
     "abilities": { "A1": "BIG_PECKS", "A2": "SUPER_LUCK", "H": "RIVALRY" },
@@ -507,9 +479,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
-  {
-    "speciesId": 522,
-    "id": "BLITZLE",
+  "BLITZLE": {
+    "id": 522,
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 45, "atk": 60, "def": 32, "spa": 50, "spd": 32, "spe": 76 },
     "abilities": { "A1": "LIGHTNING_ROD", "A2": "MOTOR_DRIVE", "H": "SAP_SIPPER", "P": "ELECTRIC_SURGE" },
@@ -525,9 +496,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 523,
-    "id": "ZEBSTRIKA",
+  "ZEBSTRIKA": {
+    "id": 523,
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 75, "atk": 100, "def": 63, "spa": 80, "spd": 63, "spe": 116 },
     "abilities": { "A1": "LIGHTNING_ROD", "A2": "MOTOR_DRIVE", "H": "SAP_SIPPER" },
@@ -543,9 +513,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 524,
-    "id": "ROGGENROLA",
+  "ROGGENROLA": {
+    "id": 524,
     "types": ["ROCK"],
     "baseStats": { "hp": 55, "atk": 75, "def": 85, "spa": 25, "spd": 25, "spe": 15 },
     "abilities": { "A1": "STURDY", "A2": "WEAK_ARMOR", "H": "SAND_FORCE", "P": "SOLID_ROCK" },
@@ -561,9 +530,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 525,
-    "id": "BOLDORE",
+  "BOLDORE": {
+    "id": 525,
     "types": ["ROCK"],
     "baseStats": { "hp": 70, "atk": 105, "def": 105, "spa": 50, "spd": 40, "spe": 20 },
     "abilities": { "A1": "STURDY", "A2": "WEAK_ARMOR", "H": "SAND_FORCE" },
@@ -580,9 +548,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 526,
-    "id": "GIGALITH",
+  "GIGALITH": {
+    "id": 526,
     "types": ["ROCK"],
     "baseStats": { "hp": 85, "atk": 135, "def": 130, "spa": 60, "spd": 80, "spe": 25 },
     "abilities": { "A1": "STURDY", "A2": "SAND_STREAM", "H": "SAND_FORCE" },
@@ -598,9 +565,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 527,
-    "id": "WOOBAT",
+  "WOOBAT": {
+    "id": 527,
     "types": ["PSYCHIC", "FLYING"],
     "baseStats": { "hp": 65, "atk": 45, "def": 43, "spa": 55, "spd": 43, "spe": 72 },
     "abilities": { "A1": "UNAWARE", "A2": "KLUTZ", "H": "SIMPLE", "P": "OPPORTUNIST" },
@@ -616,9 +582,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 528,
-    "id": "SWOOBAT",
+  "SWOOBAT": {
+    "id": 528,
     "types": ["PSYCHIC", "FLYING"],
     "baseStats": { "hp": 67, "atk": 57, "def": 55, "spa": 77, "spd": 55, "spe": 114 },
     "abilities": { "A1": "UNAWARE", "A2": "KLUTZ", "H": "SIMPLE" },
@@ -634,9 +599,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 529,
-    "id": "DRILBUR",
+  "DRILBUR": {
+    "id": 529,
     "types": ["GROUND"],
     "baseStats": { "hp": 60, "atk": 85, "def": 40, "spa": 30, "spd": 45, "spe": 68 },
     "abilities": { "A1": "SAND_RUSH", "A2": "SAND_FORCE", "H": "MOLD_BREAKER", "P": "STURDY" },
@@ -652,9 +616,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 530,
-    "id": "EXCADRILL",
+  "EXCADRILL": {
+    "id": 530,
     "types": ["GROUND", "STEEL"],
     "baseStats": { "hp": 110, "atk": 135, "def": 60, "spa": 50, "spd": 65, "spe": 88 },
     "abilities": { "A1": "SAND_RUSH", "A2": "SAND_FORCE", "H": "MOLD_BREAKER" },
@@ -670,9 +633,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 531,
-    "id": "AUDINO",
+  "AUDINO": {
+    "id": 531,
     "types": ["NORMAL"],
     "baseStats": { "hp": 103, "atk": 60, "def": 86, "spa": 60, "spd": 86, "spe": 50 },
     "abilities": { "A1": "HEALER", "A2": "REGENERATOR", "H": "KLUTZ", "P": "FRIEND_GUARD" },
@@ -685,11 +647,11 @@
     "baseFriendship": 50,
     "growthRate": "FAST",
     "speciesGroup": "COMMON",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 532,
-    "id": "TIMBURR",
+  "TIMBURR": {
+    "id": 532,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 75, "atk": 80, "def": 55, "spa": 25, "spd": 35, "spe": 35 },
     "abilities": { "A1": "GUTS", "A2": "SHEER_FORCE", "H": "IRON_FIST", "P": "ROCKY_PAYLOAD" },
@@ -705,9 +667,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 533,
-    "id": "GURDURR",
+  "GURDURR": {
+    "id": 533,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 85, "atk": 105, "def": 85, "spa": 40, "spd": 50, "spe": 40 },
     "abilities": { "A1": "GUTS", "A2": "SHEER_FORCE", "H": "IRON_FIST" },
@@ -724,9 +685,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 534,
-    "id": "CONKELDURR",
+  "CONKELDURR": {
+    "id": 534,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 105, "atk": 140, "def": 95, "spa": 55, "spd": 65, "spe": 45 },
     "abilities": { "A1": "GUTS", "A2": "SHEER_FORCE", "H": "IRON_FIST" },
@@ -742,9 +702,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 535,
-    "id": "TYMPOLE",
+  "TYMPOLE": {
+    "id": 535,
     "types": ["WATER"],
     "baseStats": { "hp": 50, "atk": 50, "def": 40, "spa": 50, "spd": 40, "spe": 64 },
     "abilities": { "A1": "SWIFT_SWIM", "A2": "HYDRATION", "H": "WATER_ABSORB", "P": "POISON_HEAL" },
@@ -760,9 +719,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 536,
-    "id": "PALPITOAD",
+  "PALPITOAD": {
+    "id": 536,
     "types": ["WATER", "GROUND"],
     "baseStats": { "hp": 75, "atk": 65, "def": 55, "spa": 65, "spd": 55, "spe": 69 },
     "abilities": { "A1": "SWIFT_SWIM", "A2": "HYDRATION", "H": "WATER_ABSORB" },
@@ -779,9 +737,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 537,
-    "id": "SEISMITOAD",
+  "SEISMITOAD": {
+    "id": 537,
     "types": ["WATER", "GROUND"],
     "baseStats": { "hp": 105, "atk": 95, "def": 75, "spa": 85, "spd": 75, "spe": 74 },
     "abilities": { "A1": "SWIFT_SWIM", "A2": "POISON_TOUCH", "H": "WATER_ABSORB" },
@@ -797,9 +754,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 538,
-    "id": "THROH",
+  "THROH": {
+    "id": 538,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 120, "atk": 100, "def": 85, "spa": 30, "spd": 85, "spe": 45 },
     "abilities": { "A1": "GUTS", "A2": "INNER_FOCUS", "H": "MOLD_BREAKER", "P": "STAMINA" },
@@ -813,9 +769,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 539,
-    "id": "SAWK",
+  "SAWK": {
+    "id": 539,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 75, "atk": 125, "def": 75, "spa": 30, "spd": 75, "spe": 85 },
     "abilities": { "A1": "STURDY", "A2": "INNER_FOCUS", "H": "MOLD_BREAKER", "P": "SCRAPPY" },
@@ -829,9 +784,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 540,
-    "id": "SEWADDLE",
+  "SEWADDLE": {
+    "id": 540,
     "types": ["BUG", "GRASS"],
     "baseStats": { "hp": 45, "atk": 53, "def": 70, "spa": 40, "spd": 60, "spe": 42 },
     "abilities": { "A1": "SWARM", "A2": "CHLOROPHYLL", "H": "OVERCOAT", "P": "SHARPNESS" },
@@ -847,9 +801,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 541,
-    "id": "SWADLOON",
+  "SWADLOON": {
+    "id": 541,
     "types": ["BUG", "GRASS"],
     "baseStats": { "hp": 55, "atk": 63, "def": 90, "spa": 50, "spd": 80, "spe": 42 },
     "abilities": { "A1": "LEAF_GUARD", "A2": "CHLOROPHYLL", "H": "OVERCOAT" },
@@ -866,9 +819,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 542,
-    "id": "LEAVANNY",
+  "LEAVANNY": {
+    "id": 542,
     "types": ["BUG", "GRASS"],
     "baseStats": { "hp": 75, "atk": 103, "def": 80, "spa": 70, "spd": 80, "spe": 92 },
     "abilities": { "A1": "SWARM", "A2": "CHLOROPHYLL", "H": "OVERCOAT" },
@@ -884,9 +836,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 543,
-    "id": "VENIPEDE",
+  "VENIPEDE": {
+    "id": 543,
     "types": ["BUG", "POISON"],
     "baseStats": { "hp": 30, "atk": 45, "def": 59, "spa": 30, "spd": 39, "spe": 57 },
     "abilities": { "A1": "POISON_POINT", "A2": "SWARM", "H": "SPEED_BOOST", "P": "STAMINA" },
@@ -902,9 +853,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 544,
-    "id": "WHIRLIPEDE",
+  "WHIRLIPEDE": {
+    "id": 544,
     "types": ["BUG", "POISON"],
     "baseStats": { "hp": 40, "atk": 55, "def": 99, "spa": 40, "spd": 79, "spe": 47 },
     "abilities": { "A1": "POISON_POINT", "A2": "SWARM", "H": "SPEED_BOOST" },
@@ -921,9 +871,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 545,
-    "id": "SCOLIPEDE",
+  "SCOLIPEDE": {
+    "id": 545,
     "types": ["BUG", "POISON"],
     "baseStats": { "hp": 60, "atk": 100, "def": 89, "spa": 55, "spd": 69, "spe": 112 },
     "abilities": { "A1": "POISON_POINT", "A2": "SWARM", "H": "SPEED_BOOST" },
@@ -939,9 +888,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 546,
-    "id": "COTTONEE",
+  "COTTONEE": {
+    "id": 546,
     "types": ["GRASS", "FAIRY"],
     "baseStats": { "hp": 40, "atk": 27, "def": 60, "spa": 37, "spd": 50, "spe": 66 },
     "abilities": { "A1": "PRANKSTER", "A2": "INFILTRATOR", "H": "CHLOROPHYLL", "P": "FLUFFY" },
@@ -957,9 +905,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 547,
-    "id": "WHIMSICOTT",
+  "WHIMSICOTT": {
+    "id": 547,
     "types": ["GRASS", "FAIRY"],
     "baseStats": { "hp": 60, "atk": 67, "def": 85, "spa": 77, "spd": 75, "spe": 116 },
     "abilities": { "A1": "PRANKSTER", "A2": "INFILTRATOR", "H": "CHLOROPHYLL" },
@@ -975,9 +922,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 548,
-    "id": "PETILIL",
+  "PETILIL": {
+    "id": 548,
     "types": ["GRASS"],
     "baseStats": { "hp": 45, "atk": 35, "def": 50, "spa": 70, "spd": 50, "spe": 30 },
     "abilities": { "A1": "CHLOROPHYLL", "A2": "OWN_TEMPO", "H": "LEAF_GUARD", "P": "SIMPLE" },
@@ -992,9 +938,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 549,
-    "id": "LILLIGANT",
+  "LILLIGANT": {
+    "id": 549,
     "types": ["GRASS"],
     "baseStats": { "hp": 70, "atk": 60, "def": 75, "spa": 110, "spd": 75, "spe": 90 },
     "abilities": { "A1": "CHLOROPHYLL", "A2": "OWN_TEMPO", "H": "LEAF_GUARD" },
@@ -1009,9 +954,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 550,
-    "id": "BASCULIN",
+  "BASCULIN": {
+    "id": 550,
     "types": ["WATER"],
     "baseStats": { "hp": 70, "atk": 92, "def": 65, "spa": 80, "spd": 55, "spe": 98 },
     "abilities": { "A1": "RECKLESS", "A2": "ADAPTABILITY", "H": "MOLD_BREAKER", "P": "SUPREME_OVERLORD" },
@@ -1026,9 +970,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 551,
-    "id": "SANDILE",
+  "SANDILE": {
+    "id": 551,
     "types": ["GROUND", "DARK"],
     "baseStats": { "hp": 50, "atk": 72, "def": 35, "spa": 35, "spd": 35, "spe": 65 },
     "abilities": { "A1": "INTIMIDATE", "A2": "MOXIE", "H": "ANGER_POINT", "P": "TOUGH_CLAWS" },
@@ -1044,9 +987,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 552,
-    "id": "KROKOROK",
+  "KROKOROK": {
+    "id": 552,
     "types": ["GROUND", "DARK"],
     "baseStats": { "hp": 60, "atk": 82, "def": 45, "spa": 45, "spd": 45, "spe": 74 },
     "abilities": { "A1": "INTIMIDATE", "A2": "MOXIE", "H": "ANGER_POINT" },
@@ -1063,9 +1005,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 553,
-    "id": "KROOKODILE",
+  "KROOKODILE": {
+    "id": 553,
     "types": ["GROUND", "DARK"],
     "baseStats": { "hp": 95, "atk": 117, "def": 80, "spa": 65, "spd": 70, "spe": 92 },
     "abilities": { "A1": "INTIMIDATE", "A2": "MOXIE", "H": "ANGER_POINT" },
@@ -1081,9 +1022,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 554,
-    "id": "DARUMAKA",
+  "DARUMAKA": {
+    "id": 554,
     "types": ["FIRE"],
     "baseStats": { "hp": 70, "atk": 90, "def": 45, "spa": 15, "spd": 45, "spe": 50 },
     "abilities": { "A1": "HUSTLE", "H": "INNER_FOCUS", "P": "GORILLA_TACTICS" },
@@ -1099,9 +1039,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 555,
-    "id": "DARMANITAN",
+  "DARMANITAN": {
+    "id": 555,
     "types": ["FIRE"],
     "baseStats": { "hp": 105, "atk": 140, "def": 55, "spa": 30, "spd": 55, "spe": 95 },
     "abilities": { "A1": "SHEER_FORCE", "H": "ZEN_MODE" },
@@ -1115,11 +1054,11 @@
     "baseFriendship": 50,
     "growthRate": "MEDIUM_SLOW",
     "speciesGroup": "COMMON",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 556,
-    "id": "MARACTUS",
+  "MARACTUS": {
+    "id": 556,
     "types": ["GRASS"],
     "baseStats": { "hp": 75, "atk": 86, "def": 67, "spa": 106, "spd": 67, "spe": 60 },
     "abilities": { "A1": "WATER_ABSORB", "A2": "CHLOROPHYLL", "H": "STORM_DRAIN", "P": "WELL_BAKED_BODY" },
@@ -1134,9 +1073,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 557,
-    "id": "DWEBBLE",
+  "DWEBBLE": {
+    "id": 557,
     "types": ["BUG", "ROCK"],
     "baseStats": { "hp": 50, "atk": 65, "def": 85, "spa": 35, "spd": 35, "spe": 55 },
     "abilities": { "A1": "STURDY", "A2": "SHELL_ARMOR", "H": "WEAK_ARMOR", "P": "ROCKY_PAYLOAD" },
@@ -1152,9 +1090,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 558,
-    "id": "CRUSTLE",
+  "CRUSTLE": {
+    "id": 558,
     "types": ["BUG", "ROCK"],
     "baseStats": { "hp": 70, "atk": 105, "def": 125, "spa": 65, "spd": 75, "spe": 45 },
     "abilities": { "A1": "STURDY", "A2": "SHELL_ARMOR", "H": "WEAK_ARMOR" },
@@ -1170,9 +1107,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 559,
-    "id": "SCRAGGY",
+  "SCRAGGY": {
+    "id": 559,
     "types": ["DARK", "FIGHTING"],
     "baseStats": { "hp": 50, "atk": 75, "def": 70, "spa": 35, "spd": 70, "spe": 48 },
     "abilities": { "A1": "SHED_SKIN", "A2": "MOXIE", "H": "INTIMIDATE", "P": "PROTEAN" },
@@ -1188,9 +1124,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 560,
-    "id": "SCRAFTY",
+  "SCRAFTY": {
+    "id": 560,
     "types": ["DARK", "FIGHTING"],
     "baseStats": { "hp": 65, "atk": 90, "def": 115, "spa": 45, "spd": 115, "spe": 58 },
     "abilities": { "A1": "SHED_SKIN", "A2": "MOXIE", "H": "INTIMIDATE" },
@@ -1206,9 +1141,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 561,
-    "id": "SIGILYPH",
+  "SIGILYPH": {
+    "id": 561,
     "types": ["PSYCHIC", "FLYING"],
     "baseStats": { "hp": 72, "atk": 58, "def": 80, "spa": 103, "spd": 80, "spe": 97 },
     "abilities": { "A1": "WONDER_SKIN", "A2": "MAGIC_GUARD", "H": "TINTED_LENS", "P": "FLARE_BOOST" },
@@ -1223,9 +1157,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 562,
-    "id": "YAMASK",
+  "YAMASK": {
+    "id": 562,
     "types": ["GHOST"],
     "baseStats": { "hp": 38, "atk": 30, "def": 85, "spa": 55, "spd": 65, "spe": 30 },
     "abilities": { "A1": "MUMMY", "P": "PURIFYING_SALT" },
@@ -1241,9 +1174,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 563,
-    "id": "COFAGRIGUS",
+  "COFAGRIGUS": {
+    "id": 563,
     "types": ["GHOST"],
     "baseStats": { "hp": 58, "atk": 50, "def": 145, "spa": 95, "spd": 105, "spe": 30 },
     "abilities": { "A1": "MUMMY" },
@@ -1259,9 +1191,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 564,
-    "id": "TIRTOUGA",
+  "TIRTOUGA": {
+    "id": 564,
     "types": ["WATER", "ROCK"],
     "baseStats": { "hp": 54, "atk": 78, "def": 103, "spa": 53, "spd": 45, "spe": 22 },
     "abilities": { "A1": "SOLID_ROCK", "A2": "STURDY", "H": "SWIFT_SWIM", "P": "WATER_ABSORB" },
@@ -1277,9 +1208,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 565,
-    "id": "CARRACOSTA",
+  "CARRACOSTA": {
+    "id": 565,
     "types": ["WATER", "ROCK"],
     "baseStats": { "hp": 74, "atk": 108, "def": 133, "spa": 83, "spd": 65, "spe": 32 },
     "abilities": { "A1": "SOLID_ROCK", "A2": "STURDY", "H": "SWIFT_SWIM" },
@@ -1295,9 +1225,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 566,
-    "id": "ARCHEN",
+  "ARCHEN": {
+    "id": 566,
     "types": ["ROCK", "FLYING"],
     "baseStats": { "hp": 55, "atk": 112, "def": 45, "spa": 74, "spd": 45, "spe": 70 },
     "abilities": { "A1": "DEFEATIST", "P": "MULTISCALE" },
@@ -1313,9 +1242,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 567,
-    "id": "ARCHEOPS",
+  "ARCHEOPS": {
+    "id": 567,
     "types": ["ROCK", "FLYING"],
     "baseStats": { "hp": 75, "atk": 140, "def": 65, "spa": 112, "spd": 65, "spe": 110 },
     "abilities": { "A1": "DEFEATIST" },
@@ -1331,9 +1259,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 568,
-    "id": "TRUBBISH",
+  "TRUBBISH": {
+    "id": 568,
     "types": ["POISON"],
     "baseStats": { "hp": 50, "atk": 50, "def": 62, "spa": 40, "spd": 62, "spe": 65 },
     "abilities": { "A1": "STENCH", "A2": "STICKY_HOLD", "H": "AFTERMATH", "P": "NEUTRALIZING_GAS" },
@@ -1349,9 +1276,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 569,
-    "id": "GARBODOR",
+  "GARBODOR": {
+    "id": 569,
     "types": ["POISON"],
     "baseStats": { "hp": 80, "atk": 95, "def": 82, "spa": 60, "spd": 82, "spe": 75 },
     "abilities": { "A1": "STENCH", "A2": "WEAK_ARMOR", "H": "AFTERMATH" },
@@ -1365,11 +1291,11 @@
     "baseFriendship": 50,
     "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 570,
-    "id": "ZORUA",
+  "ZORUA": {
+    "id": 570,
     "types": ["DARK"],
     "baseStats": { "hp": 40, "atk": 65, "def": 40, "spa": 80, "spd": 40, "spe": 65 },
     "abilities": { "A1": "ILLUSION", "P": "DARK_AURA" },
@@ -1385,9 +1311,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 571,
-    "id": "ZOROARK",
+  "ZOROARK": {
+    "id": 571,
     "types": ["DARK"],
     "baseStats": { "hp": 60, "atk": 105, "def": 60, "spa": 120, "spd": 60, "spe": 105 },
     "abilities": { "A1": "ILLUSION" },
@@ -1403,9 +1328,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 572,
-    "id": "MINCCINO",
+  "MINCCINO": {
+    "id": 572,
     "types": ["NORMAL"],
     "baseStats": { "hp": 55, "atk": 50, "def": 40, "spa": 40, "spd": 40, "spe": 75 },
     "abilities": { "A1": "CUTE_CHARM", "A2": "TECHNICIAN", "H": "SKILL_LINK", "P": "FUR_COAT" },
@@ -1421,9 +1345,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 573,
-    "id": "CINCCINO",
+  "CINCCINO": {
+    "id": 573,
     "types": ["NORMAL"],
     "baseStats": { "hp": 75, "atk": 95, "def": 60, "spa": 65, "spd": 60, "spe": 115 },
     "abilities": { "A1": "CUTE_CHARM", "A2": "TECHNICIAN", "H": "SKILL_LINK" },
@@ -1439,9 +1362,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 574,
-    "id": "GOTHITA",
+  "GOTHITA": {
+    "id": 574,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 45, "atk": 30, "def": 50, "spa": 55, "spd": 65, "spe": 45 },
     "abilities": { "A1": "FRISK", "A2": "COMPETITIVE", "H": "SHADOW_TAG", "P": "UNNERVE" },
@@ -1457,9 +1379,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 575,
-    "id": "GOTHORITA",
+  "GOTHORITA": {
+    "id": 575,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 60, "atk": 45, "def": 70, "spa": 75, "spd": 85, "spe": 55 },
     "abilities": { "A1": "FRISK", "A2": "COMPETITIVE", "H": "SHADOW_TAG" },
@@ -1476,9 +1397,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 576,
-    "id": "GOTHITELLE",
+  "GOTHITELLE": {
+    "id": 576,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 70, "atk": 55, "def": 95, "spa": 95, "spd": 110, "spe": 65 },
     "abilities": { "A1": "FRISK", "A2": "COMPETITIVE", "H": "SHADOW_TAG" },
@@ -1494,9 +1414,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 577,
-    "id": "SOLOSIS",
+  "SOLOSIS": {
+    "id": 577,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 45, "atk": 30, "def": 40, "spa": 105, "spd": 50, "spe": 20 },
     "abilities": { "A1": "OVERCOAT", "A2": "MAGIC_GUARD", "H": "REGENERATOR", "P": "PSYCHIC_SURGE" },
@@ -1512,9 +1431,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 578,
-    "id": "DUOSION",
+  "DUOSION": {
+    "id": 578,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 65, "atk": 40, "def": 50, "spa": 125, "spd": 60, "spe": 30 },
     "abilities": { "A1": "OVERCOAT", "A2": "MAGIC_GUARD", "H": "REGENERATOR" },
@@ -1531,9 +1449,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 579,
-    "id": "REUNICLUS",
+  "REUNICLUS": {
+    "id": 579,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 110, "atk": 65, "def": 75, "spa": 125, "spd": 85, "spe": 30 },
     "abilities": { "A1": "OVERCOAT", "A2": "MAGIC_GUARD", "H": "REGENERATOR" },
@@ -1549,9 +1466,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 580,
-    "id": "DUCKLETT",
+  "DUCKLETT": {
+    "id": 580,
     "types": ["WATER", "FLYING"],
     "baseStats": { "hp": 62, "atk": 44, "def": 50, "spa": 44, "spd": 50, "spe": 55 },
     "abilities": { "A1": "KEEN_EYE", "A2": "BIG_PECKS", "H": "HYDRATION", "P": "DRIZZLE" },
@@ -1567,9 +1483,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 581,
-    "id": "SWANNA",
+  "SWANNA": {
+    "id": 581,
     "types": ["WATER", "FLYING"],
     "baseStats": { "hp": 75, "atk": 87, "def": 63, "spa": 87, "spd": 63, "spe": 98 },
     "abilities": { "A1": "KEEN_EYE", "A2": "BIG_PECKS", "H": "HYDRATION" },
@@ -1585,9 +1500,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 582,
-    "id": "VANILLITE",
+  "VANILLITE": {
+    "id": 582,
     "types": ["ICE"],
     "baseStats": { "hp": 36, "atk": 50, "def": 50, "spa": 65, "spd": 60, "spe": 44 },
     "abilities": { "A1": "ICE_BODY", "A2": "SNOW_CLOAK", "H": "WEAK_ARMOR", "P": "SLUSH_RUSH" },
@@ -1603,9 +1517,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 583,
-    "id": "VANILLISH",
+  "VANILLISH": {
+    "id": 583,
     "types": ["ICE"],
     "baseStats": { "hp": 51, "atk": 65, "def": 65, "spa": 80, "spd": 75, "spe": 59 },
     "abilities": { "A1": "ICE_BODY", "A2": "SNOW_CLOAK", "H": "WEAK_ARMOR" },
@@ -1622,9 +1535,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 584,
-    "id": "VANILLUXE",
+  "VANILLUXE": {
+    "id": 584,
     "types": ["ICE"],
     "baseStats": { "hp": 71, "atk": 95, "def": 85, "spa": 110, "spd": 95, "spe": 79 },
     "abilities": { "A1": "ICE_BODY", "A2": "SNOW_WARNING", "H": "WEAK_ARMOR" },
@@ -1640,9 +1552,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 585,
-    "id": "DEERLING",
+  "DEERLING": {
+    "id": 585,
     "types": ["NORMAL", "GRASS"],
     "baseStats": { "hp": 60, "atk": 60, "def": 50, "spa": 40, "spd": 50, "spe": 75 },
     "abilities": { "A1": "CHLOROPHYLL", "A2": "SAP_SIPPER", "H": "SERENE_GRACE", "P": "FUR_COAT" },
@@ -1656,11 +1567,11 @@
     "baseFriendship": 70,
     "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 586,
-    "id": "SAWSBUCK",
+  "SAWSBUCK": {
+    "id": 586,
     "types": ["NORMAL", "GRASS"],
     "baseStats": { "hp": 80, "atk": 100, "def": 70, "spa": 60, "spd": 70, "spe": 95 },
     "abilities": { "A1": "CHLOROPHYLL", "A2": "SAP_SIPPER", "H": "SERENE_GRACE" },
@@ -1674,11 +1585,11 @@
     "baseFriendship": 70,
     "growthRate": "MEDIUM_FAST",
     "speciesGroup": "COMMON",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 587,
-    "id": "EMOLGA",
+  "EMOLGA": {
+    "id": 587,
     "types": ["ELECTRIC", "FLYING"],
     "baseStats": { "hp": 55, "atk": 75, "def": 60, "spa": 75, "spd": 60, "spe": 103 },
     "abilities": { "A1": "STATIC", "H": "MOTOR_DRIVE", "P": "SERENE_GRACE" },
@@ -1693,9 +1604,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 588,
-    "id": "KARRABLAST",
+  "KARRABLAST": {
+    "id": 588,
     "types": ["BUG"],
     "baseStats": { "hp": 50, "atk": 75, "def": 45, "spa": 40, "spd": 45, "spe": 60 },
     "abilities": { "A1": "SWARM", "A2": "SHED_SKIN", "H": "NO_GUARD", "P": "QUICK_DRAW" },
@@ -1711,9 +1621,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 589,
-    "id": "ESCAVALIER",
+  "ESCAVALIER": {
+    "id": 589,
     "types": ["BUG", "STEEL"],
     "baseStats": { "hp": 70, "atk": 135, "def": 105, "spa": 60, "spd": 105, "spe": 20 },
     "abilities": { "A1": "SWARM", "A2": "SHELL_ARMOR", "H": "OVERCOAT" },
@@ -1729,9 +1638,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 590,
-    "id": "FOONGUS",
+  "FOONGUS": {
+    "id": 590,
     "types": ["GRASS", "POISON"],
     "baseStats": { "hp": 69, "atk": 55, "def": 45, "spa": 55, "spd": 55, "spe": 15 },
     "abilities": { "A1": "EFFECT_SPORE", "H": "REGENERATOR", "P": "THICK_FAT" },
@@ -1747,9 +1655,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 591,
-    "id": "AMOONGUSS",
+  "AMOONGUSS": {
+    "id": 591,
     "types": ["GRASS", "POISON"],
     "baseStats": { "hp": 114, "atk": 85, "def": 70, "spa": 85, "spd": 80, "spe": 30 },
     "abilities": { "A1": "EFFECT_SPORE", "H": "REGENERATOR" },
@@ -1765,9 +1672,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 592,
-    "id": "FRILLISH",
+  "FRILLISH": {
+    "id": 592,
     "types": ["WATER", "GHOST"],
     "baseStats": { "hp": 55, "atk": 40, "def": 50, "spa": 65, "spd": 85, "spe": 40 },
     "abilities": { "A1": "WATER_ABSORB", "A2": "CURSED_BODY", "H": "DAMP", "P": "POISON_HEAL" },
@@ -1783,9 +1689,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
-  {
-    "speciesId": 593,
-    "id": "JELLICENT",
+  "JELLICENT": {
+    "id": 593,
     "types": ["WATER", "GHOST"],
     "baseStats": { "hp": 100, "atk": 60, "def": 70, "spa": 85, "spd": 105, "spe": 60 },
     "abilities": { "A1": "WATER_ABSORB", "A2": "CURSED_BODY", "H": "DAMP" },
@@ -1801,9 +1706,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": true
   },
-  {
-    "speciesId": 594,
-    "id": "ALOMOMOLA",
+  "ALOMOMOLA": {
+    "id": 594,
     "types": ["WATER"],
     "baseStats": { "hp": 165, "atk": 75, "def": 80, "spa": 40, "spd": 45, "spe": 65 },
     "abilities": { "A1": "HEALER", "A2": "HYDRATION", "H": "REGENERATOR", "P": "MULTISCALE" },
@@ -1818,9 +1722,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 595,
-    "id": "JOLTIK",
+  "JOLTIK": {
+    "id": 595,
     "types": ["BUG", "ELECTRIC"],
     "baseStats": { "hp": 50, "atk": 47, "def": 50, "spa": 57, "spd": 50, "spe": 65 },
     "abilities": { "A1": "COMPOUND_EYES", "A2": "UNNERVE", "H": "SWARM", "P": "TRANSISTOR" },
@@ -1836,9 +1739,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 596,
-    "id": "GALVANTULA",
+  "GALVANTULA": {
+    "id": 596,
     "types": ["BUG", "ELECTRIC"],
     "baseStats": { "hp": 70, "atk": 77, "def": 60, "spa": 97, "spd": 60, "spe": 108 },
     "abilities": { "A1": "COMPOUND_EYES", "A2": "UNNERVE", "H": "SWARM" },
@@ -1854,9 +1756,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 597,
-    "id": "FERROSEED",
+  "FERROSEED": {
+    "id": 597,
     "types": ["GRASS", "STEEL"],
     "baseStats": { "hp": 44, "atk": 50, "def": 91, "spa": 24, "spd": 86, "spe": 10 },
     "abilities": { "A1": "IRON_BARBS", "H": "ANTICIPATION", "P": "ROUGH_SKIN" },
@@ -1872,9 +1773,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 598,
-    "id": "FERROTHORN",
+  "FERROTHORN": {
+    "id": 598,
     "types": ["GRASS", "STEEL"],
     "baseStats": { "hp": 74, "atk": 94, "def": 131, "spa": 54, "spd": 116, "spe": 20 },
     "abilities": { "A1": "IRON_BARBS", "H": "ANTICIPATION" },
@@ -1890,9 +1790,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 599,
-    "id": "KLINK",
+  "KLINK": {
+    "id": 599,
     "types": ["STEEL"],
     "baseStats": { "hp": 40, "atk": 55, "def": 70, "spa": 45, "spd": 60, "spe": 30 },
     "abilities": { "A1": "PLUS", "A2": "MINUS", "H": "CLEAR_BODY", "P": "STEELY_SPIRIT" },
@@ -1908,9 +1807,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 600,
-    "id": "KLANG",
+  "KLANG": {
+    "id": 600,
     "types": ["STEEL"],
     "baseStats": { "hp": 60, "atk": 80, "def": 95, "spa": 70, "spd": 85, "spe": 50 },
     "abilities": { "A1": "PLUS", "A2": "MINUS", "H": "CLEAR_BODY" },
@@ -1927,9 +1825,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 601,
-    "id": "KLINKLANG",
+  "KLINKLANG": {
+    "id": 601,
     "types": ["STEEL"],
     "baseStats": { "hp": 60, "atk": 100, "def": 115, "spa": 70, "spd": 85, "spe": 90 },
     "abilities": { "A1": "PLUS", "A2": "MINUS", "H": "CLEAR_BODY" },
@@ -1945,9 +1842,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 602,
-    "id": "TYNAMO",
+  "TYNAMO": {
+    "id": 602,
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 35, "atk": 55, "def": 40, "spa": 45, "spd": 40, "spe": 60 },
     "abilities": { "A1": "LEVITATE", "P": "POISON_HEAL" },
@@ -1963,9 +1859,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 603,
-    "id": "EELEKTRIK",
+  "EELEKTRIK": {
+    "id": 603,
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 65, "atk": 85, "def": 70, "spa": 75, "spd": 70, "spe": 40 },
     "abilities": { "A1": "LEVITATE" },
@@ -1982,9 +1877,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 604,
-    "id": "EELEKTROSS",
+  "EELEKTROSS": {
+    "id": 604,
     "types": ["ELECTRIC"],
     "baseStats": { "hp": 85, "atk": 115, "def": 80, "spa": 105, "spd": 80, "spe": 50 },
     "abilities": { "A1": "LEVITATE" },
@@ -2000,9 +1894,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 605,
-    "id": "ELGYEM",
+  "ELGYEM": {
+    "id": 605,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 55, "atk": 55, "def": 55, "spa": 85, "spd": 55, "spe": 30 },
     "abilities": { "A1": "TELEPATHY", "A2": "SYNCHRONIZE", "H": "ANALYTIC", "P": "BEADS_OF_RUIN" },
@@ -2018,9 +1911,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 606,
-    "id": "BEHEEYEM",
+  "BEHEEYEM": {
+    "id": 606,
     "types": ["PSYCHIC"],
     "baseStats": { "hp": 75, "atk": 75, "def": 75, "spa": 125, "spd": 95, "spe": 40 },
     "abilities": { "A1": "TELEPATHY", "A2": "SYNCHRONIZE", "H": "ANALYTIC" },
@@ -2036,9 +1928,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 607,
-    "id": "LITWICK",
+  "LITWICK": {
+    "id": 607,
     "types": ["GHOST", "FIRE"],
     "baseStats": { "hp": 50, "atk": 30, "def": 55, "spa": 65, "spd": 55, "spe": 20 },
     "abilities": { "A1": "FLASH_FIRE", "A2": "FLAME_BODY", "H": "INFILTRATOR", "P": "SHADOW_TAG" },
@@ -2054,9 +1945,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 608,
-    "id": "LAMPENT",
+  "LAMPENT": {
+    "id": 608,
     "types": ["GHOST", "FIRE"],
     "baseStats": { "hp": 60, "atk": 40, "def": 60, "spa": 95, "spd": 60, "spe": 55 },
     "abilities": { "A1": "FLASH_FIRE", "A2": "FLAME_BODY", "H": "INFILTRATOR" },
@@ -2073,9 +1963,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 609,
-    "id": "CHANDELURE",
+  "CHANDELURE": {
+    "id": 609,
     "types": ["GHOST", "FIRE"],
     "baseStats": { "hp": 60, "atk": 55, "def": 90, "spa": 145, "spd": 90, "spe": 80 },
     "abilities": { "A1": "FLASH_FIRE", "A2": "FLAME_BODY", "H": "INFILTRATOR" },
@@ -2091,9 +1980,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 610,
-    "id": "AXEW",
+  "AXEW": {
+    "id": 610,
     "types": ["DRAGON"],
     "baseStats": { "hp": 46, "atk": 87, "def": 60, "spa": 30, "spd": 40, "spe": 57 },
     "abilities": { "A1": "RIVALRY", "A2": "MOLD_BREAKER", "H": "UNNERVE", "P": "DRAGONS_MAW" },
@@ -2109,9 +1997,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 611,
-    "id": "FRAXURE",
+  "FRAXURE": {
+    "id": 611,
     "types": ["DRAGON"],
     "baseStats": { "hp": 66, "atk": 117, "def": 70, "spa": 40, "spd": 50, "spe": 67 },
     "abilities": { "A1": "RIVALRY", "A2": "MOLD_BREAKER", "H": "UNNERVE" },
@@ -2128,9 +2015,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 612,
-    "id": "HAXORUS",
+  "HAXORUS": {
+    "id": 612,
     "types": ["DRAGON"],
     "baseStats": { "hp": 76, "atk": 147, "def": 90, "spa": 60, "spd": 70, "spe": 97 },
     "abilities": { "A1": "RIVALRY", "A2": "MOLD_BREAKER", "H": "UNNERVE" },
@@ -2146,9 +2032,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 613,
-    "id": "CUBCHOO",
+  "CUBCHOO": {
+    "id": 613,
     "types": ["ICE"],
     "baseStats": { "hp": 55, "atk": 70, "def": 40, "spa": 60, "spd": 40, "spe": 40 },
     "abilities": { "A1": "SNOW_CLOAK", "A2": "SLUSH_RUSH", "H": "RATTLED", "P": "FUR_COAT" },
@@ -2164,9 +2049,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 614,
-    "id": "BEARTIC",
+  "BEARTIC": {
+    "id": 614,
     "types": ["ICE"],
     "baseStats": { "hp": 95, "atk": 130, "def": 80, "spa": 70, "spd": 80, "spe": 50 },
     "abilities": { "A1": "SNOW_CLOAK", "A2": "SLUSH_RUSH", "H": "SWIFT_SWIM" },
@@ -2182,9 +2066,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 615,
-    "id": "CRYOGONAL",
+  "CRYOGONAL": {
+    "id": 615,
     "types": ["ICE"],
     "baseStats": { "hp": 80, "atk": 50, "def": 50, "spa": 95, "spd": 135, "spe": 105 },
     "abilities": { "A1": "LEVITATE", "P": "SNOW_WARNING" },
@@ -2199,9 +2082,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 616,
-    "id": "SHELMET",
+  "SHELMET": {
+    "id": 616,
     "types": ["BUG"],
     "baseStats": { "hp": 50, "atk": 40, "def": 85, "spa": 40, "spd": 65, "spe": 25 },
     "abilities": { "A1": "HYDRATION", "A2": "SHELL_ARMOR", "H": "OVERCOAT", "P": "PROTEAN" },
@@ -2217,9 +2099,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 617,
-    "id": "ACCELGOR",
+  "ACCELGOR": {
+    "id": 617,
     "types": ["BUG"],
     "baseStats": { "hp": 80, "atk": 70, "def": 40, "spa": 100, "spd": 60, "spe": 145 },
     "abilities": { "A1": "HYDRATION", "A2": "STICKY_HOLD", "H": "UNBURDEN" },
@@ -2235,9 +2116,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 618,
-    "id": "STUNFISK",
+  "STUNFISK": {
+    "id": 618,
     "types": ["GROUND", "ELECTRIC"],
     "baseStats": { "hp": 109, "atk": 66, "def": 84, "spa": 81, "spd": 99, "spe": 32 },
     "abilities": { "A1": "STATIC", "A2": "LIMBER", "H": "SAND_VEIL", "P": "STORM_DRAIN" },
@@ -2252,9 +2132,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 619,
-    "id": "MIENFOO",
+  "MIENFOO": {
+    "id": 619,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 45, "atk": 85, "def": 50, "spa": 55, "spd": 50, "spe": 65 },
     "abilities": { "A1": "INNER_FOCUS", "A2": "REGENERATOR", "H": "RECKLESS", "P": "NO_GUARD" },
@@ -2270,9 +2149,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 620,
-    "id": "MIENSHAO",
+  "MIENSHAO": {
+    "id": 620,
     "types": ["FIGHTING"],
     "baseStats": { "hp": 65, "atk": 125, "def": 60, "spa": 95, "spd": 60, "spe": 105 },
     "abilities": { "A1": "INNER_FOCUS", "A2": "REGENERATOR", "H": "RECKLESS" },
@@ -2288,9 +2166,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 621,
-    "id": "DRUDDIGON",
+  "DRUDDIGON": {
+    "id": 621,
     "types": ["DRAGON"],
     "baseStats": { "hp": 77, "atk": 120, "def": 90, "spa": 60, "spd": 90, "spe": 48 },
     "abilities": { "A1": "ROUGH_SKIN", "A2": "SHEER_FORCE", "H": "MOLD_BREAKER", "P": "INTIMIDATE" },
@@ -2305,9 +2182,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 622,
-    "id": "GOLETT",
+  "GOLETT": {
+    "id": 622,
     "types": ["GROUND", "GHOST"],
     "baseStats": { "hp": 59, "atk": 74, "def": 50, "spa": 35, "spd": 50, "spe": 35 },
     "abilities": { "A1": "IRON_FIST", "A2": "KLUTZ", "H": "NO_GUARD", "P": "SHADOW_SHIELD" },
@@ -2323,9 +2199,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 623,
-    "id": "GOLURK",
+  "GOLURK": {
+    "id": 623,
     "types": ["GROUND", "GHOST"],
     "baseStats": { "hp": 89, "atk": 124, "def": 80, "spa": 55, "spd": 80, "spe": 55 },
     "abilities": { "A1": "IRON_FIST", "A2": "KLUTZ", "H": "NO_GUARD" },
@@ -2341,9 +2216,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 624,
-    "id": "PAWNIARD",
+  "PAWNIARD": {
+    "id": 624,
     "types": ["DARK", "STEEL"],
     "baseStats": { "hp": 45, "atk": 85, "def": 70, "spa": 40, "spd": 40, "spe": 60 },
     "abilities": { "A1": "DEFIANT", "A2": "INNER_FOCUS", "H": "PRESSURE", "P": "SWORD_OF_RUIN" },
@@ -2359,9 +2233,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 625,
-    "id": "BISHARP",
+  "BISHARP": {
+    "id": 625,
     "types": ["DARK", "STEEL"],
     "baseStats": { "hp": 65, "atk": 125, "def": 100, "spa": 60, "spd": 70, "spe": 70 },
     "abilities": { "A1": "DEFIANT", "A2": "INNER_FOCUS", "H": "PRESSURE" },
@@ -2378,9 +2251,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 626,
-    "id": "BOUFFALANT",
+  "BOUFFALANT": {
+    "id": 626,
     "types": ["NORMAL"],
     "baseStats": { "hp": 95, "atk": 110, "def": 95, "spa": 40, "spd": 95, "spe": 55 },
     "abilities": { "A1": "RECKLESS", "A2": "SAP_SIPPER", "H": "SOUNDPROOF", "P": "ROCK_HEAD" },
@@ -2395,9 +2267,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 627,
-    "id": "RUFFLET",
+  "RUFFLET": {
+    "id": 627,
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 70, "atk": 83, "def": 50, "spa": 37, "spd": 50, "spe": 60 },
     "abilities": { "A1": "KEEN_EYE", "A2": "SHEER_FORCE", "H": "HUSTLE", "P": "SPEED_BOOST" },
@@ -2412,9 +2283,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 628,
-    "id": "BRAVIARY",
+  "BRAVIARY": {
+    "id": 628,
     "types": ["NORMAL", "FLYING"],
     "baseStats": { "hp": 100, "atk": 123, "def": 75, "spa": 57, "spd": 75, "spe": 80 },
     "abilities": { "A1": "KEEN_EYE", "A2": "SHEER_FORCE", "H": "DEFIANT" },
@@ -2429,9 +2299,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 629,
-    "id": "VULLABY",
+  "VULLABY": {
+    "id": 629,
     "types": ["DARK", "FLYING"],
     "baseStats": { "hp": 70, "atk": 55, "def": 75, "spa": 45, "spd": 65, "spe": 60 },
     "abilities": { "A1": "BIG_PECKS", "A2": "OVERCOAT", "H": "WEAK_ARMOR", "P": "THICK_FAT" },
@@ -2446,9 +2315,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 630,
-    "id": "MANDIBUZZ",
+  "MANDIBUZZ": {
+    "id": 630,
     "types": ["DARK", "FLYING"],
     "baseStats": { "hp": 110, "atk": 65, "def": 105, "spa": 55, "spd": 95, "spe": 80 },
     "abilities": { "A1": "BIG_PECKS", "A2": "OVERCOAT", "H": "WEAK_ARMOR" },
@@ -2463,9 +2331,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 631,
-    "id": "HEATMOR",
+  "HEATMOR": {
+    "id": 631,
     "types": ["FIRE"],
     "baseStats": { "hp": 85, "atk": 97, "def": 66, "spa": 105, "spd": 66, "spe": 65 },
     "abilities": { "A1": "GLUTTONY", "A2": "FLASH_FIRE", "H": "WHITE_SMOKE", "P": "CONTRARY" },
@@ -2480,9 +2347,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 632,
-    "id": "DURANT",
+  "DURANT": {
+    "id": 632,
     "types": ["BUG", "STEEL"],
     "baseStats": { "hp": 58, "atk": 109, "def": 112, "spa": 48, "spd": 48, "spe": 109 },
     "abilities": { "A1": "SWARM", "A2": "HUSTLE", "H": "TRUANT", "P": "COMPOUND_EYES" },
@@ -2497,9 +2363,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 633,
-    "id": "DEINO",
+  "DEINO": {
+    "id": 633,
     "types": ["DARK", "DRAGON"],
     "baseStats": { "hp": 52, "atk": 65, "def": 50, "spa": 45, "spd": 50, "spe": 38 },
     "abilities": { "A1": "HUSTLE", "P": "PARENTAL_BOND" },
@@ -2515,9 +2380,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 634,
-    "id": "ZWEILOUS",
+  "ZWEILOUS": {
+    "id": 634,
     "types": ["DARK", "DRAGON"],
     "baseStats": { "hp": 72, "atk": 85, "def": 70, "spa": 65, "spd": 70, "spe": 58 },
     "abilities": { "A1": "HUSTLE" },
@@ -2534,9 +2398,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 635,
-    "id": "HYDREIGON",
+  "HYDREIGON": {
+    "id": 635,
     "types": ["DARK", "DRAGON"],
     "baseStats": { "hp": 92, "atk": 105, "def": 90, "spa": 125, "spd": 90, "spe": 98 },
     "abilities": { "A1": "LEVITATE" },
@@ -2552,9 +2415,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 636,
-    "id": "LARVESTA",
+  "LARVESTA": {
+    "id": 636,
     "types": ["BUG", "FIRE"],
     "baseStats": { "hp": 55, "atk": 85, "def": 55, "spa": 50, "spd": 55, "spe": 60 },
     "abilities": { "A1": "FLAME_BODY", "H": "SWARM", "P": "DROUGHT" },
@@ -2570,9 +2432,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 637,
-    "id": "VOLCARONA",
+  "VOLCARONA": {
+    "id": 637,
     "types": ["BUG", "FIRE"],
     "baseStats": { "hp": 85, "atk": 60, "def": 65, "spa": 135, "spd": 105, "spe": 100 },
     "abilities": { "A1": "FLAME_BODY", "H": "SWARM" },
@@ -2588,9 +2449,8 @@
     "speciesGroup": "COMMON",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 638,
-    "id": "COBALION",
+  "COBALION": {
+    "id": 638,
     "types": ["STEEL", "FIGHTING"],
     "baseStats": { "hp": 91, "atk": 90, "def": 129, "spa": 90, "spd": 72, "spe": 108 },
     "abilities": { "A1": "JUSTIFIED", "P": "INTREPID_SWORD" },
@@ -2605,9 +2465,8 @@
     "speciesGroup": "SUBLEGENDARY",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 639,
-    "id": "TERRAKION",
+  "TERRAKION": {
+    "id": 639,
     "types": ["ROCK", "FIGHTING"],
     "baseStats": { "hp": 91, "atk": 129, "def": 90, "spa": 72, "spd": 90, "spe": 108 },
     "abilities": { "A1": "JUSTIFIED", "P": "ROCKY_PAYLOAD" },
@@ -2622,9 +2481,8 @@
     "speciesGroup": "SUBLEGENDARY",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 640,
-    "id": "VIRIZION",
+  "VIRIZION": {
+    "id": 640,
     "types": ["GRASS", "FIGHTING"],
     "baseStats": { "hp": 91, "atk": 90, "def": 72, "spa": 90, "spd": 129, "spe": 108 },
     "abilities": { "A1": "JUSTIFIED", "P": "SHARPNESS" },
@@ -2639,9 +2497,8 @@
     "speciesGroup": "SUBLEGENDARY",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 641,
-    "id": "TORNADUS",
+  "TORNADUS": {
+    "id": 641,
     "types": ["FLYING"],
     "baseStats": { "hp": 79, "atk": 115, "def": 70, "spa": 125, "spd": 80, "spe": 111 },
     "abilities": { "A1": "PRANKSTER", "H": "DEFIANT", "P": "DRIZZLE" },
@@ -2653,11 +2510,11 @@
     "baseFriendship": 90,
     "growthRate": "SLOW",
     "speciesGroup": "SUBLEGENDARY",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 642,
-    "id": "THUNDURUS",
+  "THUNDURUS": {
+    "id": 642,
     "types": ["ELECTRIC", "FLYING"],
     "baseStats": { "hp": 79, "atk": 115, "def": 70, "spa": 125, "spd": 80, "spe": 111 },
     "abilities": { "A1": "PRANKSTER", "H": "DEFIANT", "P": "DRIZZLE" },
@@ -2669,11 +2526,11 @@
     "baseFriendship": 90,
     "growthRate": "SLOW",
     "speciesGroup": "SUBLEGENDARY",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 643,
-    "id": "RESHIRAM",
+  "RESHIRAM": {
+    "id": 643,
     "types": ["DRAGON", "FIRE"],
     "baseStats": { "hp": 100, "atk": 120, "def": 100, "spa": 150, "spd": 120, "spe": 90 },
     "abilities": { "A1": "TURBOBLAZE", "P": "ORICHALCUM_PULSE" },
@@ -2688,9 +2545,8 @@
     "speciesGroup": "LEGENDARY",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 644,
-    "id": "ZEKROM",
+  "ZEKROM": {
+    "id": 644,
     "types": ["DRAGON", "ELECTRIC"],
     "baseStats": { "hp": 100, "atk": 150, "def": 120, "spa": 120, "spd": 100, "spe": 90 },
     "abilities": { "A1": "TERAVOLT", "P": "HADRON_ENGINE" },
@@ -2705,9 +2561,8 @@
     "speciesGroup": "LEGENDARY",
     "hasGenderDiff": false
   },
-  {
-    "speciesId": 645,
-    "id": "LANDORUS",
+  "LANDORUS": {
+    "id": 645,
     "types": ["GROUND", "FLYING"],
     "baseStats": { "hp": 89, "atk": 125, "def": 90, "spa": 115, "spd": 80, "spe": 101 },
     "abilities": { "A1": "SAND_FORCE", "H": "SHEER_FORCE", "P": "STORM_DRAIN" },
@@ -2719,11 +2574,11 @@
     "baseFriendship": 90,
     "growthRate": "SLOW",
     "speciesGroup": "SUBLEGENDARY",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 646,
-    "id": "KYUREM",
+  "KYUREM": {
+    "id": 646,
     "types": ["DRAGON", "ICE"],
     "baseStats": { "hp": 125, "atk": 130, "def": 90, "spa": 130, "spd": 90, "spe": 95 },
     "abilities": { "A1": "PRESSURE", "P": "SNOW_WARNING" },
@@ -2736,11 +2591,11 @@
     "baseFriendship": 0,
     "growthRate": "SLOW",
     "speciesGroup": "LEGENDARY",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 647,
-    "id": "KELDEO",
+  "KELDEO": {
+    "id": 647,
     "types": ["WATER", "FIGHTING"],
     "baseStats": { "hp": 91, "atk": 72, "def": 90, "spa": 129, "spd": 90, "spe": 108 },
     "abilities": { "A1": "JUSTIFIED", "P": "GRIM_NEIGH" },
@@ -2753,11 +2608,11 @@
     "baseFriendship": 35,
     "growthRate": "SLOW",
     "speciesGroup": "MYTHICAL",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 648,
-    "id": "MELOETTA",
+  "MELOETTA": {
+    "id": 648,
     "types": ["NORMAL", "PSYCHIC"],
     "baseStats": { "hp": 100, "atk": 77, "def": 77, "spa": 128, "spd": 128, "spe": 90 },
     "abilities": { "A1": "SERENE_GRACE", "P": "MINDS_EYE" },
@@ -2770,11 +2625,11 @@
     "baseFriendship": 100,
     "growthRate": "SLOW",
     "speciesGroup": "MYTHICAL",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   },
-  {
-    "speciesId": 649,
-    "id": "GENESECT",
+  "GENESECT": {
+    "id": 649,
     "types": ["BUG", "STEEL"],
     "baseStats": { "hp": 71, "atk": 120, "def": 95, "spa": 120, "spd": 95, "spe": 99 },
     "abilities": { "A1": "DOWNLOAD", "P": "PROTEAN" },
@@ -2787,6 +2642,7 @@
     "baseFriendship": 0,
     "growthRate": "SLOW",
     "speciesGroup": "MYTHICAL",
-    "hasGenderDiff": false
+    "hasGenderDiff": false,
+    "forms": []
   }
-]
+}

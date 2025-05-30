@@ -9,6 +9,7 @@ import { PokemonShapes } from "#enums/pokemon-shapes";
 import { SpeciesGroups } from "#enums/pokemon-species-groups";
 import { SpeciesId } from "#enums/species-id";
 import { Stat } from "#enums/stat";
+import type { SpeciesData } from "#test/data/showdown-dex-species";
 import { Pokedex } from "#test/data/smogon_data";
 import { GameManager } from "#test/test-utils/game-manager";
 import { isNil } from "#utils/common-utils";
@@ -65,12 +66,11 @@ const GrowthRateMap = {
 };
 
 type SpeciesEntry = {
-  id: string;
-  speciesId: number;
+  id: number;
   types: string[];
   baseStats: BaseStats;
   abilities: SpeciesAbilities;
-  genderRatio: GenderRatio;
+  genderRatio?: GenderRatio;
   weight: number;
   height: number;
   prevo?: string;
@@ -83,6 +83,10 @@ type SpeciesEntry = {
   speciesGroup: string;
   hasGenderDiff: boolean;
   forms?; // TODO
+};
+
+type SpeciesObject = {
+  [key: string]: SpeciesEntry;
 };
 
 type PokeAPI_Data = {
@@ -129,9 +133,9 @@ describe("Data - Pokemon Species", () => {
   // From PokeAPI: growth rate, shape, capture rate, base friendship
 
   it.each([1, 2, 3, 4, 5, 6, 7, 8, 9])("write json files: gen %d", async (gen) => {
-    const speciesEntries: SpeciesEntry[] = [];
+    const speciesEntries: SpeciesObject = {};
     const pokeapiEntries: PokeAPI_Data[] = JSON.parse(readFileSync("./test/data/pokeapi_species.json", "utf-8"));
-    const showdownEntries = Object.entries(Pokedex);
+    const showdownEntries: [string, SpeciesData][] = Object.entries(Pokedex);
     const speciesSample = allSpecies.filter((sp) => sp.generation === gen);
 
     for (const sp of speciesSample) {
@@ -145,12 +149,29 @@ describe("Data - Pokemon Species", () => {
       const region = sp.getRegion();
       speciesId = speciesId - 2000 * region;
 
-      const speciesEntry: any = { speciesId: sp.speciesId };
+      const speciesEntry: SpeciesEntry = {
+        id: sp.speciesId,
+        types: null!,
+        baseStats: null!,
+        abilities: null!,
+        genderRatio: undefined,
+        weight: null!,
+        height: null!,
+        prevo: undefined,
+        evos: undefined,
+        color: null!,
+        shape: null!,
+        captureRate: null!,
+        baseFriendship: null!,
+        growthRate: null!,
+        speciesGroup: null!,
+        hasGenderDiff: null!,
+      };
 
       const filteredEntry = showdownEntries.filter((x) => {
-        const idMatch = x[1]["num"] === speciesId;
-        const baseSpecies: string | undefined = x[1]["baseSpecies"];
-        const forme: string | undefined = x[1]["forme"];
+        const idMatch = x[1].num === speciesId;
+        const baseSpecies: string | undefined = x[1].baseSpecies;
+        const forme: string | undefined = x[1].forme;
         if (speciesEnumName === "ETERNAL_FLOETTE") {
           return idMatch && baseSpecies === "Floette" && forme === "Eternal";
         }
@@ -169,27 +190,18 @@ describe("Data - Pokemon Species", () => {
       expect(filteredEntry, dexEntryMissingErrorMessage).not.toHaveLength(0);
 
       const smogonKey = filteredEntry[0][1].name.toLowerCase().replace(/[^\w\d]/g, "");
-      const smogonEntry = Pokedex[smogonKey];
+      const smogonEntry: SpeciesData = Pokedex[smogonKey];
       expect(smogonEntry, dexEntryMissingErrorMessage).toBeDefined();
 
-      const pokeapiEntry = pokeapiEntries.filter((x) => x["id"] === speciesId)[0];
+      const pokeapiEntry = pokeapiEntries.filter((x) => x.id === speciesId)[0];
 
-      speciesEntry["id"] = speciesEnumName;
-      speciesEntry["types"] = smogonEntry["types"].map((x) => x.toUpperCase());
-      expect(speciesEntry["types"][0]).toBe(ElementalType[sp.type1]);
+      speciesEntry.types = smogonEntry.types.map((x) => x.toUpperCase());
+      expect(speciesEntry.types[0]).toBe(ElementalType[sp.type1]);
       if (!isNil(sp.type2)) {
-        expect(speciesEntry["types"][1]).toBeDefined();
-        expect(speciesEntry["types"][1]).toBe(ElementalType[sp.type2]);
+        expect(speciesEntry.types[1]).toBeDefined();
+        expect(speciesEntry.types[1]).toBe(ElementalType[sp.type2]);
       }
 
-      // const statsObject: BaseStats = {
-      //   hp: smogonEntry.baseStats.hp,
-      //   atk: smogonEntry.baseStats.atk,
-      //   def: smogonEntry.baseStats.def,
-      //   spa: smogonEntry.baseStats.spa,
-      //   spd: smogonEntry.baseStats.spd,
-      //   spe: smogonEntry.baseStats.spe,
-      // };
       const statsObject: BaseStats = {
         hp: sp.getBaseStat(Stat.HP),
         atk: sp.getBaseStat(Stat.ATK),
@@ -204,12 +216,12 @@ describe("Data - Pokemon Species", () => {
       expect(smogonEntry.baseStats.spa).toBe(sp.getBaseStat(Stat.SPATK));
       expect(smogonEntry.baseStats.spd).toBe(sp.getBaseStat(Stat.SPDEF));
       expect(smogonEntry.baseStats.spe).toBe(sp.getBaseStat(Stat.SPD));
-      speciesEntry["baseStats"] = statsObject;
+      speciesEntry.baseStats = statsObject;
 
       const abilityObj: SpeciesAbilities = { A1: AbilityId[sp.ability1] };
       const a1 = smogonEntry.abilities["0"].toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
       const a2 = smogonEntry.abilities["1"]?.toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
-      const h = smogonEntry.abilities["H"]?.toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
+      const h = smogonEntry.abilities.H?.toUpperCase().replace(/[- ]/g, "_").replace(/'/g, "");
 
       expect(a1, `${speciesEnumName} first ability should be: ${a1} is: ${abilityObj.A1}`).toBe(abilityObj.A1);
       if (sp.ability2 !== sp.ability1) {
@@ -238,30 +250,31 @@ describe("Data - Pokemon Species", () => {
       if (starterPassiveAbilities[sp.speciesId]) {
         abilityObj.P = AbilityId[starterPassiveAbilities[sp.speciesId]];
       }
-      speciesEntry["abilities"] = abilityObj;
+      speciesEntry.abilities = abilityObj;
 
       // todo: validate
-      if (!(smogonEntry.gender && smogonEntry["gender"] !== "N")) {
+      if (!(smogonEntry.gender && smogonEntry.gender !== "N")) {
         if (smogonEntry.genderRatio) {
-          speciesEntry["genderRatio"] = smogonEntry.genderRatio;
+          speciesEntry.genderRatio = smogonEntry.genderRatio;
         } else {
-          speciesEntry["genderRatio"] = { M: 0.5, F: 0.5 };
+          speciesEntry.genderRatio = { M: 0.5, F: 0.5 };
         }
       }
 
-      speciesEntry["weight"] = smogonEntry.weightkg;
-      expect(
-        speciesEntry["weight"],
-        `${speciesEnumName} weight should be: ${speciesEntry["weight"]} is: ${sp.weight}`,
-      ).toBe(sp.weight);
-      speciesEntry["height"] = smogonEntry.heightm;
-      expect(
-        speciesEntry["height"],
-        `${speciesEnumName} height should be: ${speciesEntry["height"]} is: ${sp.height}`,
-      ).toBe(sp.height);
+      speciesEntry.weight = smogonEntry.weightkg;
+      expect(speciesEntry.weight, `${speciesEnumName} weight should be: ${speciesEntry.weight} is: ${sp.weight}`).toBe(
+        sp.weight,
+      );
+      if (smogonEntry.heightm === undefined) {
+        throw new Error(`Height value for ${speciesEnumName} missing in smogon data!`);
+      }
+      speciesEntry.height = smogonEntry.heightm;
+      expect(speciesEntry.height, `${speciesEnumName} height should be: ${speciesEntry.height} is: ${sp.height}`).toBe(
+        sp.height,
+      );
 
       // todo: validate
-      if (smogonEntry["prevo"]) {
+      if (smogonEntry.prevo) {
         const prevoName = smogonEntry.prevo
           .normalize("NFD")
           .replace(/\p{Diacritic}/gu, "")
@@ -275,23 +288,23 @@ describe("Data - Pokemon Species", () => {
         if (speciesEnumName === "ETERNAL_FLOETTE" || speciesEnumName === "BLOODMOON_URSALUNA") {
           // do nothing
         } else if (region && !isNil(prevoRegional)) {
-          speciesEntry["prevo"] = prevoRegional;
+          speciesEntry.prevo = prevoRegional;
         } else {
-          speciesEntry["prevo"] = SpeciesId[preevoId];
+          speciesEntry.prevo = SpeciesId[preevoId];
         }
       }
 
       // todo: validate
-      const smogonEvos = smogonEntry["evos"];
+      const smogonEvos = smogonEntry.evos;
       if (smogonEvos) {
         const evoList: string[] = [];
         for (const x of smogonEvos) {
           const id = x.toLowerCase().replace(/-/g, "");
-          const dexEntry = Pokedex[id];
+          const dexEntry: SpeciesData | undefined = Pokedex[id];
           if (dexEntry) {
             const evoId = dexEntry.num;
             if (region) {
-              switch (speciesEntry["id"]) {
+              switch (speciesEnumName) {
                 case "ETERNAL_FLOETTE":
                   break;
                 case "GALAR_MEOWTH":
@@ -327,11 +340,15 @@ describe("Data - Pokemon Species", () => {
           }
         }
         if (evoList.length > 0) {
-          speciesEntry["evos"] = evoList;
+          speciesEntry.evos = evoList;
         }
       }
-      speciesEntry["color"] = smogonEntry.color?.toUpperCase();
-      speciesEntry["shape"] = PokemonShapes[pokeapiEntry["shape_id"]];
+
+      if (smogonEntry.color === undefined) {
+        throw new Error(`Smogon color data for ${speciesEnumName} is missing!`);
+      }
+      speciesEntry.color = smogonEntry.color.toUpperCase();
+      speciesEntry.shape = PokemonShapes[pokeapiEntry.shape_id];
 
       const pktyCatchRateExceptions = [
         SpeciesId.BELDUM,
@@ -344,10 +361,10 @@ describe("Data - Pokemon Species", () => {
       if (!pktyCatchRateExceptions.includes(sp.speciesId)) {
         expect(
           sp.catchRate,
-          `${speciesEnumName} catch rate should be: ${pokeapiEntry["capture_rate"]} is: ${sp.catchRate}`,
-        ).toBe(pokeapiEntry["capture_rate"]);
+          `${speciesEnumName} catch rate should be: ${pokeapiEntry.capture_rate} is: ${sp.catchRate}`,
+        ).toBe(pokeapiEntry.capture_rate);
       }
-      speciesEntry["captureRate"] = sp.catchRate; // pokeapiEntry["capture_rate"];
+      speciesEntry.captureRate = sp.catchRate;
 
       const pokeapiFriendshipValueErrors = [
         SpeciesId.PICHU,
@@ -367,27 +384,40 @@ describe("Data - Pokemon Species", () => {
       if (!pokeapiFriendshipValueErrors.includes(sp.speciesId)) {
         expect(
           sp.baseFriendship,
-          `${speciesEnumName} base friendship should be: ${pokeapiEntry["base_happiness"]} is: ${sp.baseFriendship}`,
-        ).toBe(pokeapiEntry["base_happiness"]);
+          `${speciesEnumName} base friendship should be: ${pokeapiEntry.base_happiness} is: ${sp.baseFriendship}`,
+        ).toBe(pokeapiEntry.base_happiness);
       }
-      speciesEntry["baseFriendship"] = sp.baseFriendship; // pokeapiEntry["base_happiness"];
+      speciesEntry.baseFriendship = sp.baseFriendship;
 
       // pokeapi dipplin value is incorrect
       if (sp.speciesId !== SpeciesId.DIPPLIN) {
-        expect(sp.growthRate).toBe(GrowthRateMap[pokeapiEntry["growth_rate_id"]]);
+        expect(sp.growthRate).toBe(GrowthRateMap[pokeapiEntry.growth_rate_id]);
       }
-      speciesEntry["growthRate"] = GrowthRate[sp.growthRate];
+      speciesEntry.growthRate = GrowthRate[sp.growthRate];
 
-      speciesEntry["speciesGroup"] = SpeciesGroups[sp.group];
+      speciesEntry.speciesGroup = SpeciesGroups[sp.group];
 
-      speciesEntry["hasGenderDiff"] = sp.genderDiffs;
+      speciesEntry.hasGenderDiff = sp.genderDiffs;
 
       // todo
       if (sp.canChangeForm) {
-        speciesEntries["forms"] = [];
+        speciesEntry.forms = [];
       }
 
-      speciesEntries.push(speciesEntry);
+      expect(speciesEntry.types, `${speciesEnumName} "types"`).not.toBeNull();
+      expect(speciesEntry.baseStats, `${speciesEnumName} "baseStats"`).not.toBeNull();
+      expect(speciesEntry.abilities, `${speciesEnumName} "abilities"`).not.toBeNull();
+      expect(speciesEntry.weight, `${speciesEnumName} "weight"`).not.toBeNull();
+      expect(speciesEntry.height, `${speciesEnumName} "height"`).not.toBeNull();
+      expect(speciesEntry.color, `${speciesEnumName} "color"`).not.toBeNull();
+      expect(speciesEntry.shape, `${speciesEnumName} "shape"`).not.toBeNull();
+      expect(speciesEntry.captureRate, `${speciesEnumName} "captureRate"`).not.toBeNull();
+      expect(speciesEntry.baseFriendship, `${speciesEnumName} "baseFriendship"`).not.toBeNull();
+      expect(speciesEntry.growthRate, `${speciesEnumName} "growthRate"`).not.toBeNull();
+      expect(speciesEntry.speciesGroup, `${speciesEnumName} "speciesGroup"`).not.toBeNull();
+      expect(speciesEntry.hasGenderDiff, `${speciesEnumName} "hasGenderDiff"`).not.toBeNull();
+
+      speciesEntries[speciesEnumName] = speciesEntry;
     }
 
     writeFileSync(`./test/data/pokemon_species_0${gen}.json`, JSON.stringify(speciesEntries));

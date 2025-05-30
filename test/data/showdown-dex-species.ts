@@ -20,7 +20,7 @@ type StatIDExceptHP = "atk" | "def" | "spa" | "spd" | "spe";
 type StatID = "hp" | StatIDExceptHP;
 type StatsTable = { [stat in StatID]: number };
 
-interface SpeciesData extends Partial<Species> {
+export interface SpeciesData extends Partial<Species> {
   name: string;
   /** National Dex number */
   num: number;
