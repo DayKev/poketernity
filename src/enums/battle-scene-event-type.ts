@@ -1,4 +1,3 @@
-// -- start tsdoc imports --
 /* biome-ignore-start lint/correctness/noUnusedImports: tsdoc imports */
 import type BattleScene from "#app/battle-scene";
 import type { Arena } from "#field/arena";
@@ -12,7 +11,8 @@ import type {
   TurnInitEvent,
 } from "#events/battle-scene";
 /* biome-ignore-end lint/correctness/noUnusedImports: tsdoc imports */
-// -- end tsdoc imports --
+
+import type { EnumValues } from "#types/enum-values";
 
 /** Alias for all {@linkcode BattleScene} events */
 export const BattleSceneEventType = {
@@ -56,4 +56,4 @@ export const BattleSceneEventType = {
   NEW_ARENA: "onNewArena",
 } as const;
 
-export type BattleSceneEventType = (typeof BattleSceneEventType)[keyof typeof BattleSceneEventType];
+export type BattleSceneEventType = EnumValues<typeof BattleSceneEventType>;

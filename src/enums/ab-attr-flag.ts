@@ -111,6 +111,8 @@ import type { BadDreamsAbAttr } from "#abilities/bad-dreams-ab-attr";
 /* biome-ignore-end lint/correctness/noUnusedImports: tsdoc imports */
 // -- end tsdoc imports --
 
+import type { EnumValues } from "#types/enum-values";
+
 export const AbAttrFlag = {
   /** @see {@linkcode AbAttr} */
   UNSPECIFIED: -1,
@@ -340,4 +342,4 @@ export const AbAttrFlag = {
   BAD_DREAMS: 112,
 } as const;
 
-export type AbAttrFlag = (typeof AbAttrFlag)[keyof typeof AbAttrFlag];
+export type AbAttrFlag = EnumValues<typeof AbAttrFlag>;

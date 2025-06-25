@@ -54,6 +54,7 @@ import { UiMode } from "#enums/ui-mode";
 import type { DexAttrProps, StarterAttributes, StarterPreferences } from "#system/game-data";
 import { DEFAULT_LANGUAGE_KEY } from "#system/supported-languages";
 import type { DexEntry } from "#types/dex-data";
+import type { EnumValues } from "#types/enum-values";
 import type { StarterConfig } from "#types/starter-config";
 import type { StarterDataEntry, StarterMoveset } from "#types/starter-data";
 import type { ConfirmModeConfig } from "#ui/confirm-menu-config";
@@ -102,7 +103,7 @@ const StarterSelectMode = {
   START: 4,
 } as const;
 
-type StarterSelectMode = (typeof StarterSelectMode)[keyof typeof StarterSelectMode];
+type StarterSelectMode = EnumValues<typeof StarterSelectMode>;
 
 const languageSettings: { [key: string]: LanguageSetting } = {
   pt_BR: {
