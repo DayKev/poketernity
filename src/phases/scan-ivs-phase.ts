@@ -4,17 +4,16 @@ import { getPokemonNameWithAffix } from "#app/messages";
 import type { FieldBattlerIndex } from "#enums/battler-index";
 import { CommonColor } from "#enums/color";
 import { CommonAnim } from "#enums/common-anim";
-import { PhaseId } from "#enums/phase-id";
 import { Stat } from "#enums/stat";
 import { UiMode } from "#enums/ui-mode";
-import { PokemonPhase } from "#phases/abstract-pokemon-phase";
+import { PokemonPhase } from "#phases/base/pokemon-phase";
 import { settings } from "#system/settings-manager";
 import type { ConfirmModeConfig } from "#ui/confirm-menu-config";
 import type { ConfirmUiHandler } from "#ui/confirm-ui-handler";
 import i18next from "i18next";
 
 export class ScanIvsPhase extends PokemonPhase {
-  override readonly id = PhaseId.SCAN_IVS;
+  public override readonly phaseName = "ScanIvsPhase";
 
   private readonly shownIvs: number;
 
@@ -30,7 +29,8 @@ export class ScanIvsPhase extends PokemonPhase {
     const { gameData, ui } = globalScene;
 
     if (!this.shownIvs) {
-      return this.end();
+      this.end();
+      return;
     }
 
     const pokemon = this.getPokemon();

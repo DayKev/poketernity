@@ -1,10 +1,9 @@
 import { globalScene } from "#app/global-scene";
 import type { FieldBattlerIndex } from "#enums/battler-index";
-import { PhaseId } from "#enums/phase-id";
-import { PokemonPhase } from "#phases/abstract-pokemon-phase";
+import { PokemonPhase } from "#phases/base/pokemon-phase";
 
 export class ShowAbilityPhase extends PokemonPhase {
-  override readonly id = PhaseId.SHOW_ABILITY;
+  public override readonly phaseName = "ShowAbilityPhase";
 
   private readonly passive: boolean;
 
