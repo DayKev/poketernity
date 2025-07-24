@@ -16,11 +16,11 @@ import {
   EVIL_GRUNT_2_WAVE,
   EVIL_GRUNT_3_WAVE,
   EVIL_GRUNT_4_WAVE,
+  RIVAL_WAVE,
   RIVAL2_WAVE,
   RIVAL3_WAVE,
   RIVAL4_WAVE,
   RIVAL5_WAVE,
-  RIVAL_WAVE,
   TUTORIAL_BATTLE_WAVE,
 } from "#constants/wave-constants";
 import { getLevelForWaveFunc } from "#data/exp";
@@ -38,11 +38,11 @@ import { TrainerVariant } from "#enums/trainer-variant";
 import type { EnemyPokemon } from "#field/enemy-pokemon";
 import type { PlayerPokemon } from "#field/player-pokemon";
 import type { Pokemon } from "#field/pokemon";
-import Trainer from "#field/trainer";
+import { Trainer } from "#field/trainer";
 import { MoneyMultiplierModifier, type PokemonHeldItemModifier } from "#modifier/modifier";
 import type { CustomModifierSettings } from "#modifier/modifier-type";
 import type { Move } from "#moves/move";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
+import type { MysteryEncounter } from "#mystery-encounters/mystery-encounter";
 import { settings } from "#system/settings-manager";
 import { allTrainerConfigs } from "#trainer-configs/all-trainer-configs";
 import { isBetween, NumberHolder } from "#utils/common-utils";
@@ -61,7 +61,7 @@ function generateBattleSeed() {
   return randomString(16, true);
 }
 
-export default class Battle {
+export class Battle {
   protected gameMode: GameMode;
   public waveIndex: number;
   public battleType: BattleType;
@@ -219,7 +219,7 @@ export default class Battle {
     const userLocale = navigator.language || "en-US";
     const formattedMoneyAmount = moneyAmount.value.toLocaleString(userLocale);
     const message = i18next.t("battle:moneyPickedUp", { moneyAmount: formattedMoneyAmount });
-    globalScene.phaseManager.queueMessagePhase(message, undefined, true);
+    globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", message, undefined, true);
 
     globalScene.currentBattle.moneyScattered = 0;
   }

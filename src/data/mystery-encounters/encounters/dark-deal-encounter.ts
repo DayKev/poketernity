@@ -5,17 +5,19 @@ import type { ElementalType } from "#enums/elemental-type";
 import { MysteryEncounterOptionMode } from "#enums/mystery-encounter-option-mode";
 import { MysteryEncounterTier } from "#enums/mystery-encounter-tier";
 import { MysteryEncounterType } from "#enums/mystery-encounter-type";
-import { SpeciesGroups } from "#enums/pokemon-species-groups";
+import { SpeciesGroups } from "#enums/species-groups";
 import { SpeciesId } from "#enums/species-id";
 import type { PokemonHeldItemModifier } from "#modifier/modifier";
 import { modifierTypes } from "#modifier/modifier-types";
-import type { EnemyPartyConfig, EnemyPokemonConfig } from "#mystery-encounters/encounter-phase-utils";
-import { initBattleWithEnemyConfig, leaveEncounterWithoutBattle } from "#mystery-encounters/encounter-phase-utils";
+import {
+  type EnemyPartyConfig,
+  type EnemyPokemonConfig,
+  initBattleWithEnemyConfig,
+  leaveEncounterWithoutBattle,
+} from "#mystery-encounters/encounter-phase-utils";
 import { getRandomPlayerPokemon, getRandomSpeciesByStarterCost } from "#mystery-encounters/encounter-pokemon-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
-import { ModifierRewardPhase } from "#phases/modifier-reward-phase";
 import { isNil } from "#utils/common-utils";
 import { getPokemonSpecies, getSpecialSpeciesList } from "#utils/pokemon-utils";
 import { randSeedInt } from "#utils/random-utils";
@@ -96,7 +98,7 @@ export const DarkDealEncounter: MysteryEncounter = MysteryEncounterBuilder.withE
       .withOptionPhase(async () => {
         // Give the player 5 Ultra Balls
         const encounter = globalScene.currentBattle.mysteryEncounter!;
-        globalScene.phaseManager.unshiftPhase(new ModifierRewardPhase(modifierTypes.ULTRA_BALL));
+        globalScene.phaseManager.createAndUnshiftPhase("ModifierRewardPhase", modifierTypes.ULTRA_BALL);
 
         // Start encounter with random legendary (7-10 starter strength) that has level additive
         // If this is a mono-type challenge, always ensure the required type is filtered for

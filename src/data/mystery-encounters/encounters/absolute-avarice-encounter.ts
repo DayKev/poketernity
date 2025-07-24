@@ -18,8 +18,8 @@ import { type BerryModifier, PokemonInstantReviveModifier } from "#modifier/modi
 import type { BerryModifierType, PokemonHeldItemModifierType } from "#modifier/modifier-type";
 import { modifierTypes } from "#modifier/modifier-types";
 import { queueEncounterMessage } from "#mystery-encounters/encounter-dialogue-utils";
-import type { EnemyPartyConfig } from "#mystery-encounters/encounter-phase-utils";
 import {
+  type EnemyPartyConfig,
   generateModifierType,
   initBattleWithEnemyConfig,
   leaveEncounterWithoutBattle,
@@ -31,12 +31,10 @@ import {
   getHighestLevelPlayerPokemon,
 } from "#mystery-encounters/encounter-pokemon-utils";
 import { transitionMysteryEncounterIntroVisuals } from "#mystery-encounters/encounter-visuals-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
 import { PersistentModifierRequirement } from "#mystery-encounters/mystery-encounter-requirements";
-import { StatStageChangePhase } from "#phases/stat-stage-change-phase";
-import type { HeldModifierConfig } from "#types/held-modifier-config";
+import type { HeldModifierConfig } from "#types/modifiers-types";
 import { getPokemonSpecies } from "#utils/pokemon-utils";
 import { randInt } from "#utils/random-utils";
 import i18next from "i18next";
@@ -238,8 +236,12 @@ export const AbsoluteAvariceEncounter: MysteryEncounter = MysteryEncounterBuilde
           tags: [BattlerTagType.MYSTERY_ENCOUNTER_POST_SUMMON],
           mysteryEncounterBattleEffects: (pokemon: Pokemon) => {
             queueEncounterMessage(`${namespace}:option.1.boss_enraged`);
-            globalScene.phaseManager.unshiftPhase(
-              new StatStageChangePhase(pokemon.getBattlerIndex(), pokemon, statChangesForBattle, 1),
+            globalScene.phaseManager.createAndUnshiftPhase(
+              "StatStageChangePhase",
+              pokemon.getBattlerIndex(),
+              pokemon,
+              statChangesForBattle,
+              1,
             );
           },
         },

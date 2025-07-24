@@ -9,7 +9,7 @@ import { BattlerIndex } from "#enums/battler-index";
 import { BerryType } from "#enums/berry-type";
 import { Challenges } from "#enums/challenges";
 import type { ElementalType } from "#enums/elemental-type";
-import { EncounterAnim } from "#enums/encounter-anims";
+import { EncounterAnim } from "#enums/encounter-anim";
 import { ModifierPoolType } from "#enums/modifier-pool-type";
 import { ModifierTier } from "#enums/modifier-tier";
 import { MoveCategory } from "#enums/move-category";
@@ -26,8 +26,8 @@ import { PokemonMove } from "#field/pokemon-move";
 import type { PokemonHeldItemModifierType } from "#modifier/modifier-type";
 import { modifierTypes } from "#modifier/modifier-types";
 import { showEncounterDialogue, showEncounterText } from "#mystery-encounters/encounter-dialogue-utils";
-import type { EnemyPartyConfig } from "#mystery-encounters/encounter-phase-utils";
 import {
+  type EnemyPartyConfig,
   generateModifierType,
   initBattleWithEnemyConfig,
   leaveEncounterWithoutBattle,
@@ -40,13 +40,12 @@ import {
   applyModifierTypeToPlayerPokemon,
 } from "#mystery-encounters/encounter-pokemon-utils";
 import { transitionMysteryEncounterIntroVisuals } from "#mystery-encounters/encounter-visuals-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
 import { allTrainerConfigs } from "#trainer-configs/all-trainer-configs";
 import type { ConfirmModeConfig } from "#ui/confirm-menu-config";
 import type { ConfirmUiHandler } from "#ui/confirm-ui-handler";
-import { getPokemonSpecies } from "#utils/pokemon-utils";
+import { getPokemonSpecies, getRandomElementalType } from "#utils/pokemon-utils";
 import { randSeedInt, randSeedShuffle } from "#utils/random-utils";
 
 /** the i18n namespace for the encounter */
@@ -152,7 +151,10 @@ export const ClowningAroundEncounter: MysteryEncounter = MysteryEncounterBuilder
         {
           // Blacephalon has the random ability from pool, and 2 entirely random types to fit with the theme of the encounter
           species: getPokemonSpecies(SpeciesId.BLACEPHALON),
-          customPokemonData: new CustomPokemonData({ ability: ability, types: [randSeedInt(18), randSeedInt(18)] }),
+          customPokemonData: new CustomPokemonData({
+            ability: ability,
+            types: [getRandomElementalType(), getRandomElementalType()],
+          }),
           isBoss: true,
           moveSet: [MoveId.TRICK, MoveId.HYPNOSIS, MoveId.SHADOW_BALL, MoveId.MIND_BLOWN],
         },
@@ -382,7 +384,7 @@ export const ClowningAroundEncounter: MysteryEncounter = MysteryEncounterBuilder
             if (priorityTypes.length > 0) {
               secondType = priorityTypes.pop() ?? null;
             } else {
-              secondType = randSeedInt(18) as ElementalType;
+              secondType = getRandomElementalType();
             }
           }
           newTypes.push(secondType);

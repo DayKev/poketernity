@@ -1,13 +1,13 @@
 import { globalScene } from "#app/global-scene";
 import { CLASSIC_MODE_MYSTERY_ENCOUNTER_WAVES } from "#constants/mystery-encounter-constants";
-import type PokemonSpecies from "#data/pokemon-species";
+import type { PokemonSpecies } from "#data/pokemon-species";
 import { speciesStarterCosts } from "#data/starters";
 import { AbilityId } from "#enums/ability-id";
 import { MysteryEncounterOptionMode } from "#enums/mystery-encounter-option-mode";
 import { MysteryEncounterTier } from "#enums/mystery-encounter-tier";
 import { MysteryEncounterType } from "#enums/mystery-encounter-type";
 import { PokeballType } from "#enums/pokeball-type";
-import { SpeciesGroups } from "#enums/pokemon-species-groups";
+import { SpeciesGroups } from "#enums/species-groups";
 import { SpeciesId } from "#enums/species-id";
 import type { EnemyPokemon } from "#field/enemy-pokemon";
 import { PlayerPokemon } from "#field/player-pokemon";
@@ -19,11 +19,10 @@ import {
   getSpriteKeysFromPokemon,
 } from "#mystery-encounters/encounter-pokemon-utils";
 import { transitionMysteryEncounterIntroVisuals } from "#mystery-encounters/encounter-visuals-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
 import { MoneyRequirement } from "#mystery-encounters/mystery-encounter-requirements";
-import PokemonData from "#system/pokemon-data";
+import { PokemonData } from "#system/pokemon-data";
 import { isNil } from "#utils/common-utils";
 import { getPokemonSpecies, getSpecialSpeciesList } from "#utils/pokemon-utils";
 import { randSeedInt } from "#utils/random-utils";

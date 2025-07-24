@@ -21,18 +21,18 @@ import type { Egg } from "#data/egg";
 import { speciesEggMoves } from "#data/egg-moves";
 import { starterPassiveAbilities } from "#data/passives";
 import { pokemonPreEvolutions } from "#data/pokemon-pre-evolutions";
-import type PokemonSpecies from "#data/pokemon-species";
+import type { PokemonSpecies } from "#data/pokemon-species";
 import {
+  getCandyGainMultiplierForShinies,
   STARTER_CANDY_GAIN_FROM_CATCH,
   STARTER_CANDY_MULIPLIER_FOR_BOSS,
   STARTER_CANDY_MULIPLIER_FOR_EGG,
-  getCandyGainMultiplierForShinies,
   speciesStarterCosts,
 } from "#data/starters";
 import type { Variant } from "#data/variant";
 import { BattleType } from "#enums/battle-type";
 import { ChallengeType } from "#enums/challenge-type";
-import type { Device } from "#enums/devices";
+import type { Device } from "#enums/device";
 import type { ElementalType } from "#enums/elemental-type";
 import { GameDataType } from "#enums/game-data-type";
 import { GameModes } from "#enums/game-modes";
@@ -52,19 +52,18 @@ import { TagAddedEvent, TerrainChangedEvent, WeatherChangedEvent } from "#events
 import type { EnemyPokemon } from "#field/enemy-pokemon";
 import type { PlayerPokemon } from "#field/player-pokemon";
 import type { Pokemon } from "#field/pokemon";
-// biome-ignore lint/style/noNamespaceImport: Something weird is going on here and I don't want to touch it
+// biome-ignore lint/performance/noNamespaceImport: Something weird is going on here and I don't want to touch it
 import * as Modifier from "#modifier/modifier";
 import { MysteryEncounterSaveData } from "#mystery-encounters/mystery-encounter-save-data";
-import { ReloadSessionPhase } from "#phases/reload-session-phase";
 import { achvs } from "#system/achievements";
-import ArenaData from "#system/arena-data";
-import ChallengeData from "#system/challenge-data";
-import EggData from "#system/egg-data";
+import { ArenaData } from "#system/arena-data";
+import { ChallengeData } from "#system/challenge-data";
+import { EggData } from "#system/egg-data";
 import { GameStats } from "#system/game-stats";
-import PersistentModifierData from "#system/modifier-data";
-import PokemonData from "#system/pokemon-data";
+import { ModifierData } from "#system/modifier-data";
+import { PokemonData } from "#system/pokemon-data";
 import { settings } from "#system/settings-manager";
-import TrainerData from "#system/trainer-data";
+import { TrainerData } from "#system/trainer-data";
 import { applySessionVersionMigration, applySystemVersionMigration } from "#system/version-converter";
 import { vouchers } from "#system/voucher";
 import { allTrainerConfigs } from "#trainer-configs/all-trainer-configs";
@@ -75,7 +74,7 @@ import type { AchvUnlocks, SystemSaveData, Unlocks, VoucherCounts, VoucherUnlock
 import type { ConfirmModeConfig } from "#ui/confirm-menu-config";
 import type { ConfirmUiHandler } from "#ui/confirm-ui-handler";
 import { applyChallenges } from "#utils/challenge-utils";
-import { NumberHolder, executeIf, fixedNumber, getTSEnumKeys, isNil } from "#utils/common-utils";
+import { executeIf, fixedNumber, getTSEnumKeys, isNil, NumberHolder } from "#utils/common-utils";
 import { getPokemonSpecies } from "#utils/pokemon-utils";
 import { randInt } from "#utils/random-utils";
 import { AES, enc } from "crypto-js";
@@ -214,7 +213,7 @@ export class GameData {
       voucherCounts: this.voucherCounts,
       eggs: this.eggs.map((e) => new EggData(e)),
       gameVersion: globalScene.game.config.gameVersion,
-      timestamp: new Date().getTime(),
+      timestamp: Date.now(),
       eggPity: this.eggPity.slice(0),
       unlockPity: this.unlockPity.slice(0),
     };
@@ -249,7 +248,7 @@ export class GameData {
           if (error) {
             if (error.startsWith("session out of date")) {
               globalScene.phaseManager.clearPhaseQueue();
-              globalScene.phaseManager.unshiftPhase(new ReloadSessionPhase());
+              globalScene.phaseManager.createAndUnshiftPhase("ReloadSessionPhase");
             }
             console.error(error);
             return resolve(false);
@@ -276,17 +275,19 @@ export class GameData {
         api.savedata.system.get({ clientSessionId }).then((saveDataOrErr) => {
           if (!saveDataOrErr || saveDataOrErr.length === 0 || saveDataOrErr[0] !== "{") {
             if (saveDataOrErr?.startsWith("sql: no rows in result set")) {
-              globalScene.phaseManager.queueMessagePhase(
+              globalScene.phaseManager.createAndUnshiftPhase(
+                "MessagePhase",
                 "Save data could not be found. If this is a new account, you can safely ignore this message.",
-                null,
+                undefined,
                 true,
               );
               return resolve(true);
             }
             if (saveDataOrErr?.includes("Too many connections")) {
-              globalScene.phaseManager.queueMessagePhase(
+              globalScene.phaseManager.createAndUnshiftPhase(
+                "MessagePhase",
                 "Too many people are trying to connect and the server is overloaded. Please try again later.",
-                null,
+                undefined,
                 true,
               );
               return resolve(false);
@@ -535,7 +536,7 @@ export class GameData {
 
     if (systemData) {
       globalScene.phaseManager.clearPhaseQueue();
-      globalScene.phaseManager.unshiftPhase(new ReloadSessionPhase(JSON.stringify(systemData)));
+      globalScene.phaseManager.createAndUnshiftPhase("ReloadSessionPhase", JSON.stringify(systemData));
       this.clearLocalData();
       return false;
     }
@@ -715,8 +716,8 @@ export class GameData {
       gameMode: globalScene.gameMode.modeId,
       party: globalScene.getPlayerParty().map((p) => new PokemonData(p)),
       enemyParty: globalScene.getEnemyParty().map((p) => new PokemonData(p)),
-      modifiers: globalScene.findModifiers(() => true).map((m) => new PersistentModifierData(m, true)),
-      enemyModifiers: globalScene.findModifiers(() => true, false).map((m) => new PersistentModifierData(m, false)),
+      modifiers: globalScene.findModifiers(() => true).map((m) => new ModifierData(m, true)),
+      enemyModifiers: globalScene.findModifiers(() => true, false).map((m) => new ModifierData(m, false)),
       arena: new ArenaData(globalScene.arena),
       pokeballCounts: globalScene.pokeballCounts,
       money: Math.floor(globalScene.money),
@@ -728,7 +729,7 @@ export class GameData {
           ? new TrainerData(globalScene.currentBattle.trainer)
           : null,
       gameVersion: globalScene.game.config.gameVersion,
-      timestamp: new Date().getTime(),
+      timestamp: Date.now(),
       challenges: globalScene.gameMode.challenges.map((c) => new ChallengeData(c)),
       mysteryEncounterType: globalScene.currentBattle.mysteryEncounter?.encounterType ?? -1,
       mysteryEncounterSaveData: globalScene.mysteryEncounterSaveData,
@@ -952,7 +953,7 @@ export class GameData {
           if (error) {
             if (error.startsWith("session out of date")) {
               globalScene.phaseManager.clearPhaseQueue();
-              globalScene.phaseManager.unshiftPhase(new ReloadSessionPhase());
+              globalScene.phaseManager.createAndUnshiftPhase("ReloadSessionPhase");
             }
             console.error(error);
             resolve(false);
@@ -1027,7 +1028,7 @@ export class GameData {
       } else {
         if (jsonResponse?.error?.startsWith("session out of date")) {
           globalScene.phaseManager.clearPhaseQueue();
-          globalScene.phaseManager.unshiftPhase(new ReloadSessionPhase());
+          globalScene.phaseManager.createAndUnshiftPhase("ReloadSessionPhase");
         }
 
         console.error(jsonResponse);
@@ -1059,7 +1060,7 @@ export class GameData {
 
       if (k === "modifiers" || k === "enemyModifiers") {
         const player = k === "modifiers";
-        const ret: PersistentModifierData[] = [];
+        const ret: ModifierData[] = [];
         if (v === null) {
           v = [];
         }
@@ -1068,7 +1069,7 @@ export class GameData {
             // Temporarily limit EXP Balance until it gets reworked
             md.stackCount = Math.min(md.stackCount, 4);
           }
-          ret.push(new PersistentModifierData(md, player));
+          ret.push(new ModifierData(md, player));
         }
         return ret;
       }
@@ -1160,7 +1161,7 @@ export class GameData {
             if (error) {
               if (error.startsWith("session out of date")) {
                 globalScene.phaseManager.clearPhaseQueue();
-                globalScene.phaseManager.unshiftPhase(new ReloadSessionPhase());
+                globalScene.phaseManager.createAndUnshiftPhase("ReloadSessionPhase");
               }
               console.error(error);
               return resolve(false);

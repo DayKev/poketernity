@@ -1,10 +1,9 @@
-// -- start tsdoc imports --
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* biome-ignore-start lint/correctness/noUnusedImports: tsdoc imports */
 import type { UiWindowStyle } from "#enums/ui-window-style";
-// -- end tsdoc imports --
+/* biome-ignore-end lint/correctness/noUnusedImports: tsdoc imports */
 
 import { api } from "#api/api";
-import CacheBustedLoaderPlugin from "#app/plugins/cache-busted-loader-plugin";
+import { CacheBustedLoaderPlugin } from "#app/plugins/cache-busted-loader-plugin";
 import { SceneBase } from "#app/scene-base";
 import { timedEventManager } from "#app/timed-event-manager";
 import { isMobile } from "#app/touch-controls";
@@ -15,8 +14,8 @@ import { initPokemonForms } from "#data/pokemon-forms";
 import { initPokemonPreEvolutions } from "#data/pokemon-pre-evolutions";
 import { BiomeId } from "#enums/biome-id";
 import { CommonColor } from "#enums/color";
-import { GachaType } from "#enums/gacha-types";
-import { ImagesFolder } from "#enums/images-folders";
+import { GachaType } from "#enums/gacha-type";
+import { ImagesFolder } from "#enums/images-folder";
 import { WindowVariant } from "#enums/window-variant";
 import { getBiomeHasProps } from "#field/arena";
 import { initAbilities } from "#init/init-abilities";

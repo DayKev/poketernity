@@ -9,7 +9,6 @@ import type { ArenaTagType } from "#enums/arena-tag-type";
 import type { ElementalType } from "#enums/elemental-type";
 import { HitResult } from "#enums/hit-result";
 import type { MoveId } from "#enums/move-id";
-import type { Arena } from "#field/arena";
 import type { Pokemon } from "#field/pokemon";
 import { BooleanHolder, toDmgValue } from "#utils/common-utils";
 import i18next from "i18next";
@@ -18,7 +17,6 @@ import i18next from "i18next";
  * Class used for hazards that damage based on type. The two existing ones are
  * Stealth rock (produced by stealth rock and stone axe) and
  * Sharp steel (produced by G-Max steelsurge)
- * @extends EntryHazardTag
  */
 export abstract class TypeHazardTag extends EntryHazardTag {
   public readonly damagingType: ElementalType;
@@ -40,12 +38,13 @@ export abstract class TypeHazardTag extends EntryHazardTag {
     this.activateTrapKey = activateTrapKey;
   }
 
-  override onAdd(arena: Arena, quiet: boolean = false): void {
-    super.onAdd(arena);
+  override onAdd(quiet: boolean = false): void {
+    super.onAdd();
 
     const source = this.sourceId ? globalScene.getPokemonById(this.sourceId) : null;
     if (!quiet && source) {
-      globalScene.phaseManager.queueMessagePhase(
+      globalScene.phaseManager.createAndUnshiftPhase(
+        "MessagePhase",
         i18next.t(this.onAddKey, { opponentDesc: source.getOpponentDescriptor() }),
       );
     }
@@ -77,7 +76,8 @@ export abstract class TypeHazardTag extends EntryHazardTag {
         return true;
       }
       const damage = toDmgValue(pokemon.getMaxHp() * damageHpRatio);
-      globalScene.phaseManager.queueMessagePhase(
+      globalScene.phaseManager.createAndUnshiftPhase(
+        "MessagePhase",
         i18next.t(this.activateTrapKey, { pokemonNameWithAffix: getPokemonNameWithAffix(pokemon) }),
       );
       pokemon.damageAndUpdate(damage, { result: HitResult.OTHER });

@@ -9,9 +9,7 @@ import { ArenaTagType } from "#enums/arena-tag-type";
 import { CommonAnim } from "#enums/common-anim";
 import { ElementalType } from "#enums/elemental-type";
 import { MoveId } from "#enums/move-id";
-import type { Arena } from "#field/arena";
 import type { Pokemon } from "#field/pokemon";
-import { CommonAnimPhase } from "#phases/common-anim-phase";
 import { BooleanHolder, toDmgValue } from "#utils/common-utils";
 import i18next from "i18next";
 
@@ -21,19 +19,21 @@ import i18next from "i18next";
  * and {@link https://bulbapedia.bulbagarden.net/wiki/Grass_Pledge_(move) | Grass Pledge}.
  * Damages all non-Fire-type Pokemon on the given side of the field at the end
  * of each turn for 4 turns.
- * @extends ArenaTag
  */
 export class FireGrassPledgeTag extends ArenaTag {
   constructor(sourceId: number, side: ArenaTagSide) {
     super(ArenaTagType.FIRE_GRASS_PLEDGE, 4, MoveId.FIRE_PLEDGE, sourceId, side);
   }
 
-  override onAdd(_arena: Arena): void {
+  override onAdd(): void {
     // "A sea of fire enveloped your/the opposing team!"
-    globalScene.phaseManager.queueMessagePhase(i18next.t(`arenaTag:fireGrassPledgeOnAdd${this.i18nSideKey}`));
+    globalScene.phaseManager.createAndUnshiftPhase(
+      "MessagePhase",
+      i18next.t(`arenaTag:fireGrassPledgeOnAdd${this.i18nSideKey}`),
+    );
   }
 
-  override lapse(arena: Arena): boolean {
+  override lapse(): boolean {
     const field: Pokemon[] =
       this.side === ArenaTagSide.PLAYER ? globalScene.getPlayerField() : globalScene.getEnemyField();
 
@@ -47,16 +47,20 @@ export class FireGrassPledgeTag extends ArenaTag {
         }
 
         // "{pokemonNameWithAffix} was hurt by the sea of fire!"
-        globalScene.phaseManager.queueMessagePhase(
+        globalScene.phaseManager.createAndUnshiftPhase(
+          "MessagePhase",
           i18next.t("arenaTag:fireGrassPledgeLapse", { pokemonNameWithAffix: getPokemonNameWithAffix(pokemon) }),
         );
         // TODO: Replace this with a proper animation
-        globalScene.phaseManager.unshiftPhase(
-          new CommonAnimPhase(CommonAnim.MAGMA_STORM, pokemon.getBattlerIndex(), pokemon.getBattlerIndex()),
+        globalScene.phaseManager.createAndUnshiftPhase(
+          "CommonAnimPhase",
+          CommonAnim.MAGMA_STORM,
+          pokemon.getBattlerIndex(),
+          pokemon.getBattlerIndex(),
         );
         pokemon.damageAndUpdate(toDmgValue(pokemon.getMaxHp() / 8));
       });
 
-    return super.lapse(arena);
+    return super.lapse();
   }
 }

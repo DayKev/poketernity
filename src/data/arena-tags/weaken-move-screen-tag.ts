@@ -8,13 +8,11 @@ import type { ArenaTagSide } from "#enums/arena-tag-side";
 import type { ArenaTagType } from "#enums/arena-tag-type";
 import type { MoveCategory } from "#enums/move-category";
 import type { MoveId } from "#enums/move-id";
-import type { Arena } from "#field/arena";
 import type { Pokemon } from "#field/pokemon";
-import { type NumberHolder, BooleanHolder } from "#utils/common-utils";
+import { BooleanHolder, type NumberHolder } from "#utils/common-utils";
 
 /**
  * Reduces the damage of specific move categories in the arena.
- * @extends ArenaTag
  */
 export abstract class WeakenMoveScreenTag extends ArenaTag {
   protected readonly weakenedCategories: MoveCategory[];
@@ -45,7 +43,6 @@ export abstract class WeakenMoveScreenTag extends ArenaTag {
   /**
    * Applies the weakening effect to the move.
    *
-   * @param _arena the {@linkcode Arena} where the move is applied.
    * @param _simulated n/a
    * @param attacker the attacking {@linkcode Pokemon}
    * @param moveCategory the attacking move's {@linkcode MoveCategory}.
@@ -53,7 +50,6 @@ export abstract class WeakenMoveScreenTag extends ArenaTag {
    * @returns `true` if the attacking move was weakened; `false` otherwise.
    */
   override apply(
-    _arena: Arena,
     simulated: boolean,
     attacker: Pokemon,
     moveCategory: MoveCategory,

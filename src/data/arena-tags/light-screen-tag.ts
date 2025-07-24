@@ -4,22 +4,23 @@ import type { ArenaTagSide } from "#enums/arena-tag-side";
 import { ArenaTagType } from "#enums/arena-tag-type";
 import { MoveCategory } from "#enums/move-category";
 import { MoveId } from "#enums/move-id";
-import type { Arena } from "#field/arena";
 import i18next from "i18next";
 
 /**
  * Reduces the damage of special moves.
  * Used by {@linkcode MoveId.LIGHT_SCREEN}
- * @extends WeakenMoveScreenTag
  */
 export class LightScreenTag extends WeakenMoveScreenTag {
   constructor(turnCount: number, sourceId: number, side: ArenaTagSide) {
     super(ArenaTagType.LIGHT_SCREEN, turnCount, MoveId.LIGHT_SCREEN, sourceId, side, [MoveCategory.SPECIAL]);
   }
 
-  override onAdd(_arena: Arena, quiet: boolean = false): void {
+  override onAdd(quiet: boolean = false): void {
     if (!quiet) {
-      globalScene.phaseManager.queueMessagePhase(i18next.t(`arenaTag:lightScreenOnAdd${this.i18nSideKey}`));
+      globalScene.phaseManager.createAndUnshiftPhase(
+        "MessagePhase",
+        i18next.t(`arenaTag:lightScreenOnAdd${this.i18nSideKey}`),
+      );
     }
   }
 }

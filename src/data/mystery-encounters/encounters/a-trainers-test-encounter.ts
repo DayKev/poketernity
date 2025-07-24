@@ -1,25 +1,23 @@
 import { globalScene } from "#app/global-scene";
 import { CLASSIC_MODE_MYSTERY_ENCOUNTER_WAVES } from "#constants/mystery-encounter-constants";
 import type { EggOptions } from "#data/egg";
-import { EggSourceType } from "#enums/egg-source-types";
-import { EggTier } from "#enums/egg-type";
+import { EggSourceType } from "#enums/egg-source-type";
+import { EggTier } from "#enums/egg-tier";
 import { ModifierTier } from "#enums/modifier-tier";
 import { MysteryEncounterTier } from "#enums/mystery-encounter-tier";
 import { MysteryEncounterType } from "#enums/mystery-encounter-type";
 import { SpeciesId } from "#enums/species-id";
 import { TrainerType } from "#enums/trainer-type";
 import { modifierTypes } from "#modifier/modifier-types";
-import type { EnemyPartyConfig } from "#mystery-encounters/encounter-phase-utils";
 import {
+  type EnemyPartyConfig,
   initBattleWithEnemyConfig,
   leaveEncounterWithoutBattle,
   setEncounterRewards,
 } from "#mystery-encounters/encounter-phase-utils";
 import { getSpriteKeysFromSpecies } from "#mystery-encounters/encounter-pokemon-utils";
 import { transitionMysteryEncounterIntroVisuals } from "#mystery-encounters/encounter-visuals-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
-import { PartyHealPhase } from "#phases/party-heal-phase";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { allTrainerConfigs } from "#trainer-configs/all-trainer-configs";
 import { randSeedInt } from "#utils/random-utils";
 import i18next from "i18next";
@@ -178,7 +176,7 @@ export const ATrainersTestEncounter: MysteryEncounter = MysteryEncounterBuilder.
     async () => {
       const encounter = globalScene.currentBattle.mysteryEncounter!;
       // Full heal party
-      globalScene.phaseManager.unshiftPhase(new PartyHealPhase(true));
+      globalScene.phaseManager.createAndUnshiftPhase("PartyHealPhase", true);
 
       const eggOptions: EggOptions = {
         pulled: false,

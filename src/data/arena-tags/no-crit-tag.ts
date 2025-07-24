@@ -4,13 +4,11 @@ import { ArenaTag } from "#arena-tags/arena-tag";
 import type { ArenaTagSide } from "#enums/arena-tag-side";
 import { ArenaTagType } from "#enums/arena-tag-type";
 import type { MoveId } from "#enums/move-id";
-import type { Arena } from "#field/arena";
 import i18next from "i18next";
 
 /**
  * Arena Tag class for {@link https://bulbapedia.bulbagarden.net/wiki/Lucky_Chant_(move) Lucky Chant}.
  * Prevents critical hits against the tag's side.
- * @extends ArenaTag
  */
 export class NoCritTag extends ArenaTag {
   /**
@@ -25,8 +23,9 @@ export class NoCritTag extends ArenaTag {
   }
 
   /** Queues a message upon adding this effect to the field */
-  override onAdd(_arena: Arena): void {
-    globalScene.phaseManager.queueMessagePhase(
+  override onAdd(): void {
+    globalScene.phaseManager.createAndUnshiftPhase(
+      "MessagePhase",
       i18next.t(`arenaTag:noCritOnAdd${this.i18nSideKey}`, {
         moveName: this.getMoveName(),
       }),
@@ -34,9 +33,10 @@ export class NoCritTag extends ArenaTag {
   }
 
   /** Queues a message upon removing this effect from the field */
-  override onRemove(_arena: Arena): void {
+  override onRemove(): void {
     const source = globalScene.getPokemonById(this.sourceId!); // TODO: is this bang correct?
-    globalScene.phaseManager.queueMessagePhase(
+    globalScene.phaseManager.createAndUnshiftPhase(
+      "MessagePhase",
       i18next.t("arenaTag:noCritOnRemove", {
         pokemonNameWithAffix: getPokemonNameWithAffix(source ?? undefined),
         moveName: this.getMoveName(),

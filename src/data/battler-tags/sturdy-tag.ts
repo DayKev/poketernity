@@ -11,7 +11,6 @@ import i18next from "i18next";
  * Tag to implement behavior related to the enduring effect of
  * {@link https://bulbapedia.bulbagarden.net/wiki/Sturdy_(Ability) | Sturdy}.
  * This is added to Pokemon with the ability whenever they receive lethal attack damage from full HP.
- * @extends BattlerTag
  */
 export class SturdyTag extends BattlerTag {
   constructor(sourceMoveId: MoveId) {
@@ -20,7 +19,8 @@ export class SturdyTag extends BattlerTag {
 
   override lapse(pokemon: Pokemon, lapseType: BattlerTagLapseType): boolean {
     if (lapseType === BattlerTagLapseType.CUSTOM) {
-      globalScene.phaseManager.queueMessagePhase(
+      globalScene.phaseManager.createAndUnshiftPhase(
+        "MessagePhase",
         i18next.t("battlerTags:sturdyLapse", { pokemonNameWithAffix: getPokemonNameWithAffix(pokemon) }),
       );
       return false;

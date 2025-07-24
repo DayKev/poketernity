@@ -16,18 +16,18 @@ import { TrainerType } from "#enums/trainer-type";
 import type { PlayerPokemon } from "#field/player-pokemon";
 import type { Pokemon } from "#field/pokemon";
 import { PokemonMove } from "#field/pokemon-move";
-import type { PokemonHeldItemModifier } from "#modifier/modifier";
 import {
   BypassSpeedChanceModifier,
   ContactHeldItemTransferChanceModifier,
   GigantamaxAccessModifier,
   MegaEvolutionAccessModifier,
+  type PokemonHeldItemModifier,
 } from "#modifier/modifier";
 import type { AttackTypeBoosterModifierType, ModifierTypeOption } from "#modifier/modifier-type";
 import { modifierTypes } from "#modifier/modifier-types";
 import { getEncounterText, showEncounterDialogue } from "#mystery-encounters/encounter-dialogue-utils";
-import type { EnemyPartyConfig } from "#mystery-encounters/encounter-phase-utils";
 import {
+  type EnemyPartyConfig,
   generateModifierType,
   generateModifierTypeOption,
   initBattleWithEnemyConfig,
@@ -38,8 +38,7 @@ import {
 } from "#mystery-encounters/encounter-phase-utils";
 import { getSpriteKeysFromSpecies } from "#mystery-encounters/encounter-pokemon-utils";
 import { transitionMysteryEncounterIntroVisuals } from "#mystery-encounters/encounter-visuals-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
 import {
   AttackTypeBoosterHeldItemTypeRequirement,
@@ -47,7 +46,6 @@ import {
   HeldItemRequirement,
   TypeRequirement,
 } from "#mystery-encounters/mystery-encounter-requirements";
-import { LearnMovePhase } from "#phases/learn-move-phase";
 import { allTrainerConfigs } from "#trainer-configs/all-trainer-configs";
 import { MoveInfoOverlay } from "#ui/move-info-overlay";
 import type { OptionSelectItem } from "#ui/option-select-config";
@@ -760,8 +758,10 @@ function doBugTypeMoveTutor(): Promise<void> {
 
     // Option select complete, handle if they are learning a move
     if (result && result.selectedOptionIndex < moveOptions.length) {
-      globalScene.phaseManager.unshiftPhase(
-        new LearnMovePhase(result.selectedPokemonIndex, moveOptions[result.selectedOptionIndex].moveId),
+      globalScene.phaseManager.createAndUnshiftPhase(
+        "LearnMovePhase",
+        result.selectedPokemonIndex,
+        moveOptions[result.selectedOptionIndex].moveId,
       );
     }
 

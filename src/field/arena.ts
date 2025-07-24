@@ -10,17 +10,17 @@ import { getArenaTag } from "#arena-tags/utils/get-arena-tag";
 import { ENTRY_HAZARD_ARENA_TAG_TYPES } from "#constants/arena-tag-constants";
 import { DEFAULT_NEW_TERRAIN_DURATION } from "#constants/game-constants";
 import { DEFAULT_NEW_WEATHER_DURATION, PRIMAL_WEATHER_TYPES } from "#constants/weather-constants";
-import { getBiomeBgm, IndoorBiomes, type BiomeTierTrainerPools, type PokemonPools } from "#data/biome-utils";
+import { type BiomeTierTrainerPools, getBiomeBgm, IndoorBiomes, type PokemonPools } from "#data/biome-utils";
 import { allBiomes } from "#data/data-lists";
 import { SpeciesFormChangeRevertWeatherFormTrigger, SpeciesFormChangeWeatherTrigger } from "#data/pokemon-forms";
-import type PokemonSpecies from "#data/pokemon-species";
+import type { PokemonSpecies } from "#data/pokemon-species";
 import { getTerrainClearMessage, getTerrainStartMessage, Terrain } from "#data/terrain";
 import { getWeatherClearMessage, getWeatherStartMessage, Weather } from "#data/weather";
 import { AbAttrFlag } from "#enums/ab-attr-flag";
 import { AbilityId } from "#enums/ability-id";
 import { ArenaTagSide } from "#enums/arena-tag-side";
 import type { ArenaTagType } from "#enums/arena-tag-type";
-import type { BattlerIndex } from "#enums/battler-index";
+import type { BattlerIndex, FieldBattlerIndex } from "#enums/battler-index";
 import { BiomeId } from "#enums/biome-id";
 import { BiomePoolTier } from "#enums/biome-pool-tier";
 import { CommonAnim } from "#enums/common-anim";
@@ -34,8 +34,6 @@ import { WeatherType } from "#enums/weather-type";
 import { TagAddedEvent, TagRemovedEvent, TerrainChangedEvent, WeatherChangedEvent } from "#events/arena";
 import type { Pokemon } from "#field/pokemon";
 import type { Move } from "#moves/move";
-import { CommonAnimPhase } from "#phases/common-anim-phase";
-import { ShowAbilityPhase } from "#phases/show-ability-phase";
 import { coerceArray, enumValueToKey, getTSEnumValues } from "#utils/common-utils";
 import { getPokemonSpecies } from "#utils/pokemon-utils";
 import { randSeedInt, weightedPick } from "#utils/random-utils";
@@ -47,7 +45,7 @@ export class Arena {
   public tags: ArenaTag[] = [];
   public bgm: string;
   public ignoreAbilities: boolean;
-  public ignoringEffectSource: BattlerIndex | null;
+  public ignoringEffectSource?: FieldBattlerIndex;
 
   /**
    * Used to keep track of the previous TimeOfDay.
@@ -384,8 +382,8 @@ export class Arena {
    */
   tryOverrideWeather(weather: WeatherType): boolean {
     this.weather = new Weather(weather, 0);
-    globalScene.phaseManager.unshiftPhase(new CommonAnimPhase(CommonAnim.SUNNY + (weather - 1)));
-    globalScene.phaseManager.queueMessagePhase(getWeatherStartMessage(weather) ?? "");
+    globalScene.phaseManager.createAndUnshiftPhase("CommonAnimPhase", (CommonAnim.SUNNY + (weather - 1)) as CommonAnim);
+    globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", getWeatherStartMessage(weather) ?? "");
     return true;
   }
 
@@ -396,8 +394,11 @@ export class Arena {
    */
   tryOverrideTerrain(terrain: TerrainType): boolean {
     this.terrain = new Terrain(terrain, 0);
-    globalScene.phaseManager.unshiftPhase(new CommonAnimPhase(CommonAnim.MISTY_TERRAIN + (terrain - 1)));
-    globalScene.phaseManager.queueMessagePhase(getTerrainStartMessage(terrain) ?? "");
+    globalScene.phaseManager.createAndUnshiftPhase(
+      "CommonAnimPhase",
+      (CommonAnim.MISTY_TERRAIN + (terrain - 1)) as CommonAnim,
+    );
+    globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", getTerrainStartMessage(terrain) ?? "");
     return true;
   }
 
@@ -449,11 +450,14 @@ export class Arena {
     }
 
     if (newWeatherType !== WeatherType.NONE) {
-      globalScene.phaseManager.unshiftPhase(new CommonAnimPhase(CommonAnim.SUNNY + (newWeatherType - 1)));
-      globalScene.phaseManager.queueMessagePhase(getWeatherStartMessage(newWeatherType) ?? "");
+      globalScene.phaseManager.createAndUnshiftPhase(
+        "CommonAnimPhase",
+        (CommonAnim.SUNNY + (newWeatherType - 1)) as CommonAnim,
+      );
+      globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", getWeatherStartMessage(newWeatherType) ?? "");
       this.weather = new Weather(newWeatherType, newWeatherDuration);
     } else {
-      globalScene.phaseManager.queueMessagePhase(getWeatherClearMessage(oldWeatherType) ?? "");
+      globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", getWeatherClearMessage(oldWeatherType) ?? "");
       this.weather = null;
     }
 
@@ -481,7 +485,8 @@ export class Arena {
       const isCherrimWithFlowerGift = p.hasAbility(AbilityId.FLOWER_GIFT) && p.species.speciesId === SpeciesId.CHERRIM;
 
       if (isCastformWithForecast || isCherrimWithFlowerGift) {
-        new ShowAbilityPhase(p.getBattlerIndex());
+        // TODO: This doesn't seem to account for which ability is triggered (main vs. passive)
+        globalScene.phaseManager.createAndUnshiftPhase("ShowAbilityPhase", p.getBattlerIndex());
         globalScene.triggerPokemonFormChange(p, SpeciesFormChangeWeatherTrigger);
       }
     });
@@ -498,7 +503,8 @@ export class Arena {
         p.hasAbility(AbilityId.FLOWER_GIFT, false, true) && p.species.speciesId === SpeciesId.CHERRIM;
 
       if (isCastformWithForecast || isCherrimWithFlowerGift) {
-        new ShowAbilityPhase(p.getBattlerIndex());
+        // TODO: This doesn't seem to account for which ability is triggered (main vs. passive)
+        globalScene.phaseManager.createAndUnshiftPhase("ShowAbilityPhase", p.getBattlerIndex());
         return globalScene.triggerPokemonFormChange(p, SpeciesFormChangeRevertWeatherFormTrigger);
       }
     });
@@ -539,11 +545,14 @@ export class Arena {
         new TerrainChangedEvent(oldTerrainType, this.terrain.terrainType, this.terrain.turnsLeft),
       );
       if (!ignoreAnim) {
-        globalScene.phaseManager.unshiftPhase(new CommonAnimPhase(CommonAnim.MISTY_TERRAIN + (terrain - 1)));
+        globalScene.phaseManager.createAndUnshiftPhase(
+          "CommonAnimPhase",
+          (CommonAnim.MISTY_TERRAIN + (terrain - 1)) as CommonAnim,
+        );
       }
-      globalScene.phaseManager.queueMessagePhase(getTerrainStartMessage(terrain) ?? "");
+      globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", getTerrainStartMessage(terrain) ?? "");
     } else {
-      globalScene.phaseManager.queueMessagePhase(getTerrainClearMessage(oldTerrainType) ?? "");
+      globalScene.phaseManager.createAndUnshiftPhase("MessagePhase", getTerrainClearMessage(oldTerrainType) ?? "");
     }
 
     globalScene
@@ -750,9 +759,9 @@ export class Arena {
     }
   }
 
-  setIgnoreAbilities(ignoreAbilities: boolean, ignoringEffectSource: BattlerIndex | null = null): void {
+  setIgnoreAbilities(ignoreAbilities: boolean, ignoringEffectSource?: FieldBattlerIndex): void {
     this.ignoreAbilities = ignoreAbilities;
-    this.ignoringEffectSource = ignoreAbilities ? ignoringEffectSource : null;
+    this.ignoringEffectSource = ignoreAbilities ? ignoringEffectSource : undefined;
   }
 
   /**
@@ -773,7 +782,7 @@ export class Arena {
     if (side !== ArenaTagSide.BOTH) {
       tags = tags.filter((t) => t.side === side);
     }
-    tags.forEach((t) => t.apply(this, simulated, ...args));
+    tags.forEach((t) => t.apply(simulated, ...args));
   }
 
   /**
@@ -809,7 +818,7 @@ export class Arena {
   ): boolean {
     const existingTag = this.findTag(tagType, side);
     if (existingTag) {
-      existingTag.onOverlap(this);
+      existingTag.onOverlap();
 
       if (ENTRY_HAZARD_ARENA_TAG_TYPES.includes(existingTag.tagType)) {
         const { tagType, side, turnCount, layers, maxLayers } = existingTag as EntryHazardTag;
@@ -823,7 +832,7 @@ export class Arena {
     const newTag = getArenaTag(tagType, sourceId, turnCount, sourceMove, side);
     if (newTag) {
       this.tags.push(newTag);
-      newTag.onAdd(this, quiet);
+      newTag.onAdd(quiet);
 
       const { layers = 0, maxLayers = 0 } = ENTRY_HAZARD_ARENA_TAG_TYPES.includes(newTag.tagType)
         ? (newTag as EntryHazardTag)
@@ -880,9 +889,9 @@ export class Arena {
 
   lapseTags(): void {
     this.tags
-      .filter((t) => !t.lapse(this))
+      .filter((t) => !t.lapse())
       .forEach((t) => {
-        t.onRemove(this);
+        t.onRemove();
         this.tags.splice(this.tags.indexOf(t), 1);
 
         this.eventTarget.dispatchEvent(new TagRemovedEvent(t.tagType, t.side, t.turnCount));
@@ -893,7 +902,7 @@ export class Arena {
     const tags = this.tags;
     const tag = tags.find((t) => t.tagType === tagType);
     if (tag) {
-      tag.onRemove(this);
+      tag.onRemove();
       tags.splice(tags.indexOf(tag), 1);
 
       this.eventTarget.dispatchEvent(new TagRemovedEvent(tag.tagType, tag.side, tag.turnCount));
@@ -904,7 +913,7 @@ export class Arena {
   removeTagOnSide(tagType: ArenaTagType, side: ArenaTagSide, quiet: boolean = false): boolean {
     const tag = this.findTag(tagType, side);
     if (tag) {
-      tag.onRemove(this, quiet);
+      tag.onRemove(quiet);
       this.tags.splice(this.tags.indexOf(tag), 1);
 
       this.eventTarget.dispatchEvent(new TagRemovedEvent(tag.tagType, tag.side, tag.turnCount));
@@ -914,7 +923,7 @@ export class Arena {
 
   removeAllTags(): void {
     while (this.tags.length) {
-      this.tags[0].onRemove(this);
+      this.tags[0].onRemove();
       this.eventTarget.dispatchEvent(
         new TagRemovedEvent(this.tags[0].tagType, this.tags[0].side, this.tags[0].turnCount),
       );
@@ -1012,14 +1021,15 @@ export class ArenaBase extends Phaser.GameObjects.Container {
     this.base = globalScene.addFieldSprite(0, 0, "plains_a", undefined, 1);
     this.base.setOrigin(0, 0);
 
-    this.props = !player
-      ? new Array(3).fill(null).map(() => {
-          const ret = globalScene.addFieldSprite(0, 0, "plains_b", undefined, 1);
-          ret.setOrigin(0, 0);
-          ret.setVisible(false);
-          return ret;
-        })
-      : [];
+    this.props = [];
+    if (!player) {
+      for (let i = 0; i < 3; i++) {
+        const ret = globalScene.addFieldSprite(0, 0, "plains_b", undefined, 1);
+        ret.setOrigin(0, 0);
+        ret.setVisible(false);
+        this.props.push(ret);
+      }
+    }
   }
 
   setBiome(biome: BiomeId, propValue?: number): void {

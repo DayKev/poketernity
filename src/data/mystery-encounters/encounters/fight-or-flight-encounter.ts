@@ -9,15 +9,15 @@ import { MysteryEncounterType } from "#enums/mystery-encounter-type";
 import { TrainerSlot } from "#enums/trainer-slot";
 import { EnemyPokemon } from "#field/enemy-pokemon";
 import type { Pokemon } from "#field/pokemon";
-import type { ModifierTypeOption } from "#modifier/modifier-type";
 import {
   getPartyLuckValue,
   getPlayerModifierTypeOptions,
+  type ModifierTypeOption,
   regenerateModifierPoolThresholds,
 } from "#modifier/modifier-type";
 import { queueEncounterMessage } from "#mystery-encounters/encounter-dialogue-utils";
-import type { EnemyPartyConfig } from "#mystery-encounters/encounter-phase-utils";
 import {
+  type EnemyPartyConfig,
   initBattleWithEnemyConfig,
   leaveEncounterWithoutBattle,
   setEncounterExp,
@@ -28,13 +28,11 @@ import {
   getSpriteKeysFromPokemon,
   STANDARD_ENCOUNTER_BOOSTED_LEVEL_MODIFIER,
 } from "#mystery-encounters/encounter-pokemon-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
 import { MoveRequirement } from "#mystery-encounters/mystery-encounter-requirements";
 import { STEALING_MOVES } from "#mystery-encounters/requirement-groups";
-import { StatStageChangePhase } from "#phases/stat-stage-change-phase";
-import PokemonData from "#system/pokemon-data";
+import { PokemonData } from "#system/pokemon-data";
 import { randSeedInt } from "#utils/random-utils";
 
 /** the i18n namespace for the encounter */
@@ -83,8 +81,12 @@ export const FightOrFlightEncounter: MysteryEncounter = MysteryEncounterBuilder.
             queueEncounterMessage(`${namespace}:option.1.stat_boost`);
             // Randomly boost 1 stat 2 stages
             // Cannot boost Spd, Acc, or Evasion
-            globalScene.phaseManager.unshiftPhase(
-              new StatStageChangePhase(pokemon.getBattlerIndex(), pokemon, [randSeedInt(4, 1)], 2),
+            globalScene.phaseManager.createAndUnshiftPhase(
+              "StatStageChangePhase",
+              pokemon.getBattlerIndex(),
+              pokemon,
+              [randSeedInt(4, 1)],
+              2,
             );
           },
         },

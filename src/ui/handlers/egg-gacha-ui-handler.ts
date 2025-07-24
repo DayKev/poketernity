@@ -5,8 +5,9 @@ import { GAME_HEIGHT, GAME_WIDTH, TEXT_SCALE } from "#constants/ui-constants";
 import type { EggOptions } from "#data/egg";
 import { Egg, getLegendaryGachaSpeciesForTimestamp } from "#data/egg";
 import { Button } from "#enums/button";
-import { EggTier } from "#enums/egg-type";
-import { GachaType } from "#enums/gacha-types";
+import type { EggSourceType } from "#enums/egg-source-type";
+import { EggTier } from "#enums/egg-tier";
+import { GachaType } from "#enums/gacha-type";
 import { TextStyle } from "#enums/text-style";
 import { Tutorial } from "#enums/tutorial";
 import { UiMode } from "#enums/ui-mode";
@@ -273,8 +274,8 @@ export class EggGachaUiHandler extends MessageUiHandler {
 
     this.eggGachaContainer.add(this.eggGachaOptionsContainer);
 
-    new Array(getTSEnumKeys(VoucherType).length).fill(null).map((_, i) => {
-      const container = globalScene.add.container(GAME_WIDTH - 56 * i, 0);
+    getTSEnumValues(VoucherType).forEach((voucher, index) => {
+      const container = globalScene.add.container(GAME_WIDTH - 56 * index, 0);
 
       const bg = addWindow(0, 0, 56, 22);
       bg.setOrigin(1, 0);
@@ -286,7 +287,7 @@ export class EggGachaUiHandler extends MessageUiHandler {
 
       this.voucherCountLabels.push(countLabel);
 
-      const iconImage = getVoucherTypeIcon(i as VoucherType);
+      const iconImage = getVoucherTypeIcon(voucher);
 
       const icon = globalScene.add.sprite(-19, 2, "items", iconImage);
       icon.setOrigin(0, 0);
@@ -464,7 +465,7 @@ export class EggGachaUiHandler extends MessageUiHandler {
     if (!eggs) {
       eggs = [];
       for (let i = 1; i <= pullCount; i++) {
-        const eggOptions: EggOptions = { pulled: true, sourceType: this.gachaCursor };
+        const eggOptions: EggOptions = { pulled: true, sourceType: this.gachaCursor as EggSourceType };
 
         // Before creating the last egg, check if the guaranteed egg tier was already generated
         // if not, override the egg tier
@@ -599,7 +600,7 @@ export class EggGachaUiHandler extends MessageUiHandler {
     const infoContainer = this.gachaInfoContainers[gachaType];
     switch (gachaType as GachaType) {
       case GachaType.LEGENDARY: {
-        const species = getPokemonSpecies(getLegendaryGachaSpeciesForTimestamp(new Date().getTime()));
+        const species = getPokemonSpecies(getLegendaryGachaSpeciesForTimestamp(Date.now()));
         const pokemonIcon = infoContainer.getAt(1) as Phaser.GameObjects.Sprite;
         pokemonIcon.setTexture(species.getIconAtlasKey(), species.getIconId(false));
         break;

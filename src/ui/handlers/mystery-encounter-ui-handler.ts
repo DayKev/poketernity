@@ -11,7 +11,7 @@ import { UiMode } from "#enums/ui-mode";
 import { WindowVariant } from "#enums/window-variant";
 import { getEncounterText } from "#mystery-encounters/encounter-dialogue-utils";
 import type { OptionSelectSettings } from "#mystery-encounters/encounter-phase-utils";
-import type MysteryEncounterOption from "#mystery-encounters/mystery-encounter-option";
+import type { MysteryEncounterOption } from "#mystery-encounters/mystery-encounter-option";
 import type { MysteryEncounterPhase } from "#phases/mystery-encounter-phases/mystery-encounter-phase";
 import type { PartyUiHandler } from "#ui/party-ui-handler";
 import { addBBCodeTextObject, addTextObject, getBBCodeFragment } from "#ui/text-utils";
@@ -618,14 +618,14 @@ export class MysteryEncounterUiHandler extends UiHandler {
 
     // Auto-color options green/blue for good/bad by looking for (+)/(-)
     if (text) {
-      const primaryStyleString = [...text.match(new RegExp(/\[color=[^\[]*\]\[shadow=[^\[]*\]/i))!][0];
+      const primaryStyleString = [...text.match(new RegExp(/\[color=[^[]*\]\[shadow=[^[]*\]/i))!][0];
       text = text.replace(
-        /(\(\+\)[^\(\[]*)/gi,
+        /(\(\+\)[^([]*)/gi,
         (substring) =>
           "[/color][/shadow]" + getBBCodeFragment(substring, TextStyle.SUMMARY_GREEN, true) + primaryStyleString,
       );
       text = text.replace(
-        /(\(\-\)[^\(\[]*)/gi,
+        /(\(-\)[^([]*)/gi,
         (substring) =>
           "[/color][/shadow]" + getBBCodeFragment(substring, TextStyle.SUMMARY_BLUE, true) + primaryStyleString,
       );
@@ -684,7 +684,7 @@ export class MysteryEncounterUiHandler extends UiHandler {
     this.tooltipContainer.setVisible(false);
     // Keeps container background and pokeball
     this.descriptionContainer.removeBetween(2, this.descriptionContainer.length, true);
-    this.getUi().getMessageHandler().clearText();
+    this.getUi().clearText();
     this.eraseCursor();
   }
 

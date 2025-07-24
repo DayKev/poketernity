@@ -4,10 +4,9 @@ import { GAME_HEIGHT, GAME_WIDTH } from "#constants/ui-constants";
 import { CustomPokemonData } from "#data/custom-pokemon-data";
 import { allSpecies } from "#data/data-lists";
 import { getLevelTotalExp } from "#data/exp";
-import type PokemonSpecies from "#data/pokemon-species";
+import type { PokemonSpecies } from "#data/pokemon-species";
 import { TrainerPartyTemplate } from "#data/trainer-config";
 import { Challenges } from "#enums/challenges";
-import type { ElementalType } from "#enums/elemental-type";
 import { ModifierTier } from "#enums/modifier-tier";
 import { MysteryEncounterOptionMode } from "#enums/mystery-encounter-option-mode";
 import { MysteryEncounterTier } from "#enums/mystery-encounter-tier";
@@ -15,7 +14,7 @@ import { MysteryEncounterType } from "#enums/mystery-encounter-type";
 import { Nature } from "#enums/nature";
 import { PartyMemberStrength } from "#enums/party-member-strength";
 import { PlayerGender } from "#enums/player-gender";
-import { SpeciesGroups } from "#enums/pokemon-species-groups";
+import { SpeciesGroups } from "#enums/species-groups";
 import { SpeciesId } from "#enums/species-id";
 import { Stat } from "#enums/stat";
 import { TrainerType } from "#enums/trainer-type";
@@ -23,30 +22,28 @@ import { TransformationScreenPosition } from "#enums/transformation-screen-posit
 import type { PlayerPokemon } from "#field/player-pokemon";
 import type { Pokemon } from "#field/pokemon";
 import { PokemonMove } from "#field/pokemon-move";
-import type { PokemonHeldItemModifier } from "#modifier/modifier";
-import { HiddenAbilityRateBoosterModifier } from "#modifier/modifier";
+import { HiddenAbilityRateBoosterModifier, type PokemonHeldItemModifier } from "#modifier/modifier";
 import type { PokemonHeldItemModifierType } from "#modifier/modifier-type";
 import { modifierTypes } from "#modifier/modifier-types";
 import { showEncounterText } from "#mystery-encounters/encounter-dialogue-utils";
 import {
+  type EnemyPartyConfig,
+  type EnemyPokemonConfig,
   generateModifierType,
   initBattleWithEnemyConfig,
   leaveEncounterWithoutBattle,
   setEncounterRewards,
-  type EnemyPartyConfig,
-  type EnemyPokemonConfig,
 } from "#mystery-encounters/encounter-phase-utils";
 import { addPokemonDataToDexAndValidateAchievements } from "#mystery-encounters/encounter-pokemon-utils";
 import { doPokemonTransformationSequence } from "#mystery-encounters/encounter-transformation-sequence";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
-import PokemonData from "#system/pokemon-data";
+import { PokemonData } from "#system/pokemon-data";
 import { settings } from "#system/settings-manager";
 import { allTrainerConfigs } from "#trainer-configs/all-trainer-configs";
-import type { HeldModifierConfig } from "#types/held-modifier-config";
-import { NumberHolder, isNil } from "#utils/common-utils";
-import { getPokemonSpecies, getSpecialSpeciesList } from "#utils/pokemon-utils";
+import type { HeldModifierConfig } from "#types/modifiers-types";
+import { isNil, NumberHolder } from "#utils/common-utils";
+import { getPokemonSpecies, getRandomElementalType, getSpecialSpeciesList } from "#utils/pokemon-utils";
 import { randSeedInt, randSeedShuffle } from "#utils/random-utils";
 
 /** i18n namespace for encounter */
@@ -512,9 +509,9 @@ async function postProcessTransformedPokemon(
   // Randomize the second type of the pokemon
   // If the pokemon does not normally have a second type, it will gain 1
   const newTypes = [newPokemon.getTypes()[0]];
-  let newType = randSeedInt(18) as ElementalType;
+  let newType = getRandomElementalType();
   while (newType === newTypes[0]) {
-    newType = randSeedInt(18) as ElementalType;
+    newType = getRandomElementalType();
   }
   newTypes.push(newType);
   if (!newPokemon.customPokemonData) {

@@ -4,7 +4,7 @@ import { CLASSIC_MODE_MYSTERY_ENCOUNTER_WAVES } from "#constants/mystery-encount
 import { getOricorioFormIndexForBiome } from "#data/biome-utils";
 import { BattlerIndex } from "#enums/battler-index";
 import { BattlerTagType } from "#enums/battler-tag-type";
-import { EncounterAnim } from "#enums/encounter-anims";
+import { EncounterAnim } from "#enums/encounter-anim";
 import { MoveId } from "#enums/move-id";
 import { MysteryEncounterOptionMode } from "#enums/mystery-encounter-option-mode";
 import { MysteryEncounterTier } from "#enums/mystery-encounter-tier";
@@ -19,8 +19,8 @@ import type { Pokemon } from "#field/pokemon";
 import { PokemonMove } from "#field/pokemon-move";
 import { modifierTypes } from "#modifier/modifier-types";
 import { getEncounterText, queueEncounterMessage } from "#mystery-encounters/encounter-dialogue-utils";
-import type { EnemyPartyConfig } from "#mystery-encounters/encounter-phase-utils";
 import {
+  type EnemyPartyConfig,
   initBattleWithEnemyConfig,
   leaveEncounterWithoutBattle,
   selectPokemonForOption,
@@ -31,14 +31,11 @@ import {
   getEncounterPokemonLevelForWave,
   STANDARD_ENCOUNTER_BOOSTED_LEVEL_MODIFIER,
 } from "#mystery-encounters/encounter-pokemon-utils";
-import type MysteryEncounter from "#mystery-encounters/mystery-encounter";
-import { MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
+import { type MysteryEncounter, MysteryEncounterBuilder } from "#mystery-encounters/mystery-encounter";
 import { MysteryEncounterOptionBuilder } from "#mystery-encounters/mystery-encounter-option";
 import { MoveRequirement } from "#mystery-encounters/mystery-encounter-requirements";
 import { DANCING_MOVES } from "#mystery-encounters/requirement-groups";
-import { LearnMovePhase } from "#phases/learn-move-phase";
-import { StatStageChangePhase } from "#phases/stat-stage-change-phase";
-import PokemonData from "#system/pokemon-data";
+import { PokemonData } from "#system/pokemon-data";
 import type { OptionSelectItem } from "#ui/option-select-config";
 import { getPokemonSpecies } from "#utils/pokemon-utils";
 import i18next from "i18next";
@@ -120,13 +117,12 @@ export const DancingLessonsEncounter: MysteryEncounter = MysteryEncounterBuilder
           tags: [BattlerTagType.MYSTERY_ENCOUNTER_POST_SUMMON],
           mysteryEncounterBattleEffects: (pokemon: Pokemon) => {
             queueEncounterMessage(`${namespace}:option.1.boss_enraged`);
-            globalScene.phaseManager.unshiftPhase(
-              new StatStageChangePhase(
-                pokemon.getBattlerIndex(),
-                pokemon,
-                [Stat.ATK, Stat.DEF, Stat.SPATK, Stat.SPDEF],
-                1,
-              ),
+            globalScene.phaseManager.createAndUnshiftPhase(
+              "StatStageChangePhase",
+              pokemon.getBattlerIndex(),
+              pokemon,
+              [Stat.ATK, Stat.DEF, Stat.SPATK, Stat.SPDEF],
+              1,
             );
           },
         },
@@ -186,8 +182,10 @@ export const DancingLessonsEncounter: MysteryEncounter = MysteryEncounterBuilder
 
         const onPokemonSelected = (pokemon: PlayerPokemon) => {
           encounter.setDialogueToken("selectedPokemon", pokemon.getNameToRender());
-          globalScene.phaseManager.unshiftPhase(
-            new LearnMovePhase(globalScene.getPlayerParty().indexOf(pokemon), MoveId.REVELATION_DANCE),
+          globalScene.phaseManager.createAndUnshiftPhase(
+            "LearnMovePhase",
+            globalScene.getPlayerParty().indexOf(pokemon),
+            MoveId.REVELATION_DANCE,
           );
 
           // Play animation again to "learn" the dance

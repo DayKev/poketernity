@@ -1,11 +1,11 @@
 import { pokemonPreEvolutions } from "#data/pokemon-pre-evolutions";
-import type PokemonSpecies from "#data/pokemon-species";
+import type { PokemonSpecies } from "#data/pokemon-species";
 import {
   getRandomPartyMemberFunc,
   getSpeciesFilterRandomPartyMemberFunc,
   TrainerConfig,
-  trainerPartyTemplates,
   type TrainerConfigs,
+  trainerPartyTemplates,
 } from "#data/trainer-config";
 import { PokeballType } from "#enums/pokeball-type";
 import { SpeciesId } from "#enums/species-id";
