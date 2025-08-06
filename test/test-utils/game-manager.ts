@@ -1,7 +1,6 @@
 /* biome-ignore-start lint/correctness/noUnusedImports: tsdoc imports */
 import type { CommandPhase } from "#phases/command-phase";
 import type { TurnEndPhase } from "#phases/turn-end-phase";
-import type { TurnStartPhase } from "#phases/turn-start-phase";
 /* biome-ignore-end lint/correctness/noUnusedImports: tsdoc imports */
 
 import { updateUserInfo } from "#app/account";
@@ -14,7 +13,7 @@ import type { AbilityId } from "#enums/ability-id";
 import { BattleCommand } from "#enums/battle-command";
 import type { FieldBattlerIndex } from "#enums/battler-index";
 import { Button } from "#enums/button";
-import { ExpGainsSpeed } from "#enums/exp-gains-speed";
+import { ExpGainSpeed } from "#enums/exp-gain-speed";
 import { ExpNotification } from "#enums/exp-notification";
 import { GameModes } from "#enums/game-modes";
 import { HpBarSpeed } from "#enums/hp-bar-speed";
@@ -191,7 +190,7 @@ export class GameManager {
     settings.update("general", "gameSpeed", 5);
     settings.update("display", "enableMoveAnimations", false);
     settings.update("display", "showStatsOnLevelUp", false);
-    settings.update("general", "expGainsSpeed", ExpGainsSpeed.SKIP);
+    settings.update("general", "expGainSpeed", ExpGainSpeed.SKIP);
     settings.update("general", "partyExpNotificationMode", ExpNotification.SKIP);
     settings.update("general", "hpBarSpeed", HpBarSpeed.SKIP);
     settings.update("general", "enableTutorials", false);
@@ -282,12 +281,12 @@ export class GameManager {
 
   /**
    * Faint all opponents currently on the field
-   * @todo This is currently bugged for double battles and can cause multiple waves
-   * to be cleared at once, especially if called before a turn's {@linkcode TurnStartPhase}
    */
   async faintOpponents() {
     await this.faintPokemon(this.scene.currentBattle.enemyParty[0]);
-    if (this.scene.currentBattle.double) {
+    if (this.scene.currentBattle.double && this.scene.currentBattle.enemyParty[1]?.isOnField()) {
+      // run the first PostKnockoutPhase now, otherwise both PostKnockoutPhases will queue a VictoryPhase
+      await this.phaseInterceptor.to("PostKnockoutPhase");
       await this.faintPokemon(this.scene.currentBattle.enemyParty[1]);
     }
   }

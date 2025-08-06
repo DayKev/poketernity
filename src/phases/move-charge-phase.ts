@@ -33,7 +33,8 @@ export class MoveChargePhase extends HitCheckPhase {
 
     const targetHitCheck = move.hitCheckOnCharge ? this.hitCheck(target)[0] : HitCheckResult.HIT;
 
-    if (![HitCheckResult.HIT, HitCheckResult.MISS].includes(targetHitCheck)) {
+    const excludedResults: HitCheckResult[] = [HitCheckResult.HIT, HitCheckResult.MISS];
+    if (!excludedResults.includes(targetHitCheck)) {
       switch (targetHitCheck) {
         case HitCheckResult.NO_EFFECT:
           globalScene.phaseManager.createAndUnshiftPhase(
@@ -71,12 +72,8 @@ export class MoveChargePhase extends HitCheckPhase {
 
       if (instantCharge.value) {
         // queue a new MovePhase for this move's attack phase
-        globalScene.phaseManager.queueMovePhase({
-          pokemon: user,
-          targets: this.targets,
-          move: this.move,
+        globalScene.phaseManager.createAndUnshiftPhase("MovePhase", user, this.targets, this.move, {
           followUp: true,
-          when: "eager",
         });
       } else {
         user.getMoveQueue().push({ move, targets: this.targets, type: user.getMoveType(move) });
