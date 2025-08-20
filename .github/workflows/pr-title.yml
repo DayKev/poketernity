@@ -5,7 +5,7 @@ on:
       - main
       - beta
     types: [opened, edited, reopened, synchronize]
-
+#
 jobs:
   lint-pr:
     name: Lint PR title
