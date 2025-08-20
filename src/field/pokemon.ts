@@ -240,8 +240,12 @@ interface EffectiveStatOptions {
 }
 
 export abstract class Pokemon extends Phaser.GameObjects.Container {
-  public id: number;
-  public override name: string;
+  public readonly id: number;
+  /**
+   * A random number between `0` and `2^32 - 1`. Currently only used to determine shininess of the pokemon.
+   * @see {@link https://bulbapedia.bulbagarden.net/wiki/Personality_value}
+   */
+  public personalityValue: number;
   public nickname: string;
   public species: PokemonSpecies;
   public formIndex: number;
@@ -344,6 +348,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
     this.levelExp = dataSource?.levelExp || 0;
     if (dataSource) {
       this.id = dataSource.id;
+      globalScene.updateNextPokemonID(this.id);
+      this.personalityValue = dataSource.personalityValue;
       this.hp = dataSource.hp;
       this.stats = dataSource.stats;
       this.ivs = dataSource.ivs;
@@ -373,7 +379,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
       this.isTerastallized = dataSource.isTerastallized;
       this.stellarTypesBoosted = dataSource.stellarTypesBoosted ?? [];
     } else {
-      this.generateId();
+      this.id = globalScene.getNextPokemonID();
+      this.personalityValue = this.randSeedInt(Math.pow(2, 32) - 1);
       this.ivs = ivs || this.generateIvs();
 
       if (this.gender === undefined) {
@@ -497,14 +504,6 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
       this.updateSpritePipelineData();
       globalScene.triggerPokemonFormChange(this, SpeciesFormChangeLapseTeraTrigger);
     }
-  }
-
-  /**
-   * Sets this Pokemon's ID to be a random integer from 0 to 2^32 - 1, inclusive.
-   * @todo This should be `protected` or `private` but MEs currently call it
-   */
-  public generateId(): void {
-    this.id = randSeedInt(4294967295);
   }
 
   /** @returns An array of 6 random numbers, each between `0-31` inclusive */
@@ -1413,7 +1412,10 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
     }
     overrideArray.forEach((moveId: MoveId, index: number) => {
       const ppUsed = this.moveset[index]?.ppUsed ?? 0;
-      this.moveset[index] = new PokemonMove(moveId, Math.min(ppUsed, allMoves.get(moveId).pp));
+      this.moveset[index] = new PokemonMove(moveId, {
+        pokemonId: this.id,
+        ppUsed: Math.min(ppUsed, allMoves.get(moveId).pp),
+      });
     });
     return this.moveset;
   }
@@ -1428,7 +1430,7 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
     if (moveId === MoveId.NONE) {
       return;
     }
-    const move = new PokemonMove(moveId);
+    const move = new PokemonMove(moveId, { pokemonId: this.id });
     this.moveset[moveIndex] = move;
   }
 
@@ -1439,7 +1441,7 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
       return;
     }
     for (const move of moves) {
-      this.moveset.push(new PokemonMove(move));
+      this.moveset.push(new PokemonMove(move, { pokemonId: this.id }));
     }
   }
 
@@ -1456,6 +1458,16 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
     for (const move of this.moveset) {
       move.ppUsed = 0;
     }
+  }
+
+  /**
+   * Obtains the {@linkcode PokemonMove} matching the given {@linkcode MoveId} in this Pokemon's moveset.
+   * @param moveId - The {@linkcode MoveId} to search for
+   * @param bypassSummonData - If `true`, ignores any temporary moveset overrides.
+   * @returns The matching {@linkcode PokemonMove}, or `undefined` if no matching move is found.
+   */
+  public getPokemonMove(moveId: MoveId, bypassSummonData: boolean = false): PokemonMove | undefined {
+    return this.getMoveset(bypassSummonData).find((mv) => mv.moveId === moveId);
   }
 
   /**
@@ -2296,26 +2308,29 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
   }
 
   /**
-   * Function that tries to set a Pokemon shiny based on the trainer's trainer ID and secret ID.
-   * Endless Pokemon in the end biome are unable to be set to shiny
+   * Function that tries to set a Pokemon shiny based on the trainer's trainer ID and secret ID. \
+   * Endless Pokemon in the end biome are unable to be set to shiny.
    *
-   * The exact mechanic is that it calculates E as the XOR of the player's trainer ID and secret ID.
-   * F is calculated as the XOR of the first 16 bits of the Pokemon's ID with the last 16 bits.
-   * The XOR of E and F are then compared to the {@linkcode shinyThreshold} (or {@linkcode thresholdOverride} if set) to see whether or not to generate a shiny.
-   * The base shiny odds are {@linkcode BASE_SHINY_CHANCE} / 65536
-   * @param thresholdOverride number that is divided by 2^16 (65536) to get the shiny chance, overrides {@linkcode shinyThreshold} if set (bypassing shiny rate modifiers such as Shiny Charm)
-   * @returns true if the Pokemon has been set as a shiny, false otherwise
+   * The exact mechanic is that it calculates E as the XOR of the player's trainer ID and secret ID. \
+   * F is calculated as the XOR of the first 16 bits of the Pokemon's {@linkcode personalityValue | Personality Value} with the last 16 bits. \
+   * The XOR of E and F are then compared to the {@linkcode shinyThreshold} (or {@linkcode thresholdOverride} if set) to see whether or not to generate a shiny. \
+   * The base shiny odds are {@linkcode BASE_SHINY_CHANCE} `/` `65536`
+   * @param thresholdOverride number that is divided by `2^16` (`65536`) to get the shiny chance,
+   *   overrides {@linkcode shinyThreshold} if set (bypassing shiny rate modifiers such as Shiny Charm)
+   * @returns Whether the Pokemon is shiny
    */
   trySetShiny(thresholdOverride?: number): boolean {
+    const { arena, gameData, gameMode } = globalScene;
+
     // Shiny Pokemon should not spawn in the end biome in endless
-    if (globalScene.gameMode.isEndless && globalScene.arena.biomeId === BiomeId.END) {
+    if (gameMode.isEndless && arena.biomeId === BiomeId.END) {
       return false;
     }
 
-    const rand1 = (this.id & 0xffff0000) >>> 16;
-    const rand2 = this.id & 0x0000ffff;
+    const rand1 = (this.personalityValue & 0xffff0000) >>> 16;
+    const rand2 = this.personalityValue & 0x0000ffff;
 
-    const E = globalScene.gameData.trainerId ^ globalScene.gameData.secretId;
+    const E = gameData.trainerId ^ gameData.secretId;
     const F = rand1 ^ rand2;
 
     const shinyThreshold = new NumberHolder(BASE_SHINY_CHANCE);
@@ -2568,7 +2583,7 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
         while (rand > stabMovePool[index][1]) {
           rand -= stabMovePool[index++][1];
         }
-        this.moveset.push(new PokemonMove(stabMovePool[index][0], 0, 0));
+        this.moveset.push(new PokemonMove(stabMovePool[index][0], { pokemonId: this.id }));
       }
     } else {
       // Normal wild pokemon just force a random damaging move
@@ -2580,7 +2595,7 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
         while (rand > attackMovePool[index][1]) {
           rand -= attackMovePool[index++][1];
         }
-        this.moveset.push(new PokemonMove(attackMovePool[index][0], 0, 0));
+        this.moveset.push(new PokemonMove(attackMovePool[index][0], { pokemonId: this.id }));
       }
     }
 
@@ -2620,7 +2635,7 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
       while (rand > movePool[index][1]) {
         rand -= movePool[index++][1];
       }
-      this.moveset.push(new PokemonMove(movePool[index][0], 0, 0));
+      this.moveset.push(new PokemonMove(movePool[index][0], { pokemonId: this.id }));
     }
 
     // Trigger FormChange, except for enemy Pokemon during Mystery Encounters, to avoid crashes
@@ -3451,7 +3466,7 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
     }
 
     amount = Math.min(amount, this.hp);
-    this.hp = this.hp - amount;
+    this.hp -= amount;
     this.turnData.damageTaken += amount;
     if (this.isFainted() && !ignoreFaintPhase) {
       globalScene.phaseManager.queueBattlerFaintPhase(this.getBattlerIndex(), { preventEndure });
@@ -3964,11 +3979,11 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
   }
 
   /**
-   * Helper function that determines if a Pokemon has a specified non-volatile status effect and/or is Confused
-   * @param statusList the status(es) to be checked
-   * @param includeConfusion whether Confusion should also be considered
-   * @param ignoreMockAbility whether a status effect-mocking ability should be considered
-   * @returns `true` if the Pokemon has a status effect | `false` if it does not
+   * Helper function that determines if a Pokemon has a specified non-volatile status effect and/or is confused
+   * @param statusList - The status(es) to be checked
+   * @param includeConfusion - (Default `false`) Whether Confusion should also be considered
+   * @param ignoreMockAbility - (Default `false`) Whether abilities that act as a status effect (e.g. Comatose) should be ignored
+   * @returns Whether the Pokemon has a status effect
    */
   hasStatusEffect(
     statusList: StatusEffect | StatusEffect[],
@@ -3986,10 +4001,11 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
   }
 
   /**
-   * Helper function that checks if a Pokemon has one of any non-volatile status effects and/or is confused (which is a volatile status effect but is lumped into this category for some status-recovery effects)
-   * @param includeConfusion whether Confusion should also be considered
-   * @param ignoreMockAbility whether a status effect-mocking ability should be considered
-   * @returns `true` if the Pokemon has any of the non-volatile status effects | `false` if not
+   * Helper function that checks if a Pokemon has one of any non-volatile status effects
+   * and/or is confused (which is a volatile status effect but is lumped into this category for some status-recovery effects)
+   * @param includeConfusion - (Default `false`) Whether Confusion should also be considered
+   * @param ignoreMockAbility - (Default `false`) Whether abilities that act as a status effect (e.g. Comatose) should be ignored
+   * @returns Whether the Pokemon has any non-volatile status effect
    */
   hasNonVolatileStatusEffect(includeConfusion: boolean = false, ignoreMockAbility: boolean = false): boolean {
     return this.hasStatusEffect([...NON_VOLATILE_STATUS_EFFECTS], includeConfusion, ignoreMockAbility);
@@ -3997,8 +4013,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
 
   /**
    * Helper function that retrieves the Pokemon's non-volatile status effect
-   * @param ignoreMockAbility whether a status effect-mocking ability should be applied
-   * @returns {@linkcode StatusEffect} the status effect held by the Pokemon
+   * @param ignoreMockAbility - (Default `false`) Whether abilities that act as a status effect (e.g. Comatose) should be ignored
+   * @returns The Pokemon's current {@linkcode StatusEffect | status effect}
    */
   getStatusEffect(ignoreMockAbility: boolean = false): StatusEffect {
     const statusEffect = new NumberHolder(StatusEffect.NONE);
@@ -4013,12 +4029,11 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
 
   /**
    * Checks if a status effect can be applied to the Pokemon.
-   *
-   * @param effect The {@linkcode StatusEffect} whose applicability is being checked
-   * @param quiet Whether in-battle messages should trigger or not
-   * @param overrideStatus Whether the Pokemon's current status can be overriden
-   * @param sourcePokemon The Pokemon that is setting the status effect
-   * @param ignoreField Whether any field effects (weather, terrain, etc.) should be considered
+   * @param effect - The {@linkcode StatusEffect | status effect} to check
+   * @param quiet - (Default `false`) Whether in-battle messages should trigger or not
+   * @param overrideStatus - (Default `false`) Whether the Pokemon's current status can be overriden
+   * @param sourcePokemon - (Default `null`) The Pokemon that is setting the status effect, if applicable
+   * @param ignoreField - (Default `false`) Whether to ignore field effects (weather, terrain, etc.)
    */
   canSetStatus(
     effect: StatusEffect,
@@ -4242,8 +4257,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
 
   /**
    * Resets the status of a pokemon.
-   * @param confusion Whether resetStatus should include confusion or not; defaults to `false`.
-   * @param reloadAssets Whether to reload the assets or not; defaults to `false`.
+   * @param confusion - (Default `false`) Whether to include confusion
+   * @param reloadAssets - (Default `false`) Whether to reload the assets
    */
   resetStatus(confusion: boolean = false, reloadAssets: boolean = false): void {
     const lastStatus = this.getStatusEffect(true);
@@ -4262,8 +4277,8 @@ export abstract class Pokemon extends Phaser.GameObjects.Container {
 
   /**
    * Checks if this Pokemon is protected by Safeguard
-   * @param attacker the {@linkcode Pokemon} inflicting status on this Pokemon
-   * @returns `true` if this Pokemon is protected by Safeguard; `false` otherwise.
+   * @param attacker - The {@linkcode Pokemon} inflicting a status on this Pokemon
+   * @returns Whether this Pokemon is protected by Safeguard
    */
   isSafeguarded(attacker: Pokemon): boolean {
     const defendingSide = this.getArenaTagSide();

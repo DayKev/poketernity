@@ -520,7 +520,8 @@ function doBerrySpritePile(isEat: boolean = false) {
   const encounter = globalScene.currentBattle.mysteryEncounter!;
   animationOrder.forEach((berry, i) => {
     const introVisualsIndex = encounter.spriteConfigs.findIndex((config) => config.spriteKey?.includes(berry));
-    let sprite: Phaser.GameObjects.Sprite, tintSprite: Phaser.GameObjects.Sprite;
+    let sprite: Phaser.GameObjects.Sprite;
+    let tintSprite: Phaser.GameObjects.Sprite;
     const sprites = encounter.introVisuals?.getSpriteAtIndex(introVisualsIndex);
     if (sprites) {
       sprite = sprites[0];
@@ -559,7 +560,7 @@ function doBerryBounce(berrySprites: Phaser.GameObjects.Sprite[], yd: number, ba
         bouncePower = bouncePower > 0.01 ? bouncePower * 0.5 : 0;
 
         if (bouncePower) {
-          bounceYOffset = bounceYOffset * bouncePower;
+          bounceYOffset *= bouncePower;
 
           globalScene.tweens.add({
             targets: berrySprites,
