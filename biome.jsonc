@@ -72,7 +72,7 @@
         "useBlockStatements": "error",
         "useConst": "error",
         "useImportType": "error",
-        "noNonNullAssertion": "off", // TODO: fix all non-null assertions in non-test files and turn this on
+        "noNonNullAssertion": "info", // TODO: fix all non-null assertions in non-test files and turn this on
         "noParameterAssign": "info",
         "useExponentiationOperator": "off", // Too typo-prone and easy to mixup with standard multiplication (* vs **)
         "useDefaultParameterLast": "error",
