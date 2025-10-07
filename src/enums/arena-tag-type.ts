@@ -1,7 +1,7 @@
-/** biome-ignore-start lint/correctness/noUnusedImports: TSDoc imports */
+/* biome-ignore-start lint/correctness/noUnusedImports: TSDoc imports */
 import type { ArenaTag } from "#arena-tags/arena-tag";
 import type { ArenaTagTypeMap, NonSerializableArenaTagType, SerializableArenaTagType } from "#types/arena-tag-types";
-/** biome-ignore-end lint/correctness/noUnusedImports: TSDoc imports */
+/* biome-ignore-end lint/correctness/noUnusedImports: TSDoc imports */
 
 import type { EnumValues } from "#types/utility-types";
 

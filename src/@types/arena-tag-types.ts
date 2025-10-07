@@ -1,8 +1,8 @@
-/** biome-ignore-start lint/correctness/noUnusedImports: TSDoc imports */
+/* biome-ignore-start lint/correctness/noUnusedImports: TSDoc imports */
 import type { ElementalType } from "#enums/elemental-type";
 import type { Pokemon } from "#field/pokemon";
 import type { SessionSaveData } from "#types/session-data";
-/** biome-ignore-end lint/correctness/noUnusedImports: TSDoc imports */
+/* biome-ignore-end lint/correctness/noUnusedImports: TSDoc imports */
 
 import type { AuroraVeilTag } from "#arena-tags/aurora-veil-tag";
 import type { CraftyShieldTag } from "#arena-tags/crafty-shield-tag";
