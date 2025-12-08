@@ -29,6 +29,7 @@ import { SpeciesFormChangeActiveTrigger } from "#form-change-triggers/species-fo
 import { PokemonInstantReviveModifier } from "#modifier/modifier";
 import { PostVictoryStatStageChangeAttr } from "#moves/post-victory-stat-stage-change-attr";
 import { PokemonPhase } from "#phases/base/pokemon-phase";
+import { inSpeedOrder } from "#utils/speed-order-generator";
 import i18next from "i18next";
 
 /**
@@ -167,8 +168,9 @@ export class FaintPhase extends PokemonPhase {
       applyAbAttrs<PostFaintAbAttr>(AbAttrFlag.POST_FAINT, pokemon, false);
     }
 
-    const alivePlayField = globalScene.getField(true);
-    alivePlayField.forEach((p) => applyAbAttrs<PostKnockOutAbAttr>(AbAttrFlag.POST_KNOCK_OUT, p, false, pokemon));
+    for (const p of inSpeedOrder()) {
+      applyAbAttrs<PostKnockOutAbAttr>(AbAttrFlag.POST_KNOCK_OUT, p, false, pokemon);
+    }
     if (pokemon.turnData.attacksReceived.length > 0) {
       const defeatSource = globalScene.getPokemonById(pokemon.turnData.attacksReceived[0].sourceId);
       if (defeatSource?.isOnField()) {
@@ -189,8 +191,8 @@ export class FaintPhase extends PokemonPhase {
      * These Phases may have been scheduled e.g. if the Pokemon fainted from an opponent's Pursuit.
      * TODO: Refactor this; Switch phase scheduling around faints is messy.
      */
-    phaseManager.tryRemovePhase((phase) => phase.is("RecallPhase") && phase.battlerIndex === this.battlerIndex);
-    phaseManager.tryRemovePhase((phase) => phase.is("SwitchPhase") && phase.battlerIndex === this.battlerIndex);
+    phaseManager.removePhase("RecallPhase", (phase) => phase.battlerIndex === this.battlerIndex);
+    phaseManager.removePhase("SwitchPhase", (phase) => phase.battlerIndex === this.battlerIndex);
 
     if (this.isPlayer) {
       /** The total number of Pokemon in the player's party that can legally fight */

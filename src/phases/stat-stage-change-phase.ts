@@ -20,6 +20,7 @@ import { PokemonPhase } from "#phases/base/pokemon-phase";
 import { settings } from "#system/settings-manager";
 import { BooleanHolder, enumValueToKey, NumberHolder } from "#utils/common-utils";
 import { getStatKey } from "#utils/i18n-utils";
+import { inSpeedOrder } from "#utils/speed-order-generator";
 import i18next from "i18next";
 
 //#region Types
@@ -194,7 +195,7 @@ export class StatStageChangePhase extends PokemonPhase {
       }
 
       if (stages.value > 0 && this.canBeCopied) {
-        for (const opponent of pokemon.getOpponents()) {
+        for (const opponent of inSpeedOrder(pokemon.getOpposingArenaTagSide())) {
           applyAbAttrs<StatStageChangeCopyAbAttr>(
             AbAttrFlag.STAT_STAGE_CHANGE_COPY,
             opponent,
@@ -216,9 +217,9 @@ export class StatStageChangePhase extends PokemonPhase {
       );
 
       // Look for any other stat change phases; if this is the last one, do White Herb check
-      const phaseExists = globalScene.phaseManager.hasPhase(
-        (p) => p instanceof StatStageChangePhase && p.battlerIndex === this.battlerIndex,
-        true,
+      const phaseExists = globalScene.phaseManager.hasPhaseOfType(
+        "StatStageChangePhase",
+        (p) => p.battlerIndex === this.battlerIndex,
       );
       if (!phaseExists) {
         // Apply White Herb if needed

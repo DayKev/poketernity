@@ -90,7 +90,7 @@ export class AttemptRunPhase extends PokemonPhase {
     const { arena, arenaEnemy, audioManager, phaseManager } = globalScene;
     const enemyField = globalScene.getEnemyField().filter((p) => p.isActive(true));
 
-    phaseManager.clearAllPhases();
+    phaseManager.clear();
 
     audioManager.playSound("se/flee");
     phaseManager.createAndUnshiftPhase("MessagePhase", i18next.t("battle:runAwaySuccess"), undefined, true, 500);
