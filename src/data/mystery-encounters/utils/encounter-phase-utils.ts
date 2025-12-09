@@ -30,7 +30,6 @@ import type { Nature } from "#enums/nature";
 import type { PartyOption } from "#enums/party-option";
 import { PartyUiMode } from "#enums/party-ui-mode";
 import { StatusEffect } from "#enums/status-effect";
-import { TrainerSlot } from "#enums/trainer-slot";
 import type { TrainerType } from "#enums/trainer-type";
 import { TrainerVariant } from "#enums/trainer-variant";
 import { UiMode } from "#enums/ui-mode";
@@ -225,14 +224,10 @@ export async function initBattleWithEnemyConfig(partyConfig: EnemyPartyConfig): 
           dataSource = config.dataSource;
           enemySpecies = config.species;
           isBoss = config.isBoss;
-          battle.enemyParty[e] = globalScene.addEnemyPokemon(
-            enemySpecies,
-            level,
-            TrainerSlot.TRAINER,
-            isBoss,
-            false,
-            dataSource,
-          );
+          battle.enemyParty[e] = globalScene.addEnemyPokemon(enemySpecies, level, {
+            ...dataSource,
+            boss: isBoss,
+          });
         } else {
           battle.enemyParty[e] = battle.trainer.genPartyMember(e);
         }
@@ -250,14 +245,10 @@ export async function initBattleWithEnemyConfig(partyConfig: EnemyPartyConfig): 
           enemySpecies = globalScene.randomSpecies(battle.waveIndex, level, true);
         }
 
-        battle.enemyParty[e] = globalScene.addEnemyPokemon(
-          enemySpecies,
-          level,
-          TrainerSlot.NONE,
-          isBoss,
-          false,
-          dataSource,
-        );
+        battle.enemyParty[e] = globalScene.addEnemyPokemon(enemySpecies, level, {
+          ...dataSource,
+          boss: isBoss,
+        });
       }
     }
 
@@ -434,7 +425,7 @@ export async function initBattleWithEnemyConfig(partyConfig: EnemyPartyConfig): 
     console.log(
       `Ability: ${enemyPokemon.getAbility().name}`,
       `| Passive Ability${enemyPokemon.hasPassive() ? "" : " (inactive)"}: ${enemyPokemon.getPassiveAbility().name}`,
-      `${enemyPokemon.isBoss() ? `| Boss Bars: ${enemyPokemon.bossSegments}` : ""}`,
+      `${enemyPokemon.boss ? `| Boss Bars: ${enemyPokemon.bossSegments}` : ""}`,
     );
     console.log("Moveset:", moveset);
   });

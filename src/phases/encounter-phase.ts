@@ -43,6 +43,7 @@ import { settings } from "#system/settings-manager";
 import type { PhaseKey } from "#types/phase-types";
 import { loadEncounterAnimAssets } from "#utils/anim-utils";
 import { enumValueToKey } from "#utils/common-utils";
+import { getPokemonSpecies } from "#utils/pokemon-utils";
 import { randSeedInt, randSeedItem } from "#utils/random-utils";
 import i18next from "i18next";
 
@@ -135,15 +136,15 @@ export class EncounterPhase extends BattlePhase {
           ) {
             enemySpecies = getGoldenBugNetSpecies(level);
           }
-          currentBattle.enemyParty[e] = globalScene.addEnemyPokemon(
-            enemySpecies,
-            level,
-            TrainerSlot.NONE,
-            globalScene.getEncounterBossSegments(waveIndex, level, enemySpecies) > 0,
-          );
-          if (isClassicFinalBoss) {
-            currentBattle.enemyParty[e].ivs = new Array(6).fill(31);
+          const speciesOverride = activeOverrides.ENEMY_SPECIES_OVERRIDE;
+          if (speciesOverride) {
+            enemySpecies = getPokemonSpecies(speciesOverride);
           }
+          const boss = globalScene.getEncounterBossSegments(waveIndex, level, enemySpecies) > 0;
+          currentBattle.enemyParty[e] = globalScene.addEnemyPokemon(enemySpecies, level, {
+            boss,
+            ivs: isClassicFinalBoss ? new Array(6).fill(31) : undefined,
+          });
           globalScene
             .getPlayerParty()
             .slice(0, double ? 2 : 1)
@@ -204,7 +205,7 @@ export class EncounterPhase extends BattlePhase {
       console.log(
         `Ability: ${enemyPokemon.getAbility().name}`,
         `| Passive Ability${enemyPokemon.hasPassive() ? "" : " (inactive)"}: ${enemyPokemon.getPassiveAbility().name}`,
-        `${enemyPokemon.isBoss() ? `| Boss Bars: ${enemyPokemon.bossSegments}` : ""}`,
+        `${enemyPokemon.boss ? `| Boss Bars: ${enemyPokemon.bossSegments}` : ""}`,
       );
       console.log("Moveset:", moveset);
       return true;
@@ -236,19 +237,19 @@ export class EncounterPhase extends BattlePhase {
           }
         }),
       );
-    } else {
-      const overridedBossSegments = activeOverrides.ENEMY_HEALTH_SEGMENTS_OVERRIDE > 1;
+    } else if (
+      !activeOverrides.ENEMY_HEALTH_SEGMENTS_OVERRIDE
+      && currentBattle.enemyParty.filter((p) => p.boss).length > 1
+    ) {
       // for double battles, reduce the health segments for boss Pokemon unless there is an override
-      if (!overridedBossSegments && currentBattle.enemyParty.filter((p) => p.isBoss()).length > 1) {
-        for (const enemyPokemon of currentBattle.enemyParty) {
-          // If the enemy pokemon is a boss and wasn't populated from data source, then update the number of segments
-          if (enemyPokemon.isBoss() && !enemyPokemon.isPopulatedFromDataSource) {
-            enemyPokemon.setBoss(
-              true,
-              Math.ceil(enemyPokemon.bossSegments * (enemyPokemon.getSpeciesForm().baseTotal / totalBst)),
-            );
-            enemyPokemon.initBattleInfo();
-          }
+      for (const enemyPokemon of currentBattle.enemyParty) {
+        // If the enemy pokemon is a boss and wasn't populated from data source, then update the number of segments
+        if (enemyPokemon.boss && !enemyPokemon.isPopulatedFromDataSource) {
+          enemyPokemon.setBoss(
+            true,
+            Math.ceil(enemyPokemon.bossSegments * (enemyPokemon.getSpeciesForm().baseTotal / totalBst)),
+          );
+          enemyPokemon.initBattleInfo();
         }
       }
     }
