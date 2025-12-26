@@ -1753,7 +1753,6 @@ export function initAbilities(): void {
       // Custom implementation to allow more double battles
       .attr(DoubleBattleChanceAbAttr)
       .uncopiable()
-      .unreplaceable()
       // Encore, Frenzy, and other non-`TURN_END` tags don't lapse correctly on the commanding Pokemon.
       .edgeCase()
       .build(),
@@ -1939,18 +1938,14 @@ export function initAbilities(): void {
     new AbBuilder(AbilityId.TERA_SHELL, 9) //
       .attr(FullHpResistTypeAbAttr)
       .uncopiable()
-      .unreplaceable()
       .ignorable()
       .build(),
     new AbBuilder(AbilityId.TERAFORM_ZERO, 9) //
       .uncopiable()
-      .unreplaceable()
       .attr(PostTeraFormChangeClearWeatherTerrainAbAttr)
       .build(),
     new AbBuilder(AbilityId.POISON_PUPPETEER, 9) //
       .uncopiable()
-      // TODO: confirm if this is true
-      .unreplaceable()
       .attr(ConfusionOnStatusEffectAbAttr, StatusEffect.POISON, StatusEffect.TOXIC)
       .build(),
   );
