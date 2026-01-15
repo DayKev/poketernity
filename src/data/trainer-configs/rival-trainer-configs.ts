@@ -1,3 +1,6 @@
+// biome-ignore-all lint/nursery/noReturnAssign: this file is being refactored anyway
+// biome-ignore-all lint/suspicious/noAssignInExpressions: this file is being refactored anyway
+
 import { pokemonPreEvolutions } from "#data/pokemon-pre-evolutions";
 import type { PokemonSpecies } from "#data/pokemon-species";
 import {
