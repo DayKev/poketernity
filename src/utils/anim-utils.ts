@@ -10,6 +10,13 @@ import type { Scene } from "phaser";
 type TweenBuilderConfig = Phaser.Types.Tweens.TweenBuilderConfig;
 type NumberTweenBuilderConfig = Phaser.Types.Tweens.NumberTweenBuilderConfig;
 
+// testing `noFloatingPromises` in Biome 2.5.8+
+export function differentFileFn(): Promise<void> {
+  return new Promise((resolve) => {
+    resolve();
+  });
+}
+
 export function loadAnimAssets(anims: LegacyAnimConfig[], startLoad?: boolean): Promise<void> {
   return new Promise((resolve) => {
     const backgrounds = new Set<string>();

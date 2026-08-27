@@ -5,7 +5,7 @@ import type { MoveId } from "#enums/move-id";
 import { BeakBlastHeaderAttr } from "#moves/beak-blast-header-attr";
 import { DelayedAttackAttr } from "#moves/delayed-attack-attr";
 import type { ChargingMove } from "#moves/move";
-import { loadAnimAssets } from "#utils/anim-utils";
+import { differentFileFn, loadAnimAssets } from "#utils/anim-utils";
 
 export function loadMoveAnimAssets(moveIds: MoveId[], startLoad?: boolean): Promise<void> {
   return new Promise((resolve) => {
@@ -33,4 +33,18 @@ export function loadMoveAnimAssets(moveIds: MoveId[], startLoad?: boolean): Prom
 
     loadAnimAssets(moveAnimations, startLoad).then(() => resolve());
   });
+}
+
+// testing `noFloatingPromises` in Biome 2.5.8+
+
+function sameFileFn(): Promise<void> {
+  return new Promise((resolve) => {
+    resolve();
+  });
+}
+export function testA(): void {
+  const localFn = () => {};
+
+  differentFileFn().then(() => localFn()); // no diagnostic, incorrect
+  sameFileFn().then(() => localFn()); // emits diagnostic, correct
 }
